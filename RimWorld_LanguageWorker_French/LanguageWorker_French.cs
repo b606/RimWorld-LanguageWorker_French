@@ -200,6 +200,12 @@ namespace RimWorld_LanguageWorker_French
       return number == 1 ? number + "er" : number + "e";
     }
 
+    public override string ToTitleCase(string str)
+    {
+        // Do nothing, capitalize only the first word
+        return str;
+    }
+
     public override string Pluralize(string str, Gender gender, int count = -1)
     {
       if( str.NullOrEmpty() )
@@ -220,7 +226,8 @@ namespace RimWorld_LanguageWorker_French
         // "bleu", "émeu", "landau", "lieu", "pneu", "sarrau", "bal", "banal", "fatal", "final", "festival": append "s"
         case "bleu":
         case "émeu":
-        case "lieu":
+        // lieu : fish does not exist in RimWorld
+        // case "lieu":
         case "banal":
         case "fatal":
         case "final":
@@ -229,7 +236,9 @@ namespace RimWorld_LanguageWorker_French
         case "bijou":
         case "caillou":
         case "genou":
-          return str + "x";
+        // lieu : area, takes an "x"
+        case "lieu":
+            return str + "x";
       }
 
       // words ending with "al": replace "al" by "aux"
