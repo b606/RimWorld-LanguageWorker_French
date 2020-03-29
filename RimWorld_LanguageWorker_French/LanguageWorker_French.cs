@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -170,6 +170,44 @@ namespace RimWorld_LanguageWorker_French
       return PostProcessResolver(str);
     }
 
+    // in plural, replace "ail" with "aux"
+    private static readonly List<string> Exceptions_Plural_aux = new List<string> {
+      "bail",
+      "corail",
+      "émail",
+      "gemmail",
+      "soupirail",
+      "travail",
+      "vantail",
+      "vitrail"
+    };
+
+    // lieu (fish) takes an "s", but does not exist in RimWorld
+    private static readonly List<string> Exceptions_Plural_s = new List<string> {
+      "bleu",
+      "émeu",
+      "landau",
+      "pneu",
+      "sarrau",
+      "bal",
+      "banal",
+      "fatal",
+      "final",
+      "festival"
+    };
+
+    // lieu (area) takes an "x", it exists in RimWorld (ex. lieu d'assemblage-crafting spot)
+    private static readonly List<string> Exceptions_Plural_x = new List<string> {
+      "bijou",
+      "caillou",
+      "chou",
+      "genou",
+      "hibou",
+      "joujou",
+      "pou",
+      "lieu"
+    };
+
     public override string WithIndefiniteArticle(string str, Gender gender, bool plural = false, bool name = false)
     {
       //Names don't get articles
@@ -197,7 +235,13 @@ namespace RimWorld_LanguageWorker_French
       char first = str[0];
 
       if( IsVowel(first) )
+      {
+        //Exception for elision :
+        //(M) husky, houblon, haut, haut-de-forme, harmoniseur psychique
+        //(F) haute, hache, hampe, harpe, hase, hase des neiges
+
         return "l'" + str;
+      }
 
       return (gender == Gender.Female ? "la " : "le ") + str;
     }
@@ -218,35 +262,25 @@ namespace RimWorld_LanguageWorker_French
       if( str.NullOrEmpty() )
         return str;
 
-      // TODO: should str be lowercased before the tests?
+      // Exceptions to general rules for plural
+      string item = str.ToLower();
+      if ( Exceptions_Plural_aux.Contains(item) )
+      {
+        return str.Substring(0, str.Length - 3) + "aux";
+      }
+      if ( Exceptions_Plural_s.Contains(item) )
+      {
+        return str + "s";
+      }
+      if ( Exceptions_Plural_x.Contains(item) )
+      {
+        return str + "x";
+      }
 
       // words ending with "s", "x" or "z": do not change anything
       char last = str[str.Length - 1];
-      if( last == 's' || last == 'x' || last == 'z' )
+      if ( last == 's' || last == 'x' || last == 'z' )
         return str;
-
-      // exceptions to the next rules; only test words that could possibly be found in Rimworld
-      switch( str ) {
-        // "bail", "corail", "émail", "gemmail", "soupirail", "travail", "vantail", "vitrail": replace "ail" by "aux"
-        case "travail":
-          return str.Substring(0, str.Length - 3) + "aux";
-        // "bleu", "émeu", "landau", "lieu", "pneu", "sarrau", "bal", "banal", "fatal", "final", "festival": append "s"
-        case "bleu":
-        case "émeu":
-        // lieu : fish does not exist in RimWorld
-        // case "lieu":
-        case "banal":
-        case "fatal":
-        case "final":
-          return str + "s";
-        // "bijou", "caillou", "chou", "genou", "hibou", "joujou", "pou": append "x"
-        case "bijou":
-        case "caillou":
-        case "genou":
-        // lieu : area, takes an "x"
-        case "lieu":
-            return str + "x";
-      }
 
       // words ending with "al": replace "al" by "aux"
       if( str.EndsWith("al") )
