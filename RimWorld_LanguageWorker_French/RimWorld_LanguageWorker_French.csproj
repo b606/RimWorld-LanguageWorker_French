@@ -53,7 +53,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>cp --update -R "..\..\LanguageWorkerFrench_Mod\" "\home\besoa\.steam\steam\steamapps\common\RimWorld\Mods\"</PostBuildEvent>
+    <PostBuildEvent>cp --update -R "..\..\LanguageWorkerFrench_Mod\" "\home\$USER\.steam\steam\steamapps\common\RimWorld\Mods\"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
