@@ -163,6 +163,13 @@ namespace RimWorld_LanguageWorker_French
 			}
 		}
 
+    // Temporary resolver test
+    // French language does not use this mechanism yet.
+    public string TestResolver(string str)
+    {
+      return PostProcessResolver(str);
+    }
+
     public override string WithIndefiniteArticle(string str, Gender gender, bool plural = false, bool name = false)
     {
       //Names don't get articles
