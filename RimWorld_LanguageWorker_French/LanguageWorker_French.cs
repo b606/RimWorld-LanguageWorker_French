@@ -121,7 +121,7 @@ namespace RimWorld_LanguageWorker_French
 
 		private static readonly Regex _languageWorkerResolverRegex = new Regex(@"\^(?<resolverName>\w+)\(\s*(?<argument>[^|]+?)\s*(\|\s*(?<argument>[^|]+?)\s*)*\)\^", RegexOptions.Compiled);
 
-		private static string PostProcess(string translation)
+		private static string PostProcessResolver(string translation)
 		{
 			return _languageWorkerResolverRegex.Replace(translation, EvaluateResolver);
 		}
