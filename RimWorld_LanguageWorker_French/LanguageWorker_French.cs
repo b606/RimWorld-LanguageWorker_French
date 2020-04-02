@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Verse;
@@ -141,8 +142,16 @@ namespace RimWorld_LanguageWorker_French
 			string result = resolver.Resolve(arguments);
 			if(result == null)
 			{
-				Log.Error(string.Format("Error happened while resolving LW instruction: \"{0}\"", match.Value));
-				return match.Value;
+        try
+        {
+          Log.Error(string.Format("Error happened while resolving LW instruction: \"{0}\"", match.Value));
+        }
+        catch (Exception e)
+        {
+          // TODO: Unit test does not like Verse.Log for some reason
+          Console.WriteLine("Log.Message: {0}", e.Message);
+        }
+        return match.Value;
 			}
 
 			return result;
@@ -216,14 +225,22 @@ namespace RimWorld_LanguageWorker_French
       if ( !loggedKeys.Contains(original) )
       {
         loggedKeys.Add(original);
-        if (processed_str != original)
+        try
         {
-          Log.Message("PostProcessed_in : " + original, true);
-          Log.Message("PostProcessed_out: " + processed_str, true);
+          if (processed_str != original)
+          {
+            Log.Message("PostProcessed_in : " + original, true);
+            Log.Message("PostProcessed_out: " + processed_str, true);
+          }
+          else
+          {
+            Log.Message("PostProcessed_no : " + original, true);
+          }
         }
-        else
+        catch (Exception e)
         {
-          Log.Message("PostProcessed_no : " + original, true);
+          // TODO: Unit test does not like Verse.Log for some reason
+          Console.WriteLine("Log.Message: {0}", e.Message);
         }
       }
     }
