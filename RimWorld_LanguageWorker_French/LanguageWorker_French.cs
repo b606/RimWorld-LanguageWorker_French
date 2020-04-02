@@ -215,6 +215,39 @@ namespace RimWorld_LanguageWorker_French
       "lieu"
     };
 
+    // Words with aspirated h do not get elision (list only words in RimWorld)
+    private static readonly List<string> Exceptions_Aspirated_h = new List<string> {
+      "hache",
+      "hack",
+      "haine",
+      "hameau",
+      "hampe",
+      "hamster",
+      "hanche",
+      "hareng",
+      "haricot",
+      "harpe",
+      "hasard",
+      "hase", // "hases",
+      "hât", // "hâte", "hâtif", "hâtive", "hâtivement",
+      "haut", // "haute",
+      "héron",
+      "hérisson",
+      "hêtre",
+      "hibou",
+      "homard",
+      "honte",
+      "horde",
+      "hors", // "hors-la-loi",
+      "houblon",
+      "huit",
+      "hunter",
+      "hurl", // "hurler", "hurle", "hurlé", "hurlement",
+      "husky",
+      "hutte",
+      "hyène"
+    };
+
 #if DEBUG
     // Log the translated strings only once
     private static List<string> loggedKeys = new List<string>();
@@ -274,13 +307,12 @@ namespace RimWorld_LanguageWorker_French
 
       if( IsVowel(first) )
       {
-        //Exception for elision :
-        //(M) husky, houblon, haut, haut-de-forme, harmoniseur psychique
-        //(F) haute, hache, hampe, harpe, hase, hase des neiges
-
+        // General rule for vowels.
+        // Unaspirated h are processed with elision rules
         return "l'" + str;
       }
 
+      // General rule for consonants
       return (gender == Gender.Female ? "la " : "le ") + str;
     }
 
@@ -354,10 +386,12 @@ namespace RimWorld_LanguageWorker_French
 
     public bool IsVowel(char ch)
     {
-      return "aàâäæeéèêëiîïoôöœuùüûhAÀÂÄÆEÉÈÊËIÎÏOÔÖŒUÙÜÛH".IndexOf(ch) >= 0;
+      //Do not include [hH]
+      return "aàâäæeéèêëiîïoôöœuùüûAÀÂÄÆEÉÈÊËIÎÏOÔÖŒUÙÜÛ".IndexOf(ch) >= 0;
     }
 
     //TODO: take the name color tag <color=#D09B61FF> into account
+    private Regex WordsStartingWithH = new Regex(@"\b(h[^ ]+)\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
     private Regex ElisionE = new Regex(@"\b([cdjlmnst]|qu|quoiqu|lorsqu)e ([aàâäeéèêëiîïoôöuùüûh])", RegexOptions.Compiled | RegexOptions.IgnoreCase);
     private Regex ElisionLa = new Regex(@"\b(l)a ([aàâäeéèêëiîïoôöuùüûh])", RegexOptions.Compiled | RegexOptions.IgnoreCase);
     private Regex ElisionSi = new Regex(@"\b(s)i (ils?)\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -371,6 +405,7 @@ namespace RimWorld_LanguageWorker_French
       str = str.Replace(" de des ", " des ")
         .Replace("De des ", "Des ");
 
+      str = WordsStartingWithH.Replace(str, new MatchEvaluator(ReplaceAspiratedH));
       str = ElisionE.Replace(str, "$1'$2");
       str = ElisionLa.Replace(str, "$1'$2");
       str = ElisionSi.Replace(str, "$1'$2");
@@ -382,7 +417,7 @@ namespace RimWorld_LanguageWorker_French
     }
 
     private string ReplaceALe(Match match) {
-      switch (match.ToString()) {
+      switch ( match.ToString() ) {
         case "à le": return "au";
         case "à les": return "aux";
         case "\u00c0 le": return "Au";
@@ -390,6 +425,20 @@ namespace RimWorld_LanguageWorker_French
       }
       return match.ToString();
     }
-	}
 
+    private string ReplaceAspiratedH(Match match)
+    {
+      string item_raw = match.ToString();
+      string item = item_raw.ToLower();
+      foreach ( var s in Exceptions_Aspirated_h )
+      {
+        if ( item.StartsWith(s) )
+        {
+          // Add zero-width space to foul the elision rules
+          return ("\u200B" + item_raw);
+        }
+      }
+      return item_raw;
+    }
+  }
 }

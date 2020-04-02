@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="NumberCaseResolverTest.cs" />
     <Compile Include="ReplaceResolverTest.cs" />
+    <Compile Include="TestPostProcessed.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RimWorld_LanguageWorker_French\RimWorld_LanguageWorker_French.csproj">
