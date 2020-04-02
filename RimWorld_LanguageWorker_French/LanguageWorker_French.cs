@@ -1,12 +1,10 @@
-using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Verse;
 
 namespace RimWorld_LanguageWorker_French
 {
-	public class LanguageWorker_French : LanguageWorker
+  public class LanguageWorker_French : LanguageWorker
 	{
 		private interface IResolver
 		{
@@ -208,6 +206,29 @@ namespace RimWorld_LanguageWorker_French
       "lieu"
     };
 
+#if DEBUG
+    // Log the translated strings only once
+    private static List<string> loggedKeys = new List<string>();
+
+    private void LogProcessedString(string original, string processed_str)
+    {
+      // Log all PostProcessed strings
+      if ( !loggedKeys.Contains(original) )
+      {
+        loggedKeys.Add(original);
+        if (processed_str != original)
+        {
+          Log.Message("PostProcessed_in : " + original, true);
+          Log.Message("PostProcessed_out: " + processed_str, true);
+        }
+        else
+        {
+          Log.Message("PostProcessed_no : " + original, true);
+        }
+      }
+    }
+#endif
+
     public override string WithIndefiniteArticle(string str, Gender gender, bool plural = false, bool name = false)
     {
       //Names don't get articles
@@ -296,12 +317,22 @@ namespace RimWorld_LanguageWorker_French
 
     public override string PostProcessed(string str)
     {
-      return PostProcessedFrenchGrammar(base.PostProcessed(str));
+      string processed_str = PostProcessedFrenchGrammar(base.PostProcessed(str));
+#if DEBUG
+      // Log all PostProcessed strings
+      LogProcessedString(str, processed_str);
+#endif
+      return processed_str;
     }
 
     public override string PostProcessedKeyedTranslation(string translation)
     {
-      return PostProcessedFrenchGrammar(base.PostProcessedKeyedTranslation(translation));
+      string processed_str = PostProcessedFrenchGrammar(base.PostProcessedKeyedTranslation(translation));
+#if DEBUG
+      // Log all PostProcessedKeyedTranslation strings
+      LogProcessedString(translation, processed_str);
+#endif
+      return processed_str;
     }
 
     public bool IsVowel(char ch)
