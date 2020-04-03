@@ -392,11 +392,11 @@ namespace RimWorld_LanguageWorker_French
 
     //TODO: take the name color tag <color=#D09B61FF> into account
     private Regex WordsStartingWithH = new Regex(@"\b(h[^ ]+)\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-    private Regex ElisionE = new Regex(@"\b([cdjlmnst]|qu|quoiqu|lorsqu)e ([aàâäeéèêëiîïoôöuùüûh])", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-    private Regex ElisionLa = new Regex(@"\b(l)a ([aàâäeéèêëiîïoôöuùüûh])", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    private Regex ElisionE = new Regex(@"\b([cdjlmnst]|qu|quoiqu|lorsqu)e ([<]color=[^>]*[>]|)([aàâäeéèêëiîïoôöuùüûh])", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    private Regex ElisionLa = new Regex(@"\b(l)a ([<]color=[^>]*[>]|)([aàâäeéèêëiîïoôöuùüûh])", RegexOptions.Compiled | RegexOptions.IgnoreCase);
     private Regex ElisionSi = new Regex(@"\b(s)i (ils?)\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-    private Regex DeLe = new Regex(@"\b(d)e le\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-    private Regex DeLes = new Regex(@"\b(d)e l(es)\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    private Regex DeLe = new Regex(@"\b(d)e ([<]color=[^>]*[>]|)le\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    private Regex DeLes = new Regex(@"\b(d)e ([<]color=[^>]*[>]|)l(es)\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
     private Regex ALe = new Regex(@"\bà les?\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
     private string PostProcessedFrenchGrammar(string str)
@@ -406,11 +406,11 @@ namespace RimWorld_LanguageWorker_French
         .Replace("De des ", "Des ");
 
       str = WordsStartingWithH.Replace(str, new MatchEvaluator(ReplaceAspiratedH));
-      str = ElisionE.Replace(str, "$1'$2");
-      str = ElisionLa.Replace(str, "$1'$2");
+      str = ElisionE.Replace(str, "$1'$2$3");
+      str = ElisionLa.Replace(str, "$1'$2$3");
       str = ElisionSi.Replace(str, "$1'$2");
-      str = DeLe.Replace(str, "$1u");
-      str = DeLes.Replace(str, "$1$2");
+      str = DeLe.Replace(str, "$1u $2");
+      str = DeLes.Replace(str, "$1$3 $2");
       str = ALe.Replace(str, new MatchEvaluator(ReplaceALe));
 
       return str;
