@@ -50,7 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RimWorld_LanguageWorker_French\RimWorld_LanguageWorker_French.csproj">
-      <Project>{A36BEEB2-7379-475B-B537-827E34571962}</Project>
+      <Project>{229234B3-8586-45B5-AC75-EBEAC20B7106}</Project>
       <Name>RimWorld_LanguageWorker_French</Name>
       <Private>False</Private>
     </ProjectReference>

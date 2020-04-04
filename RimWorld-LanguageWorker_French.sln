@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RimWorld_LanguageWorker_French", "RimWorld_LanguageWorker_French\RimWorld_LanguageWorker_French.csproj", "{A36BEEB2-7379-475B-B537-827E34571962}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RimWorld_LanguageWorker_French", "RimWorld_LanguageWorker_French\RimWorld_LanguageWorker_French.csproj", "{229234B3-8586-45B5-AC75-EBEAC20B7106}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RimWorld-LanguageWorker_French_NUnitTest", "RimWorld-LanguageWorker_French_NUnitTest\RimWorld-LanguageWorker_French_NUnitTest.csproj", "{3601B1B7-6E17-433C-AB63-D76979ADCE24}"
 EndProject
@@ -13,10 +13,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A36BEEB2-7379-475B-B537-827E34571962}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A36BEEB2-7379-475B-B537-827E34571962}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A36BEEB2-7379-475B-B537-827E34571962}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A36BEEB2-7379-475B-B537-827E34571962}.Release|Any CPU.Build.0 = Release|Any CPU
+		{229234B3-8586-45B5-AC75-EBEAC20B7106}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{229234B3-8586-45B5-AC75-EBEAC20B7106}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{229234B3-8586-45B5-AC75-EBEAC20B7106}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{229234B3-8586-45B5-AC75-EBEAC20B7106}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3601B1B7-6E17-433C-AB63-D76979ADCE24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3601B1B7-6E17-433C-AB63-D76979ADCE24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3601B1B7-6E17-433C-AB63-D76979ADCE24}.Release|Any CPU.ActiveCfg = Release|Any CPU
