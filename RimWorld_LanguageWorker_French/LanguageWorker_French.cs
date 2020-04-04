@@ -401,6 +401,8 @@ namespace RimWorld_LanguageWorker_French
     private Regex ElisionE = new Regex(@"\b([cdjlmnst]|qu|quoiqu|lorsqu)e ([<][^>]*[>]|)([aàâäæeéèêëiîïoôöœuùüûh])", RegexOptions.Compiled | RegexOptions.IgnoreCase);
     private Regex ElisionLa = new Regex(@"\b(l)a ([<][^>]*[>]|)([aàâäæeéèêëiîïoôöœuùüûh])", RegexOptions.Compiled | RegexOptions.IgnoreCase);
     private Regex ElisionSi = new Regex(@"\b(s)i (ils?)\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    // possessive + vowel/h muet. ex. instead of "sa épée" -> "son épée", "son/sa oreille" -> "son oreille"
+    private Regex PossessiveVowel = new Regex(@"\b([mst])(on/[mst]|)a ([<][^>]*[>]|)([aàâäæeéèêëiîïoôöœuùüûh])", RegexOptions.Compiled | RegexOptions.IgnoreCase);
     private Regex DeLe = new Regex(@"\b(d)e ([<][^>]*[>]|)le ", RegexOptions.Compiled | RegexOptions.IgnoreCase);
     private Regex DeLes = new Regex(@"\b(d)e ([<][^>]*[>]|)l(es) ", RegexOptions.Compiled | RegexOptions.IgnoreCase);
     private Regex ALe = new Regex(@"\bà les?\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -411,11 +413,11 @@ namespace RimWorld_LanguageWorker_French
       str = str.Replace(" de des ", " des ")
         .Replace("De des ", "Des ");
 
-      // TODO: possessif + voyelle/h muet, sauf "sa onz(ième)"
       str = WordsStartingWithH.Replace(str, new MatchEvaluator(ReplaceAspiratedH));
       str = ElisionE.Replace(str, "$1'$2$3");
       str = ElisionLa.Replace(str, "$1'$2$3");
       str = ElisionSi.Replace(str, "$1'$2");
+      str = PossessiveVowel.Replace(str, "$1on $3$4");
       str = DeLe.Replace(str, "$1u $2");
       str = DeLes.Replace(str, "$1$3 $2");
       str = ALe.Replace(str, new MatchEvaluator(ReplaceALe));

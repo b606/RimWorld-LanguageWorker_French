@@ -64,5 +64,19 @@ namespace RimWorldLanguageWorker_French_NUnitTest
       Assert.AreEqual("la balle d'<color=#D09B61FF>Odette</color> a annihilé l'œil gauche d'<color=#D09B61FF>Andi</color>.", _lw.PostProcessed(template));
     }
 
+    [Test]
+    public void TestSonSa()
+    {
+      LanguageWorker_French _lw = new LanguageWorker_French();
+
+      // h muet
+      string template = "<color=#D09B61FF>Wallis</color> a questionné <color=#D09B61FF>Lawman</color> sur sa habitude alimentaire.";
+      Assert.AreEqual("<color=#D09B61FF>Wallis</color> a questionné <color=#D09B61FF>Lawman</color> sur son habitude alimentaire.", _lw.PostProcessed(template));
+
+      // son/sa <voyelle> -> son <voyelle>
+      template = "<color=#D09B61FF>Wallis</color> a attrapé une maladie : cancer dans son/sa oreille droite.";
+      Assert.AreEqual("<color=#D09B61FF>Wallis</color> a attrapé une maladie : cancer dans son oreille droite.", _lw.PostProcessed(template));
+
+    }
   }
 }
