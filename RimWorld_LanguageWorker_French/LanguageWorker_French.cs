@@ -395,8 +395,8 @@ namespace RimWorld_LanguageWorker_French
     private Regex ElisionE = new Regex(@"\b([cdjlmnst]|qu|quoiqu|lorsqu)e ([<]color=[^>]*[>]|)([aàâäeéèêëiîïoôöuùüûh])", RegexOptions.Compiled | RegexOptions.IgnoreCase);
     private Regex ElisionLa = new Regex(@"\b(l)a ([<]color=[^>]*[>]|)([aàâäeéèêëiîïoôöuùüûh])", RegexOptions.Compiled | RegexOptions.IgnoreCase);
     private Regex ElisionSi = new Regex(@"\b(s)i (ils?)\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-    private Regex DeLe = new Regex(@"\b(d)e ([<]color=[^>]*[>]|)le\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-    private Regex DeLes = new Regex(@"\b(d)e ([<]color=[^>]*[>]|)l(es)\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    private Regex DeLe = new Regex(@"\b(d)e ([<]color=[^>]*[>]|)le ", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    private Regex DeLes = new Regex(@"\b(d)e ([<]color=[^>]*[>]|)l(es) ", RegexOptions.Compiled | RegexOptions.IgnoreCase);
     private Regex ALe = new Regex(@"\bà les?\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
     private string PostProcessedFrenchGrammar(string str)
