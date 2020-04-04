@@ -391,7 +391,7 @@ namespace RimWorld_LanguageWorker_French
     }
 
     //TODO: take the name color tag <color=#D09B61FF> into account
-    private Regex WordsStartingWithH = new Regex(@"\b(h[^ ]+)\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    private Regex WordsStartingWithH = new Regex(@"\b(h[^ <>]+)\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
     private Regex ElisionE = new Regex(@"\b([cdjlmnst]|qu|quoiqu|lorsqu)e ([<]color=[^>]*[>]|)([aàâäeéèêëiîïoôöuùüûh])", RegexOptions.Compiled | RegexOptions.IgnoreCase);
     private Regex ElisionLa = new Regex(@"\b(l)a ([<]color=[^>]*[>]|)([aàâäeéèêëiîïoôöuùüûh])", RegexOptions.Compiled | RegexOptions.IgnoreCase);
     private Regex ElisionSi = new Regex(@"\b(s)i (ils?)\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
