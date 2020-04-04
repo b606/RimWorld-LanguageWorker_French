@@ -281,6 +281,8 @@ namespace RimWorld_LanguageWorker_French
 
     public override string WithIndefiniteArticle(string str, Gender gender, bool plural = false, bool name = false)
     {
+      // TODO: names with h do not get elision
+      // TODO: short names (length < 5) with vowels do not get elision
       //Names don't get articles
       if( name )
         return str;
@@ -406,6 +408,7 @@ namespace RimWorld_LanguageWorker_French
       str = str.Replace(" de des ", " des ")
         .Replace("De des ", "Des ");
 
+      // TODO: possessif + voyelle/h muet, sauf "sa onz(ième)"
       str = WordsStartingWithH.Replace(str, new MatchEvaluator(ReplaceAspiratedH));
       str = ElisionE.Replace(str, "$1'$2$3");
       str = ElisionLa.Replace(str, "$1'$2$3");
