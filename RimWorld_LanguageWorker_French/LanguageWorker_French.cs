@@ -216,6 +216,7 @@ namespace RimWorld_LanguageWorker_French
     };
 
     // Words with aspirated h do not get elision (list only words in RimWorld)
+    // Added no elision to "onze", "onzième" -- do not appear in RiWorld yet)
     private static readonly List<string> Exceptions_Aspirated_h = new List<string> {
       "hache",
       "hack",
@@ -245,7 +246,8 @@ namespace RimWorld_LanguageWorker_French
       "hurl", // "hurler", "hurle", "hurlé", "hurlement",
       "husky",
       "hutte",
-      "hyène"
+      "hyène",
+      "onz" // , "onze", "onzième"
     };
 
 #if DEBUG
