@@ -395,8 +395,9 @@ namespace RimWorld_LanguageWorker_French
     // The Regex ([<][^>]*[>]|) component takes any XML tag into account,
     // ex. the name color tag <color=#D09B61FF> or <Name>
     private Regex WordsStartingWithH = new Regex(@"\b(h[^ <>]+)\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-    private Regex ElisionE = new Regex(@"\b([cdjlmnst]|qu|quoiqu|lorsqu)e ([<][^>]*[>]|)([aàâäeéèêëiîïoôöuùüûh])", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-    private Regex ElisionLa = new Regex(@"\b(l)a ([<][^>]*[>]|)([aàâäeéèêëiîïoôöuùüûh])", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    // NOTE: exception "lorsque aucun", "lorsque aucun", "lorsque avec", "lorsque <prenom>"
+    private Regex ElisionE = new Regex(@"\b([cdjlmnst]|qu|quoiqu|lorsqu)e ([<][^>]*[>]|)([aàâäæeéèêëiîïoôöœuùüûh])", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    private Regex ElisionLa = new Regex(@"\b(l)a ([<][^>]*[>]|)([aàâäæeéèêëiîïoôöœuùüûh])", RegexOptions.Compiled | RegexOptions.IgnoreCase);
     private Regex ElisionSi = new Regex(@"\b(s)i (ils?)\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
     private Regex DeLe = new Regex(@"\b(d)e ([<][^>]*[>]|)le ", RegexOptions.Compiled | RegexOptions.IgnoreCase);
     private Regex DeLes = new Regex(@"\b(d)e ([<][^>]*[>]|)l(es) ", RegexOptions.Compiled | RegexOptions.IgnoreCase);

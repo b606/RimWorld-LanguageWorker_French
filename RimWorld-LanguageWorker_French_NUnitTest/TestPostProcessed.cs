@@ -56,11 +56,11 @@ namespace RimWorldLanguageWorker_French_NUnitTest
       template = "azerty\n\nazerty un lit à <color=#D09B61FF>le hôpital</color>\n\nazerty";
       Assert.AreEqual("azerty\n\nazerty un lit à <color=#D09B61FF>l'hôpital</color>\n\nazerty", _lw.PostProcessed(template));
 
-      // de [aàâäeéèêëiîïoôöuùüûh] -> d'[aàâäeéèêëiîïoôöuùüûh]
+      // de [aàâäæeéèêëiîïoôöœuùüûh] -> d'[aàâäæeéèêëiîïoôöœuùüûh]
       template = "le corps de <color=#D09B61FF>la mégathérium</color> a été percé par la balle de <color=#D09B61FF>Annabel</color>.";
       Assert.AreEqual("le corps de <color=#D09B61FF>la mégathérium</color> a été percé par la balle d'<color=#D09B61FF>Annabel</color>.", _lw.PostProcessed(template));
 
-      template = "la balle de <color=#D09B61FF>Odette</color> a annihilé l'œil gauche de <color=#D09B61FF>Andi</color>.";
+      template = "la balle de <color=#D09B61FF>Odette</color> a annihilé le œil gauche de <color=#D09B61FF>Andi</color>.";
       Assert.AreEqual("la balle d'<color=#D09B61FF>Odette</color> a annihilé l'œil gauche d'<color=#D09B61FF>Andi</color>.", _lw.PostProcessed(template));
     }
 
