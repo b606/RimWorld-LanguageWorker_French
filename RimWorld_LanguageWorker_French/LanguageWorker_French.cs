@@ -390,13 +390,14 @@ namespace RimWorld_LanguageWorker_French
       return "aàâäæeéèêëiîïoôöœuùüûAÀÂÄÆEÉÈÊËIÎÏOÔÖŒUÙÜÛ".IndexOf(ch) >= 0;
     }
 
-    //TODO: take the name color tag <color=#D09B61FF> into account
+    // The Regex ([<][^>]*[>]|) component takes any XML tag into account,
+    // ex. the name color tag <color=#D09B61FF> or <Name>
     private Regex WordsStartingWithH = new Regex(@"\b(h[^ <>]+)\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-    private Regex ElisionE = new Regex(@"\b([cdjlmnst]|qu|quoiqu|lorsqu)e ([<]color=[^>]*[>]|)([aàâäeéèêëiîïoôöuùüûh])", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-    private Regex ElisionLa = new Regex(@"\b(l)a ([<]color=[^>]*[>]|)([aàâäeéèêëiîïoôöuùüûh])", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    private Regex ElisionE = new Regex(@"\b([cdjlmnst]|qu|quoiqu|lorsqu)e ([<][^>]*[>]|)([aàâäeéèêëiîïoôöuùüûh])", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    private Regex ElisionLa = new Regex(@"\b(l)a ([<][^>]*[>]|)([aàâäeéèêëiîïoôöuùüûh])", RegexOptions.Compiled | RegexOptions.IgnoreCase);
     private Regex ElisionSi = new Regex(@"\b(s)i (ils?)\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-    private Regex DeLe = new Regex(@"\b(d)e ([<]color=[^>]*[>]|)le ", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-    private Regex DeLes = new Regex(@"\b(d)e ([<]color=[^>]*[>]|)l(es) ", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    private Regex DeLe = new Regex(@"\b(d)e ([<][^>]*[>]|)le ", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    private Regex DeLes = new Regex(@"\b(d)e ([<][^>]*[>]|)l(es) ", RegexOptions.Compiled | RegexOptions.IgnoreCase);
     private Regex ALe = new Regex(@"\bà les?\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
     private string PostProcessedFrenchGrammar(string str)
