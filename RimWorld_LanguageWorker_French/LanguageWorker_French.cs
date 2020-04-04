@@ -146,9 +146,9 @@ namespace RimWorld_LanguageWorker_French
         {
           Log.Error(string.Format("Error happened while resolving LW instruction: \"{0}\"", match.Value));
         }
-        catch (Exception e)
+        catch (MissingMethodException e)
         {
-          // TODO: Unit test does not like Verse.Log for some reason
+          // Unit test does not initialize Verse.Log for some reason
           Console.WriteLine("Log.Message: {0}", e.Message);
         }
         return match.Value;
@@ -270,9 +270,9 @@ namespace RimWorld_LanguageWorker_French
             Log.Message("PostProcessed_no : " + original, true);
           }
         }
-        catch (Exception e)
+        catch (MissingMethodException e)
         {
-          // TODO: Unit test does not like Verse.Log for some reason
+          // Unit test does not initialize Verse.Log for some reason
           Console.WriteLine("Log.Message: {0}", e.Message);
         }
       }
