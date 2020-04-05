@@ -10,7 +10,7 @@ Modified from https://github.com/Elevator89/RimWorld-LanguageWorker_Russian
 
 #### Installation
 
- 1. Télécharger l'archive zip des binaires compilés et l'extraire dans le répertoire de Mods de RimWorld.
+ 1. Télécharger l'archive zip des binaires compilés (https://github.com/b606/RimWorld-LanguageWorker_French/releases/latest) et l'extraire dans le répertoire de Mods de RimWorld.
  2. Activer le mod "LanguageWorkerFrench_Test" dans le jeu.
  
     **ATTENTION** : si le mod n'est pas activé avant l'étape suivante, le jeu ne s'executera
