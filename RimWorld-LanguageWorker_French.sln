@@ -32,5 +32,6 @@ Global
 		Policies = $0
 		$0.ChangeLogPolicy = $1
 		$1.UpdateMode = ProjectRoot
+		version = 1.0
 	EndGlobalSection
 EndGlobal
