@@ -217,7 +217,7 @@ namespace RimWorld_LanguageWorker_French
 
     // Words with aspirated h do not get elision (list only words in RimWorld)
     // Added no elision to "onze", "onzième" -- do not appear in RiWorld yet)
-    private static readonly List<string> Exceptions_Aspirated_h = new List<string> {
+    private static readonly List<string> Exceptions_No_Elision = new List<string> {
       "hache",
       "hack",
       "haine",
@@ -396,7 +396,7 @@ namespace RimWorld_LanguageWorker_French
 
     // The Regex ([<][^>]*[>]|) component takes any XML tag into account,
     // ex. the name color tag <color=#D09B61FF> or <Name>
-    private static readonly Regex WordsStartingWithH = new Regex(@"\b(h[^ <>]+)\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    private static readonly Regex WordsWithoutElision = new Regex(@"\b(h[^ <>]+|onz[^ <>]+)\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
     // NOTE: exception "lorsque aucun", "lorsque aucun", "lorsque avec", "lorsque <prenom>"
     private static readonly Regex ElisionE = new Regex(@"\b([cdjlmnst]|qu|quoiqu|lorsqu)e ([<][^>]*[>]|)([aàâäæeéèêëiîïoôöœuùüûh])", RegexOptions.Compiled | RegexOptions.IgnoreCase);
     private static readonly Regex ElisionLa = new Regex(@"\b(l)a ([<][^>]*[>]|)([aàâäæeéèêëiîïoôöœuùüûh])", RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -413,7 +413,7 @@ namespace RimWorld_LanguageWorker_French
       str = str.Replace(" de des ", " des ")
         .Replace("De des ", "Des ");
 
-      str = WordsStartingWithH.Replace(str, new MatchEvaluator(ReplaceAspiratedH));
+      str = WordsWithoutElision.Replace(str, new MatchEvaluator(ReplaceNoElision));
       str = ElisionE.Replace(str, "$1'$2$3");
       str = ElisionLa.Replace(str, "$1'$2$3");
       str = ElisionSi.Replace(str, "$1'$2");
@@ -435,11 +435,11 @@ namespace RimWorld_LanguageWorker_French
       return match.ToString();
     }
 
-    private static string ReplaceAspiratedH(Match match)
+      private static string ReplaceNoElision(Match match)
     {
       string item_raw = match.ToString();
       string item = item_raw.ToLower();
-      foreach ( var s in Exceptions_Aspirated_h )
+      foreach ( var s in Exceptions_No_Elision )
       {
         if ( item.StartsWith(s) )
         {

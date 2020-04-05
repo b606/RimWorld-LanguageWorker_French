@@ -28,6 +28,13 @@ namespace RimWorldLanguageWorker_French_NUnitTest
 
       template = "azerty\n\nazerty un lit de hôpital\n\nazerty";
       Assert.AreEqual("azerty\n\nazerty un lit d'hôpital\n\nazerty", _lw.PostProcessed(template));
+
+      template = "azerty\n\nazerty après le onzième jour azerty\n\nazerty";
+      Assert.AreEqual("azerty\n\nazerty après le \u200Bonzième jour azerty\n\nazerty", _lw.PostProcessed(template));
+
+      template = "azerty\n\nazerty la jambe de le onze \n\nazerty";
+      Assert.AreEqual("azerty\n\nazerty la jambe du \u200Bonze \n\nazerty", _lw.PostProcessed(template));
+
     }
 
     [Test]
