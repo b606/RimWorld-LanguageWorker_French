@@ -311,6 +311,7 @@ namespace RimWorld_LanguageWorker_French
 
       if( IsVowel(first) )
       {
+        // TODO: check for "onze"
         // General rule for vowels.
         // Unaspirated h are processed with elision rules
         return "l'" + str;
@@ -327,14 +328,17 @@ namespace RimWorld_LanguageWorker_French
 
     public override string ToTitleCase(string str)
     {
-        // Do nothing, capitalize only the first word
-        return str;
+      // FIXME: capitalize only the first word of the title (see Quest title and artwork.)
+      return str;
     }
 
     public override string Pluralize(string str, Gender gender, int count = -1)
     {
-      if( str.NullOrEmpty() )
+      // FIXME: pluralize for compound words
+      if ( str.NullOrEmpty() )
         return str;
+
+      // TODO: if( count == 1 )
 
       // Exceptions to general rules for plural
       string item = str.ToLower();
@@ -394,6 +398,7 @@ namespace RimWorld_LanguageWorker_French
       return "aàâäæeéèêëiîïoôöœuùüûAÀÂÄÆEÉÈÊËIÎÏOÔÖŒUÙÜÛ".IndexOf(ch) >= 0;
     }
 
+    // TODO: french typography, add space before [:;?!]
     // The Regex ([<][^>]*[>]|) component takes any XML tag into account,
     // ex. the name color tag <color=#D09B61FF> or <Name>
     private static readonly Regex WordsWithoutElision = new Regex(@"\b(h[^ <>]+|onz[^ <>]+)\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -435,7 +440,7 @@ namespace RimWorld_LanguageWorker_French
       return match.ToString();
     }
 
-      private static string ReplaceNoElision(Match match)
+    private static string ReplaceNoElision(Match match)
     {
       string item_raw = match.ToString();
       string item = item_raw.ToLower();
