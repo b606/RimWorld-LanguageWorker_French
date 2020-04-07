@@ -338,7 +338,9 @@ namespace RimWorld_LanguageWorker_French
       if ( str.NullOrEmpty() )
         return str;
 
-      // TODO: if( count == 1 )
+      // Do not pluralize
+      if( count == 1 )
+        return str;
 
       // Exceptions to general rules for plural
       string item = str.ToLower();
