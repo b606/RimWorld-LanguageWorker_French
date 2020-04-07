@@ -363,11 +363,11 @@ namespace RimWorld_LanguageWorker_French
         return str;
 
       // words ending with "al": replace "al" by "aux"
-      if( str.EndsWith("al") )
+      if (str.EndsWith("al", StringComparison.CurrentCulture))
         return str.Substring(0, str.Length - 2) + "aux";
 
       // words ending with "au" or "eu": append "x"
-      if( str.EndsWith("au") | str.EndsWith("eu") )
+      if (str.EndsWith("au", StringComparison.CurrentCulture) | str.EndsWith("eu", StringComparison.CurrentCulture))
         return str + "x";
 
       // general case: append s
@@ -448,7 +448,7 @@ namespace RimWorld_LanguageWorker_French
       string item = item_raw.ToLower();
       foreach ( var s in Exceptions_No_Elision )
       {
-        if ( item.StartsWith(s) )
+        if (item.StartsWith(s, StringComparison.CurrentCulture))
         {
           // Add zero-width space to foul the elision rules
           return ("\u200B" + item_raw);
