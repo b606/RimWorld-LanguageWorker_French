@@ -309,10 +309,9 @@ namespace RimWorld_LanguageWorker_French
 
       char first = str[0];
 
-      if( IsVowel(first) )
+      if( IsVowel(first) && !str.StartsWith("onz", StringComparison.CurrentCulture) )
       {
-        // TODO: check for "onze"
-        // General rule for vowels.
+        // General rule for vowels not starting with "onz" (onze, onzième).
         // Unaspirated h are processed with elision rules
         return "l'" + str;
       }
