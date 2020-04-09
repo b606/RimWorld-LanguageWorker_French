@@ -32,6 +32,13 @@ Global
 		Policies = $0
 		$0.ChangeLogPolicy = $1
 		$1.UpdateMode = ProjectRoot
+		$0.TextStylePolicy = $2
+		$2.FileWidth = 80
+		$2.scope = text/x-csharp
+		$2.TabWidth = 2
+		$2.IndentWidth = 2
+		$0.CSharpFormattingPolicy = $3
+		$3.scope = text/x-csharp
 		version = 1.0
 	EndGlobalSection
 EndGlobal

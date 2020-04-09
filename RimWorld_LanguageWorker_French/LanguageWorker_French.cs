@@ -7,7 +7,7 @@ using Verse;
 
 namespace RimWorld_LanguageWorker_French
 {
-  public class LanguageWorker_French : LanguageWorker
+	public class LanguageWorker_French : LanguageWorker
 	{
 		private interface IResolver
 		{
@@ -21,7 +21,7 @@ namespace RimWorld_LanguageWorker_French
 
 			public string Resolve(string[] arguments)
 			{
-				if(arguments.Length == 0)
+				if (arguments.Length == 0)
 				{
 					return null;
 				}
@@ -46,7 +46,7 @@ namespace RimWorld_LanguageWorker_French
 					string oldValue = match.Groups["old"].Value;
 					string newValue = match.Groups["new"].Value;
 
-					if(oldValue == input)
+					if (oldValue == input)
 					{
 						return newValue;
 					}
@@ -134,7 +134,7 @@ namespace RimWorld_LanguageWorker_French
 			Group argumentsGroup = match.Groups["argument"];
 
 			string[] arguments = new string[argumentsGroup.Captures.Count];
-			for(int i = 0; i < argumentsGroup.Captures.Count; ++i)
+			for (int i = 0; i < argumentsGroup.Captures.Count; ++i)
 			{
 				arguments[i] = argumentsGroup.Captures[i].Value.Trim();
 			}
@@ -142,18 +142,18 @@ namespace RimWorld_LanguageWorker_French
 			IResolver resolver = GetResolverByKeyword(keyword);
 
 			string result = resolver.Resolve(arguments);
-			if(result == null)
+			if (result == null)
 			{
-        try
-        {
-          Log.Error(string.Format("Error happened while resolving LW instruction: \"{0}\"", match.Value));
-        }
-        catch (MissingMethodException e)
-        {
-          // Unit test does not initialize Verse.Log for some reason
-          Console.WriteLine("Log.Message: {0}", e.Message);
-        }
-        return match.Value;
+				try
+				{
+					Log.Error(string.Format("Error happened while resolving LW instruction: \"{0}\"", match.Value));
+				}
+				catch (MissingMethodException e)
+				{
+					// Unit test does not initialize Verse.Log for some reason
+					Console.WriteLine("Log.Message: {0}", e.Message);
+				}
+				return match.Value;
 			}
 
 			return result;
@@ -172,324 +172,326 @@ namespace RimWorld_LanguageWorker_French
 			}
 		}
 
-    // Temporary resolver test
-    // French language does not use this mechanism yet.
-    public string TestResolver(string str)
-    {
-      return PostProcessResolver(str);
-    }
+		// Temporary resolver test
+		// French language does not use this mechanism yet.
+		public string TestResolver(string str)
+		{
+			return PostProcessResolver(str);
+		}
 
-    // in plural, replace "ail" with "aux"
-    private static readonly List<string> Exceptions_Plural_aux = new List<string> {
-      "bail",
-      "corail",
-      "émail",
-      "gemmail",
-      "soupirail",
-      "travail",
-      "vantail",
-      "vitrail"
-    };
+		// in plural, replace "ail" with "aux"
+		private static readonly List<string> Exceptions_Plural_aux = new List<string> {
+			"bail",
+			"corail",
+			"émail",
+			"gemmail",
+			"soupirail",
+			"travail",
+			"vantail",
+			"vitrail"
+		};
 
-    // lieu (fish) takes an "s", but does not exist in RimWorld
-    private static readonly List<string> Exceptions_Plural_s = new List<string> {
-      "bleu",
-      "émeu",
-      "landau",
-      "pneu",
-      "sarrau",
-      "bal",
-      "banal",
-      "fatal",
-      "final",
-      "festival"
-    };
+		// lieu (fish) takes an "s", but does not exist in RimWorld
+		private static readonly List<string> Exceptions_Plural_s = new List<string> {
+			"bleu",
+			"émeu",
+			"landau",
+			"pneu",
+			"sarrau",
+			"bal",
+			"banal",
+			"fatal",
+			"final",
+			"festival"
+		};
 
-    // lieu (area) takes an "x", it exists in RimWorld (ex. lieu d'assemblage-crafting spot)
-    private static readonly List<string> Exceptions_Plural_x = new List<string> {
-      "bijou",
-      "caillou",
-      "chou",
-      "genou",
-      "hibou",
-      "joujou",
-      "pou",
-      "lieu"
-    };
+		// lieu (area) takes an "x", it exists in RimWorld (ex. lieu d'assemblage-crafting spot)
+		private static readonly List<string> Exceptions_Plural_x = new List<string> {
+			"bijou",
+			"caillou",
+			"chou",
+			"genou",
+			"hibou",
+			"joujou",
+			"pou",
+			"lieu"
+		};
 
-    // Words with aspirated h do not get elision (list only words in RimWorld)
-    // Added no elision to "onze", "onzième" -- do not appear in RiWorld yet)
-    private static readonly List<string> Exceptions_No_Elision = new List<string> {
-      "hache",
-      "hack",
-      "haine",
-      "hameau",
-      "hampe",
-      "hamster",
-      "hanche",
-      "hareng",
-      "haricot",
-      "harpe",
-      "hasard",
-      "hase", // "hases",
+		// Words with aspirated h do not get elision (list only words in RimWorld)
+		// Added no elision to "onze", "onzième" -- do not appear in RiWorld yet)
+		private static readonly List<string> Exceptions_No_Elision = new List<string> {
+			"hache",
+			"hack",
+			"haine",
+			"hameau",
+			"hampe",
+			"hamster",
+			"hanche",
+			"hareng",
+			"haricot",
+			"harpe",
+			"hasard",
+			"hase", // "hases",
       "hât", // "hâte", "hâtif", "hâtive", "hâtivement",
       "haut", // "haute",
       "héron",
-      "hérisson",
-      "hêtre",
-      "hibou",
-      "homard",
-      "honte",
-      "horde",
-      "hors", // "hors-la-loi",
+			"hérisson",
+			"hêtre",
+			"hibou",
+			"homard",
+			"honte",
+			"horde",
+			"hors", // "hors-la-loi",
       "houblon",
-      "huit",
-      "hunter",
-      "hurl", // "hurler", "hurle", "hurlé", "hurlement",
+			"huit",
+			"hunter",
+			"hurl", // "hurler", "hurle", "hurlé", "hurlement",
       "husky",
-      "hutte",
-      "hyène",
-      "onz" // , "onze", "onzième"
+			"hutte",
+			"hyène",
+			"onz" // , "onze", "onzième"
     };
 
 #if DEBUG
 
-    public class Logger
-    {
-      string filename;
-      StreamWriter sw;
+		public class Logger
+		{
+			string filename;
+			StreamWriter sw;
 
-      public Logger(string name)
-      {
-        filename = Path.Combine(Path.GetTempPath(), name);
-        sw = new StreamWriter(filename, false, Encoding.UTF8);
-      }
+			public Logger(string name)
+			{
+				filename = Path.Combine(Path.GetTempPath(), name);
+				sw = new StreamWriter(filename, false, Encoding.UTF8);
+			}
 
-      ~Logger()
-      {
-        sw.Close();
-      }
+			~Logger()
+			{
+				sw.Close();
+			}
 
-      public void Message(string str)
-      {
-        sw.WriteLine(str);
-      }
-    }
+			public void Message(string str)
+			{
+				sw.WriteLine(str);
+			}
+		}
 
-    private static Logger logNotProcessed = new Logger("PostProcessed_no.txt");
-    private static Logger logInProcessed = new Logger("PostProcessed_in.txt");
-    private static Logger logOutProcessed = new Logger("PostProcessed_out.txt");
+		private static Logger logNotProcessed = new Logger("PostProcessed_no.txt");
+		private static Logger logInProcessed = new Logger("PostProcessed_in.txt");
+		private static Logger logOutProcessed = new Logger("PostProcessed_out.txt");
 
-    public static Logger LogNotProcessed { get => logNotProcessed; set => logNotProcessed = value; }
-    public static Logger LogInProcessed { get => logInProcessed; set => logInProcessed = value; }
-    public static Logger LogOutProcessed { get => logOutProcessed; set => logOutProcessed = value; }
+		public static Logger LogNotProcessed { get => logNotProcessed; set => logNotProcessed = value; }
+		public static Logger LogInProcessed { get => logInProcessed; set => logInProcessed = value; }
+		public static Logger LogOutProcessed { get => logOutProcessed; set => logOutProcessed = value; }
 
-    // Log the translated strings only once
-    private static int hitCount = 0;
-    private static List<string> loggedKeys = new List<string>();
+		// Log the translated strings only once
+		private static int hitCount = 0;
+		private static List<string> loggedKeys = new List<string>();
 
-    private void LogProcessedString(string original, string processed_str)
-    {
-      // Log all PostProcessed strings
-      hitCount++;
-      if (!loggedKeys.Contains(original))
-      {
-        loggedKeys.Add(original);
-        try
-        {
-          if (processed_str != original)
-          {
-            LogInProcessed.Message("PostProcessed_str: " + original);
-            LogOutProcessed.Message("PostProcessed_str: " + processed_str);
-          }
-          else
-          {
-            LogNotProcessed.Message("PostProcessed_no(" + hitCount.ToString() + "): " + original);
-          }
-        }
-        catch (MissingMethodException e)
-        {
-          // Unit test does not initialize Verse.Log for some reason
-          Console.WriteLine("Log.Message: {0}", e.Message);
-        }
-      }
-    }
+		private void LogProcessedString(string original, string processed_str)
+		{
+			// Log all PostProcessed strings
+			hitCount++;
+			if (!loggedKeys.Contains(original))
+			{
+				loggedKeys.Add(original);
+				try
+				{
+					if (processed_str != original)
+					{
+						LogInProcessed.Message("PostProcessed_str: " + original);
+						LogOutProcessed.Message("PostProcessed_str: " + processed_str);
+					}
+					else
+					{
+						LogNotProcessed.Message("PostProcessed_no(" + hitCount.ToString() + "): " + original);
+					}
+				}
+				catch (MissingMethodException e)
+				{
+					// Unit test does not initialize Verse.Log for some reason
+					Console.WriteLine("Log.Message: {0}", e.Message);
+				}
+			}
+		}
 
 #endif
 
-    public override string WithIndefiniteArticle(string str, Gender gender, bool plural = false, bool name = false)
-    {
-      // TODO: names with h do not get elision
-      // TODO: short names (length < 5) with vowels do not get elision
-      //Names don't get articles
-      if( name )
-        return str;
+		public override string WithIndefiniteArticle(string str, Gender gender, bool plural = false, bool name = false)
+		{
+			// TODO: names with h do not get elision
+			// TODO: short names (length < 5) with vowels do not get elision
+			//Names don't get articles
+			if (name)
+				return str;
 
-      if( plural )
-        return "des " + str;
+			if (plural)
+				return "des " + str;
 
-      return (gender == Gender.Female ? "une " : "un ") + str;
-    }
+			return (gender == Gender.Female ? "une " : "un ") + str;
+		}
 
-    public override string WithDefiniteArticle(string str, Gender gender, bool plural = false, bool name = false)
-    {
-      if( str.NullOrEmpty() )
-        return str;
+		public override string WithDefiniteArticle(string str, Gender gender, bool plural = false, bool name = false)
+		{
+			if (str.NullOrEmpty())
+				return str;
 
-      //Names don't get articles
-      if( name )
-        return str;
+			//Names don't get articles
+			if (name)
+				return str;
 
-      if( plural )
-        return "les " + str;
+			if (plural)
+				return "les " + str;
 
-      char first = str[0];
+			char first = str[0];
 
-      if( IsVowel(first) && !str.StartsWith("onz", StringComparison.CurrentCulture) )
-      {
-        // General rule for vowels not starting with "onz" (onze, onzième).
-        // Unaspirated h are processed with elision rules
-        return "l'" + str;
-      }
+			if (IsVowel(first) && !str.StartsWith("onz", StringComparison.CurrentCulture))
+			{
+				// General rule for vowels not starting with "onz" (onze, onzième).
+				// Unaspirated h are processed with elision rules
+				return "l'" + str;
+			}
 
-      // General rule for consonants
-      return (gender == Gender.Female ? "la " : "le ") + str;
-    }
+			// General rule for consonants
+			return (gender == Gender.Female ? "la " : "le ") + str;
+		}
 
-    public override string OrdinalNumber(int number, Gender gender = Gender.None)
-    {
-      return number == 1 ? number + "er" : number + "e";
-    }
+		public override string OrdinalNumber(int number, Gender gender = Gender.None)
+		{
+			return number == 1 ? number + "er" : number + "e";
+		}
 
-    public override string ToTitleCase(string str)
-    {
-      // FIXME: capitalize only the first word of the title (see Quest title and artwork.)
-      return str;
-    }
+		public override string ToTitleCase(string str)
+		{
+			// FIXME: capitalize only the first word of the title (see Quest title and artwork.)
+			return str;
+		}
 
-    public override string Pluralize(string str, Gender gender, int count = -1)
-    {
-      // FIXME: pluralize for compound words
-      if ( str.NullOrEmpty() )
-        return str;
+		public override string Pluralize(string str, Gender gender, int count = -1)
+		{
+			// FIXME: pluralize for compound words
+			if (str.NullOrEmpty())
+				return str;
 
-      // Do not pluralize
-      if( count == 1 )
-        return str;
+			// Do not pluralize
+			if (count == 1)
+				return str;
 
-      // Exceptions to general rules for plural
-      string item = str.ToLower();
-      if ( Exceptions_Plural_aux.Contains(item) )
-      {
-        return str.Substring(0, str.Length - 3) + "aux";
-      }
-      if ( Exceptions_Plural_s.Contains(item) )
-      {
-        return str + "s";
-      }
-      if ( Exceptions_Plural_x.Contains(item) )
-      {
-        return str + "x";
-      }
+			// Exceptions to general rules for plural
+			string item = str.ToLower();
+			if (Exceptions_Plural_aux.Contains(item))
+			{
+				return str.Substring(0, str.Length - 3) + "aux";
+			}
+			if (Exceptions_Plural_s.Contains(item))
+			{
+				return str + "s";
+			}
+			if (Exceptions_Plural_x.Contains(item))
+			{
+				return str + "x";
+			}
 
-      // words ending with "s", "x" or "z": do not change anything
-      char last = str[str.Length - 1];
-      if ( last == 's' || last == 'x' || last == 'z' )
-        return str;
+			// words ending with "s", "x" or "z": do not change anything
+			char last = str[str.Length - 1];
+			if (last == 's' || last == 'x' || last == 'z')
+				return str;
 
-      // words ending with "al": replace "al" by "aux"
-      if (str.EndsWith("al", StringComparison.CurrentCulture))
-        return str.Substring(0, str.Length - 2) + "aux";
+			// words ending with "al": replace "al" by "aux"
+			if (str.EndsWith("al", StringComparison.CurrentCulture))
+				return str.Substring(0, str.Length - 2) + "aux";
 
-      // words ending with "au" or "eu": append "x"
-      if (str.EndsWith("au", StringComparison.CurrentCulture) | str.EndsWith("eu", StringComparison.CurrentCulture))
-        return str + "x";
+			// words ending with "au" or "eu": append "x"
+			if (str.EndsWith("au", StringComparison.CurrentCulture) | str.EndsWith("eu", StringComparison.CurrentCulture))
+				return str + "x";
 
-      // general case: append s
-      return str + "s";
-    }
+			// general case: append s
+			return str + "s";
+		}
 
-    public override string PostProcessed(string str)
-    {
-      string processed_str = PostProcessedFrenchGrammar(base.PostProcessed(str));
+		public override string PostProcessed(string str)
+		{
+			string processed_str = PostProcessedFrenchGrammar(base.PostProcessed(str));
 #if DEBUG
-      // Log all PostProcessed strings
-      LogProcessedString(str, processed_str);
+			// Log all PostProcessed strings
+			LogProcessedString(str, processed_str);
 #endif
-      return processed_str;
-    }
+			return processed_str;
+		}
 
-    public override string PostProcessedKeyedTranslation(string translation)
-    {
-      string processed_str = PostProcessedFrenchGrammar(base.PostProcessedKeyedTranslation(translation));
+		public override string PostProcessedKeyedTranslation(string translation)
+		{
+			string processed_str = PostProcessedFrenchGrammar(base.PostProcessedKeyedTranslation(translation));
 #if DEBUG
-      // Log all PostProcessedKeyedTranslation strings
-      LogProcessedString(translation, processed_str);
+			// Log all PostProcessedKeyedTranslation strings
+			LogProcessedString(translation, processed_str);
 #endif
-      return processed_str;
-    }
+			return processed_str;
+		}
 
-    public bool IsVowel(char ch)
-    {
-      //Do not include [hH]
-      return "aàâäæeéèêëiîïoôöœuùüûAÀÂÄÆEÉÈÊËIÎÏOÔÖŒUÙÜÛ".IndexOf(ch) >= 0;
-    }
+		public bool IsVowel(char ch)
+		{
+			//Do not include [hH]
+			return "aàâäæeéèêëiîïoôöœuùüûAÀÂÄÆEÉÈÊËIÎÏOÔÖŒUÙÜÛ".IndexOf(ch) >= 0;
+		}
 
-    // TODO: french typography, add space before [:;?!]
-    // The Regex ([<][^>]*[>]|) component takes any XML tag into account,
-    // ex. the name color tag <color=#D09B61FF> or <Name>
-    private static readonly Regex WordsWithoutElision = new Regex(@"\b(h[^ <>]+|onz[^ <>]+)\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-    // NOTE: exception "lorsque aucun", "lorsque aucun", "lorsque avec", "lorsque <prenom>"
-    private static readonly Regex ElisionE = new Regex(@"\b([cdjlmnst]|qu|quoiqu|lorsqu)e ([<][^>]*[>]|)([aàâäæeéèêëiîïoôöœuùüûh])", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-    private static readonly Regex ElisionLa = new Regex(@"\b(l)a ([<][^>]*[>]|)([aàâäæeéèêëiîïoôöœuùüûh])", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-    private static readonly Regex ElisionSi = new Regex(@"\b(s)i (ils?)\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-    // possessive + vowel/h muet. ex. instead of "sa épée" -> "son épée", "son/sa oreille" -> "son oreille"
-    private static readonly Regex PossessiveVowel = new Regex(@"\b([mst])(on/[mst]|)a ([<][^>]*[>]|)([aàâäæeéèêëiîïoôöœuùüûh])", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-    private static readonly Regex DeLe = new Regex(@"\b(d)e ([<][^>]*[>]|)le ", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-    private static readonly Regex DeLes = new Regex(@"\b(d)e ([<][^>]*[>]|)l(es) ", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-    private static readonly Regex ALe = new Regex(@"\bà les?\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+		// TODO: french typography, add space before [:;?!]
+		// The Regex ([<][^>]*[>]|) component takes any XML tag into account,
+		// ex. the name color tag <color=#D09B61FF> or <Name>
+		private static readonly Regex WordsWithoutElision = new Regex(@"\b(h[^ <>]+|onz[^ <>]+)\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+		// NOTE: exception "lorsque aucun", "lorsque aucun", "lorsque avec", "lorsque <prenom>"
+		private static readonly Regex ElisionE = new Regex(@"\b([cdjlmnst]|qu|quoiqu|lorsqu)e ([<][^>]*[>]|)([aàâäæeéèêëiîïoôöœuùüûh])", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+		private static readonly Regex ElisionLa = new Regex(@"\b(l)a ([<][^>]*[>]|)([aàâäæeéèêëiîïoôöœuùüûh])", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+		private static readonly Regex ElisionSi = new Regex(@"\b(s)i (ils?)\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+		// possessive + vowel/h muet. ex. instead of "sa épée" -> "son épée", "son/sa oreille" -> "son oreille"
+		private static readonly Regex PossessiveVowel = new Regex(@"\b([mst])(on/[mst]|)a ([<][^>]*[>]|)([aàâäæeéèêëiîïoôöœuùüûh])", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+		private static readonly Regex DeLe = new Regex(@"\b(d)e ([<][^>]*[>]|)le ", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+		private static readonly Regex DeLes = new Regex(@"\b(d)e ([<][^>]*[>]|)l(es) ", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+		private static readonly Regex ALe = new Regex(@"\bà les?\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
-    private static string PostProcessedFrenchGrammar(string str)
-    {
-      // "[dD]e des" are generated by some rules of type "de [x_indefinite]" in plural
-      str = str.Replace(" de des ", " des ")
-        .Replace("De des ", "Des ");
+		private static string PostProcessedFrenchGrammar(string str)
+		{
+			// "[dD]e des" are generated by some rules of type "de [x_indefinite]" in plural
+			str = str.Replace(" de des ", " des ")
+				.Replace("De des ", "Des ");
 
-      str = WordsWithoutElision.Replace(str, new MatchEvaluator(ReplaceNoElision));
-      str = ElisionE.Replace(str, "$1'$2$3");
-      str = ElisionLa.Replace(str, "$1'$2$3");
-      str = ElisionSi.Replace(str, "$1'$2");
-      str = PossessiveVowel.Replace(str, "$1on $3$4");
-      str = DeLe.Replace(str, "$1u $2");
-      str = DeLes.Replace(str, "$1$3 $2");
-      str = ALe.Replace(str, new MatchEvaluator(ReplaceALe));
+			str = WordsWithoutElision.Replace(str, new MatchEvaluator(ReplaceNoElision));
+			str = ElisionE.Replace(str, "$1'$2$3");
+			str = ElisionLa.Replace(str, "$1'$2$3");
+			str = ElisionSi.Replace(str, "$1'$2");
+			str = PossessiveVowel.Replace(str, "$1on $3$4");
+			str = DeLe.Replace(str, "$1u $2");
+			str = DeLes.Replace(str, "$1$3 $2");
+			str = ALe.Replace(str, new MatchEvaluator(ReplaceALe));
 
-      return str;
-    }
+			return str;
+		}
 
-    private static string ReplaceALe(Match match) {
-      switch ( match.ToString() ) {
-        case "à le": return "au";
-        case "à les": return "aux";
-        case "\u00c0 le": return "Au";
-        case "\u00c0 les": return "Aux";
-      }
-      return match.ToString();
-    }
+		private static string ReplaceALe(Match match)
+		{
+			switch (match.ToString())
+			{
+				case "à le": return "au";
+				case "à les": return "aux";
+				case "\u00c0 le": return "Au";
+				case "\u00c0 les": return "Aux";
+			}
+			return match.ToString();
+		}
 
-    private static string ReplaceNoElision(Match match)
-    {
-      string item_raw = match.ToString();
-      string item = item_raw.ToLower();
-      foreach ( var s in Exceptions_No_Elision )
-      {
-        if (item.StartsWith(s, StringComparison.CurrentCulture))
-        {
-          // Add zero-width space to foul the elision rules
-          return ("\u200B" + item_raw);
-        }
-      }
-      return item_raw;
-    }
-  }
+		private static string ReplaceNoElision(Match match)
+		{
+			string item_raw = match.ToString();
+			string item = item_raw.ToLower();
+			foreach (var s in Exceptions_No_Elision)
+			{
+				if (item.StartsWith(s, StringComparison.CurrentCulture))
+				{
+					// Add zero-width space to foul the elision rules
+					return ("\u200B" + item_raw);
+				}
+			}
+			return item_raw;
+		}
+	}
 }
