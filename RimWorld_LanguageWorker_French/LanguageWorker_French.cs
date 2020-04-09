@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using System.Text.RegularExpressions;
 using Verse;
 
@@ -251,25 +253,58 @@ namespace RimWorld_LanguageWorker_French
     };
 
 #if DEBUG
+
+    public class Logger
+    {
+      string filename;
+      StreamWriter sw;
+
+      public Logger(string name)
+      {
+        filename = Path.Combine(Path.GetTempPath(), name);
+        sw = new StreamWriter(filename, false, Encoding.UTF8);
+      }
+
+      ~Logger()
+      {
+        sw.Close();
+      }
+
+      public void Message(string str)
+      {
+        sw.WriteLine(str);
+      }
+    }
+
+    private static Logger logNotProcessed = new Logger("PostProcessed_no.txt");
+    private static Logger logInProcessed = new Logger("PostProcessed_in.txt");
+    private static Logger logOutProcessed = new Logger("PostProcessed_out.txt");
+
+    public static Logger LogNotProcessed { get => logNotProcessed; set => logNotProcessed = value; }
+    public static Logger LogInProcessed { get => logInProcessed; set => logInProcessed = value; }
+    public static Logger LogOutProcessed { get => logOutProcessed; set => logOutProcessed = value; }
+
     // Log the translated strings only once
+    private static int hitCount = 0;
     private static List<string> loggedKeys = new List<string>();
 
     private void LogProcessedString(string original, string processed_str)
     {
       // Log all PostProcessed strings
-      if ( !loggedKeys.Contains(original) )
+      hitCount++;
+      if (!loggedKeys.Contains(original))
       {
         loggedKeys.Add(original);
         try
         {
           if (processed_str != original)
           {
-            Log.Message("PostProcessed_in : " + original, true);
-            Log.Message("PostProcessed_out: " + processed_str, true);
+            LogInProcessed.Message("PostProcessed_str: " + original);
+            LogOutProcessed.Message("PostProcessed_str: " + processed_str);
           }
           else
           {
-            Log.Message("PostProcessed_no : " + original, true);
+            LogNotProcessed.Message("PostProcessed_no(" + hitCount.ToString() + "): " + original);
           }
         }
         catch (MissingMethodException e)
@@ -279,6 +314,7 @@ namespace RimWorld_LanguageWorker_French
         }
       }
     }
+
 #endif
 
     public override string WithIndefiniteArticle(string str, Gender gender, bool plural = false, bool name = false)
