@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ItemType>GenericProject</ItemType>
+    <ProjectGuid>{9EE74833-2CC4-40C4-86C7-F5D36A347BD0}</ProjectGuid>
+    <ReleaseVersion>1.0</ReleaseVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Default|AnyCPU' ">
+    <OutputPath>.\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="About\About.xml" />
+    <None Include="Assemblies\LanguageWorkerFrench_Test.dll" />
+    <None Include="doc\LanguageInfo.xml" />
+    <None Include="README.md" />
+    <None Include="Assemblies\LanguageWorkerFrench_Test.pdb" />
+  </ItemGroup>
+</Project>
