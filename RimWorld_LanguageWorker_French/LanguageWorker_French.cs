@@ -279,13 +279,18 @@ namespace RimWorld_LanguageWorker_French
 		private static Logger logNotProcessed = new Logger("PostProcessed_no.txt");
 		private static Logger logInProcessed = new Logger("PostProcessed_in.txt");
 		private static Logger logOutProcessed = new Logger("PostProcessed_out.txt");
+		private static Logger logGraph = new Logger("PostProcessed_graph.csv");
 
 		public static Logger LogNotProcessed { get => logNotProcessed; set => logNotProcessed = value; }
 		public static Logger LogInProcessed { get => logInProcessed; set => logInProcessed = value; }
 		public static Logger LogOutProcessed { get => logOutProcessed; set => logOutProcessed = value; }
+		public static Logger LogGraph { get => logGraph; set => logGraph = value; }
 
 		// Log the translated strings only once
-		private static int hitCount = 0;
+		private static uint hitCount = 0;
+		private static uint hitProcessed = 0;
+		private static uint hitNotProcessed = 0;
+
 		private static List<string> loggedKeys = new List<string>();
 
 		private void LogProcessedString(string original, string processed_str)
@@ -299,13 +304,20 @@ namespace RimWorld_LanguageWorker_French
 				{
 					if (processed_str != original)
 					{
+						hitProcessed++;
 						LogInProcessed.Message("PostProcessed_str: " + original);
 						LogOutProcessed.Message("PostProcessed_str: " + processed_str);
 					}
 					else
 					{
+						hitNotProcessed++;
 						LogNotProcessed.Message("PostProcessed_no(" + hitCount.ToString() + "): " + original);
 					}
+					if (hitCount == 1)
+					{
+						LogGraph.Message(string.Format("loggedKeys.Count, hitCount, hitProcessed, hitNotProcessed"));
+					}
+					LogGraph.Message(string.Format("{0},{1},{2},{3}", loggedKeys.Count, hitCount, hitProcessed, hitNotProcessed));
 				}
 				catch (MissingMethodException e)
 				{
