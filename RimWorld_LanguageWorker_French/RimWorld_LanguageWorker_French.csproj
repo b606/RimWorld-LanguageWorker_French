@@ -7,8 +7,8 @@
     <ProjectGuid>{229234B3-8586-45B5-AC75-EBEAC20B7106}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LanguageWorkerFrench_Test</RootNamespace>
-    <AssemblyName>LanguageWorkerFrench_Test</AssemblyName>
+    <RootNamespace>LanguageWorker_French_Test</RootNamespace>
+    <AssemblyName>LanguageWorker_French_Test</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\LanguageWorkerFrench_Mod\Assemblies\</OutputPath>
+    <OutputPath>..\LanguageWorker_French_Mod\Assemblies</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -26,7 +26,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\LanguageWorkerFrench_Mod\Assemblies\</OutputPath>
+    <OutputPath>..\LanguageWorker_French_Mod\Assemblies</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -54,7 +54,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>cp --update -R "..\..\LanguageWorkerFrench_Mod\" "\home\$USER\.steam\steam\steamapps\common\RimWorld\Mods\"</PostBuildEvent>
+    <PostBuildEvent>cp --update -R "..\..\LanguageWorker_French_Mod\" "\home\$USER\.steam\steam\steamapps\common\RimWorld\Mods\"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
