@@ -1,5 +1,10 @@
 2020-04-11  b606  <7627533+b606@users.noreply.github.com>
 
+	* LanguageWorker_French.cs: Added stopwatch to measure
+	execution time in debug build
+
+2020-04-11  b606  <7627533+b606@users.noreply.github.com>
+
 	* LanguageWorker_French.cs: Flush Logger streamwriter before
 	closing
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -263,6 +264,7 @@ namespace RimWorld_LanguageWorker_French
 			{
 				filename = Path.Combine(Path.GetTempPath(), name);
 				sw = new StreamWriter(filename, false, Encoding.UTF8);
+				sw.AutoFlush = true;
 			}
 
 			~Logger()
@@ -294,6 +296,15 @@ namespace RimWorld_LanguageWorker_French
 
 		private static List<string> loggedKeys = new List<string>();
 
+		// Using Stopwatch (I wish I had a profiler)
+		Stopwatch stopwatch;
+
+		public static double GetMicrosecString(Stopwatch stopwatch, int numberofDigits = 1)
+		{
+			double time = stopwatch.ElapsedTicks / (double)Stopwatch.Frequency;
+			return Math.Round(1e6 * time, numberofDigits);
+		}
+
 		private void LogProcessedString(string original, string processed_str)
 		{
 			// Log all PostProcessed strings
@@ -306,13 +317,13 @@ namespace RimWorld_LanguageWorker_French
 					if (processed_str != original)
 					{
 						hitProcessed++;
-						LogInProcessed.Message("PostProcessed_str: " + original);
-						LogOutProcessed.Message("PostProcessed_str: " + processed_str);
+						LogInProcessed.Message(string.Format("PostProcessed_str:{0,6:##.0} µs:{1}", GetMicrosecString(stopwatch), original));
+						LogOutProcessed.Message(string.Format("PostProcessed_str:{0,6:##.0} µs:{1}", GetMicrosecString(stopwatch), processed_str));
 					}
 					else
 					{
 						hitNotProcessed++;
-						LogNotProcessed.Message("PostProcessed_no(" + hitCount.ToString() + "): " + original);
+						LogNotProcessed.Message(string.Format("PostProcessed_no({0}):{1,6:##.0} µs:{2}", hitCount.ToString(), GetMicrosecString(stopwatch), original));
 					}
 					if (hitCount == 1)
 					{
@@ -424,8 +435,12 @@ namespace RimWorld_LanguageWorker_French
 
 		public override string PostProcessed(string str)
 		{
+#if DEBUG
+			stopwatch = Stopwatch.StartNew();
+#endif
 			string processed_str = PostProcessedFrenchGrammar(base.PostProcessed(str));
 #if DEBUG
+			stopwatch.Stop();
 			// Log all PostProcessed strings
 			LogProcessedString(str, processed_str);
 #endif
@@ -434,8 +449,12 @@ namespace RimWorld_LanguageWorker_French
 
 		public override string PostProcessedKeyedTranslation(string translation)
 		{
+#if DEBUG
+			stopwatch = Stopwatch.StartNew();
+#endif
 			string processed_str = PostProcessedFrenchGrammar(base.PostProcessedKeyedTranslation(translation));
 #if DEBUG
+			stopwatch.Stop();
 			// Log all PostProcessedKeyedTranslation strings
 			LogProcessedString(translation, processed_str);
 #endif
