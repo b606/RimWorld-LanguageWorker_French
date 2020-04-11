@@ -267,6 +267,7 @@ namespace RimWorld_LanguageWorker_French
 
 			~Logger()
 			{
+				sw.Flush();
 				sw.Close();
 			}
 
