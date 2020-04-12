@@ -51,6 +51,8 @@
   <ItemGroup>
     <Compile Include="LanguageWorker_French.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StatsLogger.cs" />
+    <Compile Include="Logger.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

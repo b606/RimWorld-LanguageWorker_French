@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Text;
 using System.Text.RegularExpressions;
 using Verse;
 
@@ -255,89 +253,8 @@ namespace RimWorld_LanguageWorker_French
 
 #if DEBUG
 
-		public class Logger
-		{
-			string filename;
-			StreamWriter sw;
-
-			public Logger(string name)
-			{
-				filename = Path.Combine(Path.GetTempPath(), name);
-				sw = new StreamWriter(filename, false, Encoding.UTF8);
-				sw.AutoFlush = true;
-			}
-
-			~Logger()
-			{
-				sw.Flush();
-				sw.Close();
-			}
-
-			public void Message(string str)
-			{
-				sw.WriteLine(str);
-			}
-		}
-
-		private static Logger logNotProcessed = new Logger("PostProcessed_no.txt");
-		private static Logger logInProcessed = new Logger("PostProcessed_in.txt");
-		private static Logger logOutProcessed = new Logger("PostProcessed_out.txt");
-		private static Logger logGraph = new Logger("PostProcessed_graph.csv");
-
-		public static Logger LogNotProcessed { get => logNotProcessed; set => logNotProcessed = value; }
-		public static Logger LogInProcessed { get => logInProcessed; set => logInProcessed = value; }
-		public static Logger LogOutProcessed { get => logOutProcessed; set => logOutProcessed = value; }
-		public static Logger LogGraph { get => logGraph; set => logGraph = value; }
-
-		// Log the translated strings only once
-		private static uint hitCount = 0;
-		private static uint hitProcessed = 0;
-		private static uint hitNotProcessed = 0;
-
-		private static List<string> loggedKeys = new List<string>();
-
-		// Using Stopwatch (I wish I had a profiler)
-		Stopwatch stopwatch;
-
-		public static double GetMicrosecString(Stopwatch stopwatch, int numberofDigits = 1)
-		{
-			double time = stopwatch.ElapsedTicks / (double)Stopwatch.Frequency;
-			return Math.Round(1e6 * time, numberofDigits);
-		}
-
-		private void LogProcessedString(string original, string processed_str)
-		{
-			// Log all PostProcessed strings
-			hitCount++;
-			if (!loggedKeys.Contains(original))
-			{
-				loggedKeys.Add(original);
-				try
-				{
-					if (processed_str != original)
-					{
-						hitProcessed++;
-						LogInProcessed.Message(string.Format("PostProcessed_str:{0,6:##.0} µs:{1}", GetMicrosecString(stopwatch), original));
-						LogOutProcessed.Message(string.Format("PostProcessed_str:{0,6:##.0} µs:{1}", GetMicrosecString(stopwatch), processed_str));
-					}
-					else
-					{
-						hitNotProcessed++;
-						LogNotProcessed.Message(string.Format("PostProcessed_no({0}):{1,6:##.0} µs:{2}", hitCount.ToString(), GetMicrosecString(stopwatch), original));
-					}
-					if (hitCount == 1)
-					{
-						LogGraph.Message(string.Format("loggedKeys.Count, hitCount, hitProcessed, hitNotProcessed"));
-					}
-					LogGraph.Message(string.Format("{0},{1},{2},{3}", loggedKeys.Count, hitCount, hitProcessed, hitNotProcessed));
-				}
-				catch (MissingMethodException e)
-				{
-					// Unit test does not initialize Verse.Log for some reason
-					Console.WriteLine("Log.Message: {0}", e.Message);
-				}
-			}
-		}
+		private StatsLogger logStats = new StatsLogger();
+		public StatsLogger LogStats { get => logStats; set => logStats = value; }
 
 #endif
 
@@ -436,13 +353,11 @@ namespace RimWorld_LanguageWorker_French
 		public override string PostProcessed(string str)
 		{
 #if DEBUG
-			stopwatch = Stopwatch.StartNew();
+			LogStats.StartLogging(new StackTrace());
 #endif
 			string processed_str = PostProcessedFrenchGrammar(base.PostProcessed(str));
 #if DEBUG
-			stopwatch.Stop();
-			// Log all PostProcessed strings
-			LogProcessedString(str, processed_str);
+			LogStats.StopLogging(str, processed_str);
 #endif
 			return processed_str;
 		}
@@ -450,13 +365,11 @@ namespace RimWorld_LanguageWorker_French
 		public override string PostProcessedKeyedTranslation(string translation)
 		{
 #if DEBUG
-			stopwatch = Stopwatch.StartNew();
+			LogStats.StartLogging(new StackTrace());
 #endif
 			string processed_str = PostProcessedFrenchGrammar(base.PostProcessedKeyedTranslation(translation));
 #if DEBUG
-			stopwatch.Stop();
-			// Log all PostProcessedKeyedTranslation strings
-			LogProcessedString(translation, processed_str);
+			LogStats.StopLogging(translation, processed_str);
 #endif
 			return processed_str;
 		}

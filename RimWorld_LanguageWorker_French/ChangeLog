@@ -1,3 +1,18 @@
+2020-04-12  b606  <7627533+b606@users.noreply.github.com>
+
+	* LanguageWorker_French.cs: Moved debug instrumentation
+	classes out of main class.
+
+	* RimWorld_LanguageWorker_French.csproj: Added two debug
+	instrumentation classes
+
+	* Logger.cs: for files IO in the temporary folder.
+
+	* StatsLogger.cs: handles all the profiling logics. Added
+	custom caller methods stats and processed strings stats to
+	detect where to improve. Processed strings show hit counts and
+	process times per string.
+
 2020-04-11  b606  <7627533+b606@users.noreply.github.com>
 
 	* LanguageWorker_French.cs: Added stopwatch to measure
