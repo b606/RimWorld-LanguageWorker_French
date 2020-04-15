@@ -1,3 +1,9 @@
+2020-04-15  b606  <7627533+b606@users.noreply.github.com>
+
+	* StatsLogger.cs: More complete and ready to use graph data.
+	All strings stats are dumped in one CSV table. The call graph
+	is generated in DOT file.
+
 2020-04-12  b606  <7627533+b606@users.noreply.github.com>
 
 	* LanguageWorker_French.cs: Moved debug instrumentation
