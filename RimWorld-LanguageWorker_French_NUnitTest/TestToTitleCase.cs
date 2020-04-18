@@ -27,6 +27,9 @@ namespace RimWorldLanguageWorker_French_NUnitTest
 			template = "charles de gaulle";
 			Assert.AreEqual("Charles de Gaulle", _lw.ToTitleCasePawnName(template));
 
+			template = "charles De gaulle";
+			Assert.AreEqual("Charles de Gaulle", _lw.ToTitleCasePawnName(template));
+
 			template = "de gaulle";
 			Assert.AreEqual("De Gaulle", _lw.ToTitleCasePawnName(template));
 

@@ -9,6 +9,7 @@ namespace RimWorld_LanguageWorker_French
 {
 	public class LanguageWorker_French : LanguageWorker
 	{
+		#region IResolver Support
 		private interface IResolver
 		{
 			string Resolve(string[] arguments);
@@ -178,6 +179,7 @@ namespace RimWorld_LanguageWorker_French
 		{
 			return PostProcessResolver(str);
 		}
+		#endregion
 
 		// in plural, replace "ail" with "aux"
 		private static readonly List<string> Exceptions_Plural_aux = new List<string> {
@@ -386,7 +388,7 @@ namespace RimWorld_LanguageWorker_French
 		// by default if from tribal words.
 		public string ToTitleCasePawnName(string str)
 		{
-			LogStats.StartLogging(new StackTrace());
+			//LogStats.StartLogging(new StackTrace());
 			if (str.NullOrEmpty())
 				return str;
 
@@ -395,8 +397,11 @@ namespace RimWorld_LanguageWorker_French
 			{
 				string str2 = array[i];
 				// Check if uppercase is needed, the first word is always capitalized.
-				if ((i > 0) && NonUppercaseWords.Contains(str2))
+				if ((i > 0) && NonUppercaseWords.Contains(str2.ToLower()))
+				{
+					array[i] = str2.ToLower();
 					continue;
+				}
 
 				// Capitalize word: skip "'", "d'" and "l'"
 				char first = str2[0];
@@ -431,7 +436,7 @@ namespace RimWorld_LanguageWorker_French
 			}
 			string processed_str = string.Join(" ", array);
 
-			LogStats.StopLogging(str, processed_str);
+			//LogStats.StopLogging(str, processed_str);
 			return processed_str;
 		}
 
