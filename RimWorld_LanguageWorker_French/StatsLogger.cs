@@ -18,13 +18,15 @@ namespace RimWorld_LanguageWorker_French
 			string name;
 			int count = 0;
 			double time = 0.0;
+			string context = "";
 
 			// record the calling graph
 			List<CallerStats> calledMethods = new List<CallerStats>();
 
-			public CallerStats(string aname)
+			public CallerStats(string aname, string acontext)
 			{
 				name = aname;
+				context = acontext;
 				// unique id
 				id = next_id;
 				next_id++;
@@ -51,16 +53,17 @@ namespace RimWorld_LanguageWorker_French
 
 			public string ToStringCount()
 			{
-				return string.Format("{0}, {1:##.000} ms", Count, Time_ms());
+				return string.Format("{0}, {1}, {2:##.000} ms", context, Count, Time_ms());
 			}
 
 			// Graphviz dot string
-			private const string NodeFormat = "{0} [shape=record label=\"{1}|{{{2} hits|{3:##.000} ms}}\"]";
+			private const string NodeFormat = "{0} [shape=record label=\"{1}|" +
+				"{{{2}|{3} hits|{4:##.0} µs avg|{5:##.000} ms}}\"]";
 			public string ToGraphvizNode()
 			{
 				return string.Format(NodeFormat, NodeId(),
-					Name.Replace("(", "(\\l  ").Replace(", ","\\l  ").Replace(")", "\\l)\\l ").ReplaceFirst(" ","\\l"),
-					Count, Time_ms());
+					Name.Replace("(", "(\\l  ").Replace(", ", "\\l  ").Replace(")", "\\l)\\l ").ReplaceFirst(" ", "\\l"),
+					context, Count, Time / Count, Time_ms());
 			}
 
 			private const string EdgeFormat = "{0} -> {1}";
@@ -95,6 +98,8 @@ namespace RimWorld_LanguageWorker_French
 			uint hits = 0;
 			bool processed = false;
 			double totalTime = 0.0;
+			string context;
+
 			// record call history
 			uint index;                   // serial id of this unique string
 			uint history_hitCount;        // number of calls
@@ -103,13 +108,14 @@ namespace RimWorld_LanguageWorker_French
 
 			List<double> processTime = new List<double>();
 
-			public StringStats(string atranslated, uint ahit, double time, bool aprocessed)
+			public StringStats(string atranslated, uint ahit, double time, bool aprocessed, string acontext)
 			{
 				translated = atranslated;
 				hits = ahit;
 				processTime.Add(time);
 				totalTime = time;
 				processed = aprocessed;
+				context = acontext;
 				// string call history (static counters)
 				index = next_index;
 				next_index++;
@@ -131,13 +137,14 @@ namespace RimWorld_LanguageWorker_French
 				totalTime += time;
 			}
 
-			private const string ToStringFormat = "{0}\nchanged({1}):length({2}):hit({3}):time:min {4:##.000} µs, avg {5:##.000} µs, max {6:##.000} µs, total {7:##.000} µs";
+			private const string ToStringFormat = "{0}\ncontext({1}):changed({2}):length({3}):hit({4}):" +
+				"time:min {5:##.000} µs, avg {6:##.000} µs, max {7:##.000} µs, total {8:##.000} µs";
 			public override string ToString()
 			{
 				// dump readable string with the string translated
 				return string.Format(
 					ToStringFormat,
-					translated, processed, translated.Length, hits,
+					translated, context, processed, translated.Length, hits,
 					processTime.Min(), processTime.Average(), processTime.Max(), totalTime
 				//string.Join(",", processTime)
 				);
@@ -147,17 +154,19 @@ namespace RimWorld_LanguageWorker_French
 			{
 				// dump a line of data heaeder in csv format
 				return "index,hitCount,hitProcessed,hitNotProcessed," +
-					"changed,length,hits,minTime,avgTime,maxTime,totalTime";
+					"context,changed,length,hits,minTime,avgTime,maxTime,totalTime";
 			}
 
-			private const string ToGraphStringFormat = "{0},{1},{2},{3},{4},{5},{6},{7:##.000},{8:##.000},{9:##.000},{10:##.000}";
+			private const string ToGraphStringFormat = "{0},{1},{2},{3}," +
+				"{4},{5},{6},{7}" +
+				"{8:##.000},{9:##.000},{10:##.000},{11:##.000}";
 			public string ToGraphString()
 			{
 				// dump a line of data in csv format
 				return string.Format(
 					ToGraphStringFormat,
 					index, history_hitCount, history_hitProcessed, history_hitNotProcessed,
-					processed, translated.Length, hits,
+					context, processed, translated.Length, hits,
 					processTime.Min(), processTime.Average(), processTime.Max(), totalTime
 				);
 			}
@@ -173,11 +182,6 @@ namespace RimWorld_LanguageWorker_French
 		private static Logger logOutProcessed = new Logger("PostProcessed_out.txt");
 		private static Logger logStats = new Logger("PostProcessed_stats.txt");
 
-		public static Logger LogNotProcessed { get => logNotProcessed; set => logNotProcessed = value; }
-		public static Logger LogInProcessed { get => logInProcessed; set => logInProcessed = value; }
-		public static Logger LogOutProcessed { get => logOutProcessed; set => logOutProcessed = value; }
-		public static Logger LogStats { get => logStats; set => logStats = value; }
-
 		// Log the translated strings only once, count the hits
 		private static uint hitCount = 0;       // number of calls
 		private static uint hitProcessed = 0;   // number of calls with processed strings
@@ -187,6 +191,17 @@ namespace RimWorld_LanguageWorker_French
 		// Unreliable time measure
 		Stopwatch stopwatch;
 		StackTrace currentCallStack;
+
+		// Split the stats into context.
+		// Default: name of method where call stack was generated in StartLogging.
+		string context = "";
+
+		// Encapsulations
+		public static Logger LogNotProcessed { get => logNotProcessed; set => logNotProcessed = value; }
+		public static Logger LogInProcessed { get => logInProcessed; set => logInProcessed = value; }
+		public static Logger LogOutProcessed { get => logOutProcessed; set => logOutProcessed = value; }
+		public static Logger LogStats { get => logStats; set => logStats = value; }
+		public string Context { get => context; set => context = value; }
 
 		internal static double GetMicroseconds(Stopwatch stopwatch, int numberofDigits = 1)
 		{
@@ -199,25 +214,34 @@ namespace RimWorld_LanguageWorker_French
 			// Count all calls
 			hitCount++;
 			overallTime += elapsed;
+			string myKey = Context + original;
 
 			// Log all PostProcessed strings
-			if (!loggedKeys.Exists(p => p.Key == original))
+			if (!loggedKeys.Exists(p => p.Key == myKey))
 			{
-				// Add new StringStats
-				StringStats value = new StringStats(processed_str, 1, elapsed, processed_str != original);
-				loggedKeys.Add(new KeyValuePair<string, StringStats>(original, value));
+				// Add new StringStats with the call context
+				StringStats value = new StringStats(processed_str, 1, elapsed,
+					processed_str != original, Context);
+
+				loggedKeys.Add(new KeyValuePair<string, StringStats>(myKey, value));
 				try
 				{
 					if (processed_str != original)
 					{
 						hitProcessed++;
-						LogInProcessed.Message(string.Format("PostProcessed_str:{0,6:##.0} µs:{1}", elapsed, original));
-						LogOutProcessed.Message(string.Format("PostProcessed_str:{0,6:##.0} µs:{1}", elapsed, processed_str));
+						LogInProcessed.Message(
+							string.Format("PostProcessed_str[{0}]:{1,6:##.0} µs:{2}",
+							Context, elapsed, original));
+						LogOutProcessed.Message(
+							string.Format("PostProcessed_str[{0}]:{1,6:##.0} µs:{2}",
+							Context, elapsed, processed_str));
 					}
 					else
 					{
 						hitNotProcessed++;
-						LogNotProcessed.Message(string.Format("PostProcessed_no({0}):{1,6:##.0} µs:{2}", hitCount.ToString(), elapsed, original));
+						LogNotProcessed.Message(
+							string.Format("PostProcessed_no[{0}]:{1} hits:{2,6:##.0} µs:{3}",
+							Context, hitCount.ToString(), elapsed, original));
 					}
 				}
 				catch (MissingMethodException e)
@@ -229,7 +253,7 @@ namespace RimWorld_LanguageWorker_French
 			else
 			{
 				// Update StringStats
-				int hitIndex = loggedKeys.FirstIndexOf(p => p.Key == original);
+				int hitIndex = loggedKeys.FirstIndexOf(p => p.Key == myKey);
 				KeyValuePair<string, StringStats> currentStats = loggedKeys[hitIndex];
 				currentStats.Value.Increment(elapsed);
 				loggedKeys[hitIndex] = currentStats;
@@ -239,7 +263,8 @@ namespace RimWorld_LanguageWorker_French
 		internal void LogCallStack(string original, StackTrace callStack, double elapsed)
 		{
 			int hitIndex;
-			if (!loggedKeys.Exists(p => p.Key == original))
+			string myKey = Context + original;
+			if (!loggedKeys.Exists(p => p.Key == myKey))
 			{
 				// Use loggedKeys.Count as index, string stats will be updated later
 				hitIndex = loggedKeys.Count;
@@ -250,16 +275,17 @@ namespace RimWorld_LanguageWorker_French
 				{
 					StackFrame frame = callStack.GetFrame(i);
 					MethodBase method = frame.GetMethod();
-					// TODO: modify key for the dot graph
-					string key = method.ToString();
+					// TODO: modify key for the dot graph if needed
+					// string key = Context + method.ToString();
+					string key = Context + method.ToString();
 					CallerStats stats;
 
 					callers.TryGetValue(key, out stats);
 					if (stats == null)
-						stats = new CallerStats(method.ToString());
+						stats = new CallerStats(method.ToString(), Context);
 					stats.Increment(elapsed, ref previous);
 					callers.SetOrAdd(key, stats);
-					LogStats.Message("[" + i + "]" + key);
+					LogStats.Message("[" + i + "](" + Context + ")" + method.ToString());
 
 					// record the calling graph
 					previous = stats;
@@ -268,12 +294,19 @@ namespace RimWorld_LanguageWorker_French
 			}
 		}
 
-		internal void StartLogging(StackTrace callStack)
+		[Conditional("DEBUG")]
+		internal void StartLogging(StackTrace callStack, string acontext = null)
 		{
 			currentCallStack = callStack;
+			// Default context set to the called method on top of the stack
+			if (acontext == null)
+				Context = callStack.GetFrame(0).GetMethod().Name;
+			else
+				Context = acontext;
 			stopwatch = Stopwatch.StartNew();
 		}
 
+		[Conditional("DEBUG")]
 		internal void StopLogging(string original, string processed_str)
 		{
 			stopwatch.Stop();
@@ -337,7 +370,6 @@ namespace RimWorld_LanguageWorker_French
 				foreach (KeyValuePair<string, StringStats> pairs in loggedKeys)
 				{
 					logStrStatsSummary.Message("[" + i + "]:" + pairs.Value.ToString());
-
 					logGraphSummary.Message(pairs.Value.ToGraphString());
 					i++;
 				}

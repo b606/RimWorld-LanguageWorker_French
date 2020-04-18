@@ -1,3 +1,20 @@
+2020-04-18  b606  <7627533+b606@users.noreply.github.com>
+
+	* LanguageWorker_French.cs: Fix: Last name in NameTriple was
+	not capitalized if from tribal words. Added ToTitleCase() for
+	pawn names.
+	NB: There are different semantic contexts for ToTitleCase().
+	A temporary solution using System.Reflection is used to detect
+	these, waiting for an integration of the methods in the
+	LangagueWorker base class.
+
+	* StatsLogger.cs: Generated stats are split according to the
+	debug contexts.
+
+	* StringExtension.cs: String extenstion helper: capitalize
+	sub-words inside hyphenated ones for ToTitleCase() (cf class
+	Verse.GenText.)
+
 2020-04-15  b606  <7627533+b606@users.noreply.github.com>
 
 	* StatsLogger.cs: More complete and ready to use graph data.

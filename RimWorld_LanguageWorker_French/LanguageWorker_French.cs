@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using Verse;
 
@@ -251,6 +252,31 @@ namespace RimWorld_LanguageWorker_French
 			"onz" // , "onze", "onzième"
     };
 
+		// For ToTitleCase: No uppercase if in the middle of the string
+		private static HashSet<string> NonUppercaseWords = new HashSet<string>
+		{
+			"à", // "à la",
+			"au",
+			"avec",
+			"de", // "de la",
+			"des",
+			"du",
+			"en",
+			"et",
+			"lez",
+			"par",
+			"pour",
+			"sur", // "sur le", "sur la",
+			"vers",
+			"van",
+			"von"
+		};
+
+		// "un", "une" pas de capitaisation après
+
+		private static Logger logLanguageWorkerIn = new Logger("LanguageWorkerIn.log");
+		private static Logger logLanguageWorkerOut = new Logger("LanguageWorkerOut.log");
+
 #if DEBUG
 
 		private StatsLogger logStats = new StatsLogger();
@@ -302,10 +328,150 @@ namespace RimWorld_LanguageWorker_French
 			return number == 1 ? number + "er" : number + "e";
 		}
 
+		/*
+				public static string CapitalizeFirst(this string str)
+				{
+					if (str.NullOrEmpty())
+					{
+						return str;
+					}
+					if (char.IsUpper(str[0]))
+					{
+						return str;
+					}
+					if (str.Length == 1)
+					{
+						return str.ToUpper();
+					}
+					int num = str.FirstLetterBetweenTags();
+					char c;
+					if (num == 0)
+					{
+						c = char.ToUpper(str[num]);
+						return c.ToString() + str.Substring(num + 1);
+					}
+					string str2 = str.Substring(0, num);
+					c = char.ToUpper(str[num]);
+					return str2 + c.ToString() + str.Substring(num + 1);
+				}
+
+				public static int FirstLetterBetweenTags(this string str)
+				{
+					int num = 0;
+					if (str[num] == '<' && str.IndexOf('>') > num && num < str.Length - 1 && str[num + 1] != '/')
+					{
+						num = str.IndexOf('>') + 1;
+					}
+					return num;
+				}
+		*/
+
+		// Detect if called from Verse.Name GeneratePawnName
+		bool IsPawnName(StackTrace callStack)
+		{
+			// Verse.Name GeneratePawnName(Verse.Pawn, RimWorld.NameStyle, System.String)
+			for (int i = 0; i < callStack.FrameCount; i++)
+			{
+				StackFrame frame = callStack.GetFrame(i);
+				MethodBase method = frame.GetMethod();
+				// TODO: modify key for the dot graph
+				if (method.Name == "GeneratePawnName")
+					return true;
+			}
+			return false;
+		}
+
+		// For pawn names
+		// N0TE: last name in NameTriple is not capitaized
+		// by default if from tribal words.
+		public string ToTitleCasePawnName(string str)
+		{
+			LogStats.StartLogging(new StackTrace());
+			if (str.NullOrEmpty())
+				return str;
+
+			string[] array = str.MergeMultipleSpaces(leaveMultipleSpacesAtLineBeginning: false).Trim().Split(' ');
+			for (int i = 0; i < array.Length; i++)
+			{
+				string str2 = array[i];
+				// Check if uppercase is needed, the first word is always capitalized.
+				if ((i > 0) && NonUppercaseWords.Contains(str2))
+					continue;
+
+				// Capitalize word: skip "'", "d'" and "l'"
+				char first = str2[0];
+				switch (first)
+				{
+					case '\'':
+						array[i] = "'" + str2.Substring(1).CapitalizeFirst();
+						break;
+					default:
+						if (str2.Length == 2)
+						{
+							array[i] = str2.CapitalizeFirst();
+							break;
+						}
+
+						if (str2.StartsWith("d'", StringComparison.CurrentCulture)
+							|| str2.StartsWith("D'", StringComparison.CurrentCulture)
+							|| str2.StartsWith("l'", StringComparison.CurrentCulture)
+							|| str2.StartsWith("L'", StringComparison.CurrentCulture))
+						{
+							// First word always capitalized
+							array[i] = ((i == 0) ? str2[0].ToString().ToUpper() : str2[0].ToString().ToLower()) +
+												"'" + str2.Substring(2).CapitalizeHyphenated();
+						}
+						else
+						{
+							// default rule
+							array[i] = str2.CapitalizeHyphenated();
+						}
+						break;
+				}
+			}
+			string processed_str = string.Join(" ", array);
+
+			LogStats.StopLogging(str, processed_str);
+			return processed_str;
+		}
+
+		public string ToTitleCaseOther(string str)
+		{
+			LogStats.StartLogging(new StackTrace());
+			if (str.NullOrEmpty())
+				return str;
+
+			int num = str.FirstLetterBetweenTags();
+			string str2 = (num == 0) ? str[num].ToString().ToUpper() : (str.Substring(0, num) + char.ToUpper(str[num]));
+			string processed_str = str2 + str.Substring(num + 1);
+
+			LogStats.StopLogging(str, processed_str);
+			return processed_str;
+		}
+
 		public override string ToTitleCase(string str)
 		{
 			// FIXME: capitalize only the first word of the title (see Quest title and artwork.)
-			return str;
+			if (str.NullOrEmpty())
+				return str;
+
+			StackTrace callStack = new StackTrace();
+			bool isPawnName = IsPawnName(callStack);
+
+			logLanguageWorkerIn.Message("ToTitleCase(" + isPawnName + "): " + str);
+			string processed_str;
+
+			if (isPawnName)
+			{
+				processed_str = ToTitleCasePawnName(str);
+			}
+			else
+			{
+				processed_str = ToTitleCaseOther(str);
+			}
+			logLanguageWorkerOut.Message("ToTitleCase(" + isPawnName + "): " + processed_str);
+
+			return processed_str;
 		}
 
 		public override string Pluralize(string str, Gender gender, int count = -1)
@@ -352,25 +518,17 @@ namespace RimWorld_LanguageWorker_French
 
 		public override string PostProcessed(string str)
 		{
-#if DEBUG
-			LogStats.StartLogging(new StackTrace());
-#endif
+			//LogStats.StartLogging(new StackTrace());
 			string processed_str = PostProcessedFrenchGrammar(base.PostProcessed(str));
-#if DEBUG
-			LogStats.StopLogging(str, processed_str);
-#endif
+			//LogStats.StopLogging(str, processed_str);
 			return processed_str;
 		}
 
 		public override string PostProcessedKeyedTranslation(string translation)
 		{
-#if DEBUG
-			LogStats.StartLogging(new StackTrace());
-#endif
+			//LogStats.StartLogging(new StackTrace());
 			string processed_str = PostProcessedFrenchGrammar(base.PostProcessedKeyedTranslation(translation));
-#if DEBUG
-			LogStats.StopLogging(translation, processed_str);
-#endif
+			//LogStats.StopLogging(translation, processed_str);
 			return processed_str;
 		}
 

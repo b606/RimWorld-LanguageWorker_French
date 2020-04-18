@@ -1,0 +1,7 @@
+2020-04-18  b606  <7627533+b606@users.noreply.github.com>
+
+	* RimWorld-LanguageWorker_French_NUnitTest.csproj: Added
+	ToTitleCasePawnName tests
+
+	* TestToTitleCase.cs: Added ToTitleCasePawnName tests.
+
