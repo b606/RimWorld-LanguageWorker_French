@@ -403,12 +403,12 @@ namespace RimWorld_LanguageWorker_French
 				switch (first)
 				{
 					case '\'':
-						array[i] = "'" + str2.Substring(1).CapitalizeFirst();
+						array[i] = "'" + str2.Substring(1).CapitalizeHyphenated();
 						break;
 					default:
 						if (str2.Length == 2)
 						{
-							array[i] = str2.CapitalizeFirst();
+							array[i] = str2.CapitalizeHyphenated();
 							break;
 						}
 
