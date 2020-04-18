@@ -7,7 +7,7 @@
     <ProjectGuid>{229234B3-8586-45B5-AC75-EBEAC20B7106}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LanguageWorker_French_Test</RootNamespace>
+    <RootNamespace>RimWorld_LanguageWorker_French</RootNamespace>
     <AssemblyName>LanguageWorker_French_Test</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
