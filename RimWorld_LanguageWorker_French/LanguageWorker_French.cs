@@ -182,7 +182,7 @@ namespace RimWorld_LanguageWorker_French
 		#endregion
 
 		// in plural, replace "ail" with "aux"
-		private static readonly List<string> Exceptions_Plural_aux = new List<string> {
+		private static readonly HashSet<string> Exceptions_Plural_aux = new HashSet<string> {
 			"bail",
 			"corail",
 			"émail",
@@ -194,7 +194,7 @@ namespace RimWorld_LanguageWorker_French
 		};
 
 		// lieu (fish) takes an "s", but does not exist in RimWorld
-		private static readonly List<string> Exceptions_Plural_s = new List<string> {
+		private static readonly HashSet<string> Exceptions_Plural_s = new HashSet<string> {
 			"bleu",
 			"émeu",
 			"landau",
@@ -208,7 +208,7 @@ namespace RimWorld_LanguageWorker_French
 		};
 
 		// lieu (area) takes an "x", it exists in RimWorld (ex. lieu d'assemblage-crafting spot)
-		private static readonly List<string> Exceptions_Plural_x = new List<string> {
+		private static readonly HashSet<string> Exceptions_Plural_x = new HashSet<string> {
 			"bijou",
 			"caillou",
 			"chou",
@@ -221,7 +221,7 @@ namespace RimWorld_LanguageWorker_French
 
 		// Words with aspirated h do not get elision (list only words in RimWorld)
 		// Added no elision to "onze", "onzième" -- do not appear in RiWorld yet)
-		private static readonly List<string> Exceptions_No_Elision = new List<string> {
+		private static readonly HashSet<string> Exceptions_No_Elision = new HashSet<string> {
 			"hache",
 			"hack",
 			"haine",
