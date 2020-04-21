@@ -1,3 +1,19 @@
+2020-04-21  b606  <7627533+b606@users.noreply.github.com>
+
+	* LanguageWorker_French.cs: Renamed ToTitleCasePawnName to
+	ToTitleCaseProperName, and added two other categories:
+	ToTitleCaseOtherName (for trader ships and faction names),
+	ToTitleCaseOther (for generic titles: quest scripts titles
+	mostly).
+	The different types of names and titles are hacked from the
+	callstack and logged in debug mode for verification. List of
+	semantic contexts : QuestName, PawnName, SettlementName,
+	WorldFeatureName, FactionName, ArtName, OtherName, OtherTitle.
+
+	* StatsLogger.cs: class CallerStats now records the
+	method.DeclaringType. The Hashkey uses the user-defined string
+	and the method name.
+
 2020-04-18  b606  <7627533+b606@users.noreply.github.com>
 
 	* LanguageWorker_French.cs: Fix: Last name in NameTriple was

@@ -14,6 +14,7 @@
     <None Include="README.md" />
     <None Include="Assemblies\LanguageWorker_French_Test.dll" />
     <None Include="Assemblies\LanguageWorker_French_Test.pdb" />
+    <None Include="doc\TestReport.html" />
   </ItemGroup>
   <ExcludedFiles>
     <File>LanguageWorker_French_Mod.mdproj</File>

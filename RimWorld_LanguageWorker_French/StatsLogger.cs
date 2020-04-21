@@ -16,6 +16,7 @@ namespace RimWorld_LanguageWorker_French
 			static int next_id = 0;
 			int id;
 			string name;
+			string declaringType;
 			int count = 0;
 			double time = 0.0;
 			string context = "";
@@ -23,9 +24,17 @@ namespace RimWorld_LanguageWorker_French
 			// record the calling graph
 			List<CallerStats> calledMethods = new List<CallerStats>();
 
-			public CallerStats(string aname, string acontext)
+			// define a key based on the context
+			public static string HashKey(MethodBase method, string acontext)
 			{
-				name = aname;
+				return acontext + method.ToString();
+			}
+
+			// ctor
+			public CallerStats(MethodBase method, string acontext)
+			{
+				name = method.ToString();
+				declaringType = method.DeclaringType.ToString();
 				context = acontext;
 				// unique id
 				id = next_id;
@@ -57,12 +66,13 @@ namespace RimWorld_LanguageWorker_French
 			}
 
 			// Graphviz dot string
-			private const string NodeFormat = "{0} [shape=record label=\"{1}|" +
-				"{{{2}|{3} hits|{4:##.0} µs avg|{5:##.000} ms}}\"]";
+			private const string NodeFormat = "{0} [shape=record label=\"{{{1}|{2}}}|" +
+				"{{{3}|{4} hits|{5:##.0} µs avg|{6:##.000} ms}}\"]";
 			public string ToGraphvizNode()
 			{
 				return string.Format(NodeFormat, NodeId(),
-					Name.Replace("(", "(\\l  ").Replace(", ", "\\l  ").Replace(")", "\\l)\\l ").ReplaceFirst(" ", "\\l"),
+					declaringType,
+					Name.Replace("(", "(\\l  ").Replace(", ", ",\\l  ").Replace(")", "\\l)\\l ").ReplaceFirst(" ", "\\l"),
 					context, Count, Time / Count, Time_ms());
 			}
 
@@ -275,14 +285,12 @@ namespace RimWorld_LanguageWorker_French
 				{
 					StackFrame frame = callStack.GetFrame(i);
 					MethodBase method = frame.GetMethod();
-					// TODO: modify key for the dot graph if needed
-					// string key = Context + method.ToString();
-					string key = Context + method.ToString();
+					string key = CallerStats.HashKey(method, Context);
 					CallerStats stats;
 
 					callers.TryGetValue(key, out stats);
 					if (stats == null)
-						stats = new CallerStats(method.ToString(), Context);
+						stats = new CallerStats(method, Context);
 					stats.Increment(elapsed, ref previous);
 					callers.SetOrAdd(key, stats);
 					LogStats.Message("[" + i + "](" + Context + ")" + method.ToString());

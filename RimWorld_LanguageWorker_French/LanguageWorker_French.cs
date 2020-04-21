@@ -289,6 +289,86 @@ namespace RimWorld_LanguageWorker_French
 		private StatsLogger logStats = new StatsLogger();
 		public StatsLogger LogStats { get => logStats; set => logStats = value; }
 
+		/// <summary>
+		/// Temporary hacks:
+		/// Ensure that the correct frame indices are used to to detect the string categories.
+		/// Scan the callStack of ToTitleCase once during Debug and assert that
+		/// the released functions bool Is*Name() use these indices.
+		/// If not, the game code has changed.
+		/// </summary>
+		/// <returns>List of frame indices of the detected methods</returns>
+		/// <param name="callStack">Call stack.</param>
+		//NOTE: verified for version up to 1.1.2609 rev633
+		[Conditional("DEBUG")]
+		void Debug_NameCategory_StackFrame(StackTrace callStack)
+		{
+			bool detectedPawnName = false;
+			bool detectedGenerateName = false;
+
+			for (int i = 0; i < callStack.FrameCount; i++)
+			{
+				StackFrame frame = callStack.GetFrame(i);
+				MethodBase method = frame.GetMethod();
+
+				// Detect if called from PawnBioAndNameGenerator.GeneratePawnName
+				// bool IsPawnName() uses callStack.GetFrame(4) or callStack.GetFrame(5)
+				if ((method.Name == "GeneratePawnName")
+					&& method.DeclaringType.Equals(typeof(RimWorld.PawnBioAndNameGenerator)))
+				{
+					Debug.Assert((!detectedPawnName && i == 4)
+							|| (detectedPawnName && i == 5));
+					if (i == 4) { detectedPawnName = true; }
+				}
+
+				// Detect if called from  RimWorld.Planet.SettlementNameGenerator GenerateSettlementName
+				// bool IsSettlementName() uses callStack.GetFrame(5)
+				if (method.Name == "GenerateSettlementName")
+				{
+					Debug.Assert(i == 5);
+				}
+
+				// Detect if called from RimWorld.FeatureWorker AddFeature (WorldFeature names)
+				// bool IsWorldFeatureName() uses callStack.GetFrame(5)
+				if (method.Name == "AddFeature")
+				{
+					Debug.Assert(i == 5);
+				}
+
+				// Detect if called from RimWorld.FactionGenerator RimWorld.Faction NewGeneratedFaction
+				// bool IsFactionName() uses callStack.GetFrame(5)
+				if (method.Name == "NewGeneratedFaction")
+				{
+					Debug.Assert(i == 5);
+				}
+
+				// Detect if called from RimWorld.QuestGen.QuestNode_ResolveQuestName GenerateName
+				// Need to test the DeclaringType
+				// bool IsQuestName() uses callStack.GetFrame(3)
+				if ((method.Name == "GenerateName")
+					&& method.DeclaringType.Equals(typeof(RimWorld.QuestGen.QuestNode_ResolveQuestName)))
+				{
+					Debug.Assert(i == 3);
+				}
+
+				// Detect if called from RimWorld.CompArt GenerateTitle
+				// bool IsArtName() uses callStack.GetFrame(2)
+				if ((method.Name == "GenerateTitle")
+					&& method.DeclaringType.Equals(typeof(RimWorld.CompArt)))
+				{
+					Debug.Assert(i == 2);
+				}
+
+				// Detect if called from RimWorld.NameGenerator GenerateName(Verse.Grammar.GrammarRequest,...)
+				// Misleading: detect other types of names first.
+				// bool IsName() uses callStack.GetFrame(2)
+				if (method.Name == "GenerateName")
+				{
+					Debug.Assert(!detectedGenerateName && i == 2);
+					if (i == 2) { detectedGenerateName = true; }
+				}
+			}
+		}
+
 #endif
 
 		public override string WithIndefiniteArticle(string str, Gender gender, bool plural = false, bool name = false)
@@ -335,31 +415,102 @@ namespace RimWorld_LanguageWorker_French
 			return number == 1 ? number + "er" : number + "e";
 		}
 
-		// Detect if called from Verse.Name GeneratePawnName
+		#region StackTrace helpers
+		// Detect if called from PawnBioAndNameGenerator.GeneratePawnName
 		bool IsPawnName(StackTrace callStack)
 		{
-			// Verse.Name GeneratePawnName(Verse.Pawn, RimWorld.NameStyle, System.String)
-			for (int i = 0; i < callStack.FrameCount; i++)
-			{
-				StackFrame frame = callStack.GetFrame(i);
-				MethodBase method = frame.GetMethod();
-				// TODO: modify key for the dot graph
-				if (method.Name == "GeneratePawnName")
-					return true;
-			}
+			MethodBase method = callStack.GetFrame(4).GetMethod();
+			if ((method.Name == "GeneratePawnName")
+					&& method.DeclaringType.Equals(typeof(RimWorld.PawnBioAndNameGenerator)))
+				return true;
+			method = callStack.GetFrame(5).GetMethod();
+			if ((method.Name == "GeneratePawnName")
+					&& method.DeclaringType.Equals(typeof(RimWorld.PawnBioAndNameGenerator)))
+				return true;
+
 			return false;
 		}
 
-		// For pawn names
-		// N0TE: last name in NameTriple is not capitaized
-		// by default if from tribal words.
-		public string ToTitleCasePawnName(string str)
+		// Detect if called from  RimWorld.Planet.SettlementNameGenerator GenerateSettlementName
+		bool IsSettlementName(StackTrace callStack)
 		{
-			//LogStats.StartLogging(new StackTrace());
+			MethodBase method = callStack.GetFrame(5).GetMethod();
+			if (method.Name == "GenerateSettlementName")
+				return true;
+
+			return false;
+		}
+
+		// Detect if called from RimWorld.FeatureWorker AddFeature
+		bool IsWorldFeatureName(StackTrace callStack)
+		{
+			MethodBase method = callStack.GetFrame(5).GetMethod();
+			if (method.Name == "AddFeature")
+				return true;
+
+			return false;
+		}
+
+		// Detect if called from RimWorld.FactionGenerator RimWorld.Faction NewGeneratedFaction
+		bool IsFactionName(StackTrace callStack)
+		{
+			MethodBase method = callStack.GetFrame(5).GetMethod();
+			if (method.Name == "NewGeneratedFaction")
+				return true;
+
+			return false;
+		}
+
+		// Detect if called from RimWorld.QuestGen.QuestNode_ResolveQuestName GenerateName
+		bool IsQuestName(StackTrace callStack)
+		{
+			MethodBase method = callStack.GetFrame(3).GetMethod();
+			if ((method.Name == "GenerateName")
+				&& method.DeclaringType.Equals(typeof(RimWorld.QuestGen.QuestNode_ResolveQuestName)))
+				return true;
+
+			return false;
+		}
+
+		// Detect if called from RimWorld.CompArt GenerateTitle
+		bool IsArtName(StackTrace callStack)
+		{
+			MethodBase method = callStack.GetFrame(2).GetMethod();
+			if ((method.Name == "GenerateTitle")
+				&& method.DeclaringType.Equals(typeof(RimWorld.CompArt)))
+				return true;
+
+			return false;
+		}
+
+		// Detect if called from RimWorld.NameGenerator GenerateName
+		bool IsName(StackTrace callStack)
+		{
+			MethodBase method = callStack.GetFrame(2).GetMethod();
+			if (method.Name == "GenerateName")
+				return true;
+
+			return false;
+		}
+		#endregion
+
+		/// <summary>
+		/// ToTitleCase for pawns, world features and settlements names.
+		/// Pawn names may contain '<Nickname>'.
+		/// The first word is always capitalized and all words are capitalized
+		/// except those listed in NonUppercaseWords and "d'".
+		/// N0TE: last name in NameTriple is not capitalized by the default
+		/// LanguageWorker if generated from tribal words.
+		/// </summary>
+		/// <returns>The title case string for a proper name.</returns>
+		/// <param name="str">String.</param>
+		public string ToTitleCaseProperName(string str)
+		{
+			LogStats.StartLogging(new StackTrace());
 			if (str.NullOrEmpty())
 				return str;
 
-			string[] array = str.MergeMultipleSpaces(leaveMultipleSpacesAtLineBeginning: false).Trim().Split(' ');
+			string[] array = str.Split(' ');
 			for (int i = 0; i < array.Length; i++)
 			{
 				string str2 = array[i];
@@ -370,6 +521,94 @@ namespace RimWorld_LanguageWorker_French
 					continue;
 				}
 
+				// Capitalize word: skip "'", "d'" and "l'"
+				char firstChar = str2[0];
+				switch (firstChar)
+				{
+					case '\'':
+						array[i] = "'" + str2.Substring(1).CapitalizeHyphenated();
+						break;
+					default:
+						if (str2.Length == 2)
+						{
+							array[i] = str2.CapitalizeHyphenated();
+							break;
+						}
+						if (str2.StartsWith("d'", StringComparison.CurrentCulture)
+							|| str2.StartsWith("D'", StringComparison.CurrentCulture)
+							|| str2.StartsWith("l'", StringComparison.CurrentCulture)
+							|| str2.StartsWith("L'", StringComparison.CurrentCulture))
+						{
+							// First word always capitalized
+							array[i] = ((i == 0) ? str2[0].ToString().ToUpper() : str2[0].ToString().ToLower()) +
+												"'" + str2.Substring(2).CapitalizeHyphenated();
+						}
+						else
+						{
+							// default rule
+							array[i] = str2.CapitalizeHyphenated();
+						}
+						break;
+				}
+			}
+			string processed_str = string.Join(" ", array);
+
+			LogStats.StopLogging(str, processed_str);
+			return processed_str;
+		}
+
+		/// <summary>
+		/// ToTitleCase for other names, mostly starting with determinant (le, la, les),
+		/// ex TradeShip and faction names.
+		/// Business types and political unions do not follow the same Cap rules
+		/// and have more complicated logic.
+		/// Do not capitalize the first determinant for inclusion in generated sentences
+		/// in the rulepack defs.
+		/// </summary>
+		/// <returns>The title case for other names.</returns>
+		/// <param name="str">String.</param>
+		public string ToTitleCaseOtherName(string str)
+		{
+			LogStats.StartLogging(new StackTrace());
+			if (str.NullOrEmpty())
+				return str;
+
+			string[] array = str.Split(' ');
+			for (int i = 0; i < array.Length; i++)
+			{
+				string str2 = array[i];
+
+				// if the first word is le/la/les/l'.
+				if (i == 0)
+				{
+					char deter = str2[0];
+					if ((deter == 'l') || (deter == 'L'))
+					{
+						string tmp = str2.ToLower();
+						if (tmp.Equals("le") || tmp.Equals("la") || tmp.Equals("les"))
+						{
+							array[i] = tmp;
+							continue;
+						}
+
+						if (str2.StartsWith("l'", StringComparison.CurrentCulture)
+							|| str2.StartsWith("L'", StringComparison.CurrentCulture))
+						{
+							// First word always capitalized
+							array[i] = "l'" + str2.Substring(2).CapitalizeHyphenated();
+							continue;
+						}
+					}
+				}
+
+				// Continue processing
+				if (NonUppercaseWords.Contains(str2.ToLower()))
+				{
+					array[i] = str2.ToLower();
+					continue;
+				}
+
+				// Same as ToTitleCaseProperName
 				// Capitalize word: skip "'", "d'" and "l'"
 				char first = str2[0];
 				switch (first)
@@ -403,12 +642,18 @@ namespace RimWorld_LanguageWorker_French
 			}
 			string processed_str = string.Join(" ", array);
 
-			//LogStats.StopLogging(str, processed_str);
+			LogStats.StopLogging(str, processed_str);
 			return processed_str;
 		}
 
+		/// <summary>
+		/// ToTitleCase for other categories: mostly quest titles.
+		/// </summary>
+		/// <returns>The title case other.</returns>
+		/// <param name="str">String.</param>
 		public string ToTitleCaseOther(string str)
 		{
+			// TODO: pas de capitalisation après "[uU]n", "[uU]ne"
 			LogStats.StartLogging(new StackTrace());
 			if (str.NullOrEmpty())
 				return str;
@@ -423,25 +668,81 @@ namespace RimWorld_LanguageWorker_French
 
 		public override string ToTitleCase(string str)
 		{
-			// FIXME: capitalize only the first word of the title (see Quest title and artwork.)
 			if (str.NullOrEmpty())
 				return str;
 
 			StackTrace callStack = new StackTrace();
-			bool isPawnName = IsPawnName(callStack);
+			//Debug_NameCategory_StackFrame has [Conditional("DEBUG")] attribute
+			Debug_NameCategory_StackFrame(callStack);
 
-			logLanguageWorkerIn.Message("ToTitleCase(" + isPawnName + "): " + str);
 			string processed_str;
 
-			if (isPawnName)
+			// Split name categories for debugging purpose
+			// NOTE: Tests order matters
+			if (IsQuestName(callStack))
 			{
-				processed_str = ToTitleCasePawnName(str);
+				// The fastest to detect: callStack.GetFrame(3)
+				// Capitalize only first letter (+ '\'')
+				logLanguageWorkerIn.Message("ToTitleCase(QuestName): " + str);
+				processed_str = ToTitleCaseOther(str);
+				logLanguageWorkerOut.Message("ToTitleCase(QuestName): " + processed_str);
+			}
+			else
+			if (IsPawnName(callStack))
+			{
+				// callStack.GetFrame(4) or callStack.GetFrame(5)
+				logLanguageWorkerIn.Message("ToTitleCase(PawnName): " + str);
+				processed_str = ToTitleCaseProperName(str);
+				logLanguageWorkerOut.Message("ToTitleCase(PawnName): " + processed_str);
+			}
+			else
+			if (IsSettlementName(callStack))
+			{
+				// callStack.GetFrame(5)
+				logLanguageWorkerIn.Message("ToTitleCase(SettlementName): " + str);
+				processed_str = ToTitleCaseProperName(str);
+				logLanguageWorkerOut.Message("ToTitleCase(SettlementName): " + processed_str);
+			}
+			else
+			if (IsWorldFeatureName(callStack))
+			{
+				// callStack.GetFrame(5)
+				logLanguageWorkerIn.Message("ToTitleCase(WorldFeatureName): " + str);
+				processed_str = ToTitleCaseProperName(str);
+				logLanguageWorkerOut.Message("ToTitleCase(WorldFeatureName): " + processed_str);
+			}
+			else
+			if (IsFactionName(callStack))
+			{
+				// callStack.GetFrame(5)
+				logLanguageWorkerIn.Message("ToTitleCase(FactionName): " + str);
+				processed_str = ToTitleCaseProperName(str);
+				logLanguageWorkerOut.Message("ToTitleCase(FactionName): " + processed_str);
+			}
+			else
+			if (IsArtName(callStack))
+			{
+				// callStack.GetFrame(2)
+				logLanguageWorkerIn.Message("ToTitleCase(ArtName): " + str);
+				processed_str = ToTitleCaseProperName(str);
+				logLanguageWorkerOut.Message("ToTitleCase(ArtName): " + processed_str);
+			}
+			else
+			if (IsName(callStack))
+			{
+				// Any other names generated by RimWorld.NameGenerator: callStack.GetFrame(2)
+				// RimWorld.TradeShip
+				logLanguageWorkerIn.Message("ToTitleCase(OtherName): " + str);
+				processed_str = ToTitleCaseOtherName(str);
+				logLanguageWorkerOut.Message("ToTitleCase(OtherName): " + processed_str);
 			}
 			else
 			{
+				// Normal title : capitalize first letter.
+				logLanguageWorkerIn.Message("ToTitleCase(OtherTitle): " + str);
 				processed_str = ToTitleCaseOther(str);
+				logLanguageWorkerOut.Message("ToTitleCase(OtherTitle): " + processed_str);
 			}
-			logLanguageWorkerOut.Message("ToTitleCase(" + isPawnName + "): " + processed_str);
 
 			return processed_str;
 		}

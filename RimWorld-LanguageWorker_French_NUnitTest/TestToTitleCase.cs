@@ -14,42 +14,42 @@ namespace RimWorldLanguageWorker_French_NUnitTest
 
 			// Simple name
 			string template = "lloraga crica";
-			Assert.AreEqual("Lloraga Crica", _lw.ToTitleCasePawnName(template));
+			Assert.AreEqual("Lloraga Crica", _lw.ToTitleCaseProperName(template));
 
 			// Name triple
 			template = "cambiar 'tortue' legua";
-			Assert.AreEqual("Cambiar 'Tortue' Legua", _lw.ToTitleCasePawnName(template));
+			Assert.AreEqual("Cambiar 'Tortue' Legua", _lw.ToTitleCaseProperName(template));
 
 			template = "Cagoguaxo éléphante de mer";
 			// TODO: Should be "Cagoguaxo Éléphante de mer"
-			Assert.AreEqual("Cagoguaxo Éléphante de Mer", _lw.ToTitleCasePawnName(template));
+			Assert.AreEqual("Cagoguaxo Éléphante de Mer", _lw.ToTitleCaseProperName(template));
 
 			template = "charles de gaulle";
-			Assert.AreEqual("Charles de Gaulle", _lw.ToTitleCasePawnName(template));
+			Assert.AreEqual("Charles de Gaulle", _lw.ToTitleCaseProperName(template));
 
 			template = "charles De gaulle";
-			Assert.AreEqual("Charles de Gaulle", _lw.ToTitleCasePawnName(template));
+			Assert.AreEqual("Charles de Gaulle", _lw.ToTitleCaseProperName(template));
 
 			template = "de gaulle";
-			Assert.AreEqual("De Gaulle", _lw.ToTitleCasePawnName(template));
+			Assert.AreEqual("De Gaulle", _lw.ToTitleCaseProperName(template));
 
 			template = "d'Autriche";
-			Assert.AreEqual("D'Autriche", _lw.ToTitleCasePawnName(template));
+			Assert.AreEqual("D'Autriche", _lw.ToTitleCaseProperName(template));
 
 			template = "werner von braun";
-			Assert.AreEqual("Werner von Braun", _lw.ToTitleCasePawnName(template));
+			Assert.AreEqual("Werner von Braun", _lw.ToTitleCaseProperName(template));
 
 			template = "gérard D'aboville";
-			Assert.AreEqual("Gérard d'Aboville", _lw.ToTitleCasePawnName(template));
+			Assert.AreEqual("Gérard d'Aboville", _lw.ToTitleCaseProperName(template));
 
 			template = "antoine-françois gérard";
-			Assert.AreEqual("Antoine-François Gérard", _lw.ToTitleCasePawnName(template));
+			Assert.AreEqual("Antoine-François Gérard", _lw.ToTitleCaseProperName(template));
 
 			template = "marie-Thérèse d'autriche";
-			Assert.AreEqual("Marie-Thérèse d'Autriche", _lw.ToTitleCasePawnName(template));
+			Assert.AreEqual("Marie-Thérèse d'Autriche", _lw.ToTitleCaseProperName(template));
 
 			template = "l'appel de cthulhu";
-			Assert.AreEqual("L'Appel de Cthulhu", _lw.ToTitleCasePawnName(template));
+			Assert.AreEqual("L'Appel de Cthulhu", _lw.ToTitleCaseProperName(template));
 		}
 	}
 }
