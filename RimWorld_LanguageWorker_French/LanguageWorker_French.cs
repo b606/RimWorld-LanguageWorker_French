@@ -335,44 +335,6 @@ namespace RimWorld_LanguageWorker_French
 			return number == 1 ? number + "er" : number + "e";
 		}
 
-		/*
-				public static string CapitalizeFirst(this string str)
-				{
-					if (str.NullOrEmpty())
-					{
-						return str;
-					}
-					if (char.IsUpper(str[0]))
-					{
-						return str;
-					}
-					if (str.Length == 1)
-					{
-						return str.ToUpper();
-					}
-					int num = str.FirstLetterBetweenTags();
-					char c;
-					if (num == 0)
-					{
-						c = char.ToUpper(str[num]);
-						return c.ToString() + str.Substring(num + 1);
-					}
-					string str2 = str.Substring(0, num);
-					c = char.ToUpper(str[num]);
-					return str2 + c.ToString() + str.Substring(num + 1);
-				}
-
-				public static int FirstLetterBetweenTags(this string str)
-				{
-					int num = 0;
-					if (str[num] == '<' && str.IndexOf('>') > num && num < str.Length - 1 && str[num + 1] != '/')
-					{
-						num = str.IndexOf('>') + 1;
-					}
-					return num;
-				}
-		*/
-
 		// Detect if called from Verse.Name GeneratePawnName
 		bool IsPawnName(StackTrace callStack)
 		{
