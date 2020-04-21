@@ -278,12 +278,13 @@ namespace RimWorld_LanguageWorker_French
 			"von"
 		};
 
-		// "un", "une" pas de capitaisation après
+		// General logger
+		public static Logger LogLanguageWorker = new Logger("LanguageWorker_French.log");
+
+#if DEBUG
 
 		private static Logger logLanguageWorkerIn = new Logger("LanguageWorkerIn.log");
 		private static Logger logLanguageWorkerOut = new Logger("LanguageWorkerOut.log");
-
-#if DEBUG
 
 		private StatsLogger logStats = new StatsLogger();
 		public StatsLogger LogStats { get => logStats; set => logStats = value; }
