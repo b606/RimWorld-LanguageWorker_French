@@ -1,5 +1,15 @@
 2020-04-21  b606  <7627533+b606@users.noreply.github.com>
 
+	* LanguageWorker_French.cs: Moved debugging stuff to
+	LanguageWorker_French_Debug.cs, cleaning up the main file.
+
+	* LanguageWorker_French_Debug.cs: This new file contains all
+	the debugging methods.
+
+	* RimWorld_LanguageWorker_French.csproj: Updated the project
+
+2020-04-21  b606  <7627533+b606@users.noreply.github.com>
+
 	* LanguageWorker_French.cs: Renamed ToTitleCasePawnName to
 	ToTitleCaseProperName, and added two other categories:
 	ToTitleCaseOtherName (for trader ships and faction names),

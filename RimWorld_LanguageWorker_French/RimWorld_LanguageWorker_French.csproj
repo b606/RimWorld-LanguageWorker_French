@@ -54,6 +54,7 @@
     <Compile Include="StatsLogger.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="StringExtension.cs" />
+    <Compile Include="LanguageWorker_French_Debug.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
