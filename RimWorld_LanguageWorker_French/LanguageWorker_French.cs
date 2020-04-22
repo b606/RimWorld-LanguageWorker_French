@@ -710,7 +710,8 @@ namespace RimWorld_LanguageWorker_French
 			str = DeLes.Replace(str, "$1$3 $2");
 			str = ALe.Replace(str, new MatchEvaluator(ReplaceALe));
 
-			return str;
+			// Clean out zero-width space
+			return str.Replace("\u200B","");
 		}
 
 		private static string ReplaceALe(Match match)

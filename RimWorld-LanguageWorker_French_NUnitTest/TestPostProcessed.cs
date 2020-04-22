@@ -14,13 +14,13 @@ namespace RimWorldLanguageWorker_French_NUnitTest
 
 			// h aspirated words are prefixed with zero-width space
 			string template = "azerty\n\nazerty Viande de husky\n\nazerty";
-			Assert.AreEqual("azerty\n\nazerty Viande de \u200Bhusky\n\nazerty", _lw.PostProcessed(template));
+			Assert.AreEqual("azerty\n\nazerty Viande de husky\n\nazerty", _lw.PostProcessed(template));
 
 			template = "azerty\n\nazerty le haut-de-forme\n\nazerty";
-			Assert.AreEqual("azerty\n\nazerty le \u200Bhaut-de-forme\n\nazerty", _lw.PostProcessed(template));
+			Assert.AreEqual("azerty\n\nazerty le haut-de-forme\n\nazerty", _lw.PostProcessed(template));
 
 			template = "azerty\n\nazerty la harpe azerty\n\nazerty";
-			Assert.AreEqual("azerty\n\nazerty la \u200Bharpe azerty\n\nazerty", _lw.PostProcessed(template));
+			Assert.AreEqual("azerty\n\nazerty la harpe azerty\n\nazerty", _lw.PostProcessed(template));
 
 			// unaspirated h
 			template = "azerty\n\nazerty Viande de humain\n\nazerty";
@@ -30,10 +30,10 @@ namespace RimWorldLanguageWorker_French_NUnitTest
 			Assert.AreEqual("azerty\n\nazerty un lit d'hôpital\n\nazerty", _lw.PostProcessed(template));
 
 			template = "azerty\n\nazerty après le onzième jour azerty\n\nazerty";
-			Assert.AreEqual("azerty\n\nazerty après le \u200Bonzième jour azerty\n\nazerty", _lw.PostProcessed(template));
+			Assert.AreEqual("azerty\n\nazerty après le onzième jour azerty\n\nazerty", _lw.PostProcessed(template));
 
 			template = "azerty\n\nazerty la jambe de le onze \n\nazerty";
-			Assert.AreEqual("azerty\n\nazerty la jambe du \u200Bonze \n\nazerty", _lw.PostProcessed(template));
+			Assert.AreEqual("azerty\n\nazerty la jambe du onze \n\nazerty", _lw.PostProcessed(template));
 
 		}
 
@@ -57,7 +57,7 @@ namespace RimWorldLanguageWorker_French_NUnitTest
 
 			// aspirated h
 			template = "une griffure a causé la mort de <color=#D09B61FF>le husky</color>.";
-			Assert.AreEqual("une griffure a causé la mort du <color=#D09B61FF>\u200Bhusky</color>.", _lw.PostProcessed(template));
+			Assert.AreEqual("une griffure a causé la mort du <color=#D09B61FF>husky</color>.", _lw.PostProcessed(template));
 
 			// "l'" takes precedence, h unaspirated
 			template = "azerty\n\nazerty un lit à <color=#D09B61FF>le hôpital</color>\n\nazerty";
