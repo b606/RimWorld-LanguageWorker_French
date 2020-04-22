@@ -58,6 +58,8 @@ namespace RimWorld_LanguageWorker_French
 			bool detectedPawnName = false;
 			bool detectedGenerateName = false;
 
+			LogLanguageWorker.Message("Debug_NameCategory_StackFrame:");
+
 			for (int i = 0; i < callStack.FrameCount; i++)
 			{
 				StackFrame frame = callStack.GetFrame(i);
@@ -71,6 +73,9 @@ namespace RimWorld_LanguageWorker_French
 					Debug.Assert((!detectedPawnName && i == 4)
 							|| (detectedPawnName && i == 5));
 					if (i == 4) { detectedPawnName = true; }
+
+					LogLanguageWorker.Message("IsPawnName:Frame[" + i + "]: "
+					 + method.DeclaringType.ToString() + method.ToString());
 				}
 
 				// Detect if called from  RimWorld.Planet.SettlementNameGenerator GenerateSettlementName
@@ -78,6 +83,8 @@ namespace RimWorld_LanguageWorker_French
 				if (method.Name == "GenerateSettlementName")
 				{
 					Debug.Assert(i == 5);
+					LogLanguageWorker.Message("IsSettlementName:Frame[" + i + "]: "
+					 + method.DeclaringType.ToString() + method.ToString());
 				}
 
 				// Detect if called from RimWorld.FeatureWorker AddFeature (WorldFeature names)
@@ -85,6 +92,8 @@ namespace RimWorld_LanguageWorker_French
 				if (method.Name == "AddFeature")
 				{
 					Debug.Assert(i == 5);
+					LogLanguageWorker.Message("IsWorldFeatureName:Frame[" + i + "]: "
+					 + method.DeclaringType.ToString() + method.ToString());
 				}
 
 				// Detect if called from RimWorld.FactionGenerator RimWorld.Faction NewGeneratedFaction
@@ -92,6 +101,8 @@ namespace RimWorld_LanguageWorker_French
 				if (method.Name == "NewGeneratedFaction")
 				{
 					Debug.Assert(i == 5);
+					LogLanguageWorker.Message("IsFactionName:Frame[" + i + "]: "
+					 + method.DeclaringType.ToString() + method.ToString());
 				}
 
 				// Detect if called from RimWorld.QuestGen.QuestNode_ResolveQuestName GenerateName
@@ -101,6 +112,8 @@ namespace RimWorld_LanguageWorker_French
 					&& method.DeclaringType.Equals(typeof(RimWorld.QuestGen.QuestNode_ResolveQuestName)))
 				{
 					Debug.Assert(i == 3);
+					LogLanguageWorker.Message("IsQuestName:Frame[" + i + "]: "
+					 + method.DeclaringType.ToString() + method.ToString());
 				}
 
 				// Detect if called from RimWorld.CompArt GenerateTitle
@@ -109,6 +122,8 @@ namespace RimWorld_LanguageWorker_French
 					&& method.DeclaringType.Equals(typeof(RimWorld.CompArt)))
 				{
 					Debug.Assert(i == 2);
+					LogLanguageWorker.Message("IsArtName:Frame[" + i + "]: "
+					 + method.DeclaringType.ToString() + method.ToString());
 				}
 
 				// Detect if called from RimWorld.NameGenerator GenerateName(Verse.Grammar.GrammarRequest,...)
@@ -117,17 +132,21 @@ namespace RimWorld_LanguageWorker_French
 				if (method.Name == "GenerateName")
 				{
 					Debug.Assert(!detectedGenerateName && i == 2);
-					if (i == 2) { detectedGenerateName = true; }
+					if (i == 2)
+					{
+						detectedGenerateName = true;
+						LogLanguageWorker.Message("IsName:Frame[" + i + "]: "
+						 + method.DeclaringType.ToString() + method.ToString());
+					}
 				}
 			}
 		}
 
-		public string Debug_ToTitleCase(string str)
+		public string Debug_ToTitleCase(string str, StackTrace callStack)
 		{
 			if (str.NullOrEmpty())
 				return str;
 
-			StackTrace callStack = new StackTrace();
 			//Debug_NameCategory_StackFrame has [Conditional("DEBUG")] attribute
 			Debug_NameCategory_StackFrame(callStack);
 
@@ -172,7 +191,7 @@ namespace RimWorld_LanguageWorker_French
 			{
 				// callStack.GetFrame(5)
 				RecordInString("ToTitleCase(FactionName): " + str);
-				processed_str = ToTitleCaseProperName(str);
+				processed_str = ToTitleCaseOtherName(str);
 				RecordOutString("ToTitleCase(FactionName): " + processed_str);
 			}
 			else

@@ -578,13 +578,12 @@ namespace RimWorld_LanguageWorker_French
 			if (str.NullOrEmpty())
 				return str;
 
+			StackTrace callStack = new StackTrace();
 			string processed_str;
 
 #if DEBUG
-			processed_str = Debug_ToTitleCase(str);
+			processed_str = Debug_ToTitleCase(str, callStack);
 #else
-			StackTrace callStack = new StackTrace();
-
 			// Split name categories
 			// NOTE: Tests order matters
 			if (IsQuestName(callStack))
