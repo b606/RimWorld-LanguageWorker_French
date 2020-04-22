@@ -595,7 +595,6 @@ namespace RimWorld_LanguageWorker_French
 			if (IsPawnName(callStack)
 					|| IsSettlementName(callStack)
 					|| IsWorldFeatureName(callStack)
-					|| IsFactionName(callStack)
 					|| IsArtName(callStack)
 				)
 			{
@@ -604,7 +603,7 @@ namespace RimWorld_LanguageWorker_French
 			else
 			if (IsName(callStack))
 			{
-				// Any other names ex. RimWorld.TradeShip
+				// Any other names ex. FactionName, RimWorld.TradeShip
 				processed_str = ToTitleCaseOtherName(str);
 			}
 			else
