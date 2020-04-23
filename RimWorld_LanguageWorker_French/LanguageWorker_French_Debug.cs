@@ -199,7 +199,7 @@ namespace RimWorld_LanguageWorker_French
 			{
 				// callStack.GetFrame(2)
 				RecordInString("ToTitleCase(ArtName): " + str);
-				processed_str = ToTitleCaseProperName(str);
+				processed_str = ToTitleCaseOther(str);
 				RecordOutString("ToTitleCase(ArtName): " + processed_str);
 			}
 			else

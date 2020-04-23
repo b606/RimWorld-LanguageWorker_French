@@ -1,3 +1,9 @@
+2020-04-23  b606  <7627533+b606@users.noreply.github.com>
+
+	* LanguageWorker_French.cs:
+	* LanguageWorker_French_Debug.cs: changed ArtNames to be
+	processed as normal titles.
+
 2020-04-21  b606  <7627533+b606@users.noreply.github.com>
 
 	* LanguageWorker_French.cs: Moved debugging stuff to

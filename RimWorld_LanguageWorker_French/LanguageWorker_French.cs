@@ -586,7 +586,9 @@ namespace RimWorld_LanguageWorker_French
 #else
 			// Split name categories
 			// NOTE: Tests order matters
-			if (IsQuestName(callStack))
+			if (IsQuestName(callStack)
+					|| IsArtName(callStack)
+			)
 			{
 				// Capitalize only first letter (+ '\'')
 				processed_str = ToTitleCaseOther(str);
@@ -595,7 +597,6 @@ namespace RimWorld_LanguageWorker_French
 			if (IsPawnName(callStack)
 					|| IsSettlementName(callStack)
 					|| IsWorldFeatureName(callStack)
-					|| IsArtName(callStack)
 				)
 			{
 				processed_str = ToTitleCaseProperName(str);
@@ -659,17 +660,17 @@ namespace RimWorld_LanguageWorker_French
 
 		public override string PostProcessed(string str)
 		{
-			StartStatsLogging(new StackTrace());
+			//StartStatsLogging(new StackTrace());
 			string processed_str = PostProcessedFrenchGrammar(base.PostProcessed(str));
-			StopStatsLogging(str, processed_str);
+			//StopStatsLogging(str, processed_str);
 			return processed_str;
 		}
 
 		public override string PostProcessedKeyedTranslation(string translation)
 		{
-			StartStatsLogging(new StackTrace());
+			//StartStatsLogging(new StackTrace());
 			string processed_str = PostProcessedFrenchGrammar(base.PostProcessedKeyedTranslation(translation));
-			StopStatsLogging(translation, processed_str);
+			//StopStatsLogging(translation, processed_str);
 			return processed_str;
 		}
 
