@@ -1,3 +1,8 @@
+2020-04-24  b606  <7627533+b606@users.noreply.github.com>
+
+	* LanguageWorker_French_Debug.cs: Reduce log messages by
+	memorizing the already debugged call stacks.
+
 2020-04-23  b606  <7627533+b606@users.noreply.github.com>
 
 	* LanguageWorker_French.cs:

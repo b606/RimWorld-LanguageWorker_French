@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using Verse;
@@ -17,6 +18,10 @@ namespace RimWorld_LanguageWorker_French
 		// Heavy logger, for stats and CPU usage
 		private StatsLogger logStats = new StatsLogger();
 		public StatsLogger LogStats { get => logStats; set => logStats = value; }
+
+		// Save call stack frames information
+		private static Dictionary<string, int> nameCategoryFrames = new Dictionary<string, int>();
+		private const int __nameCategoryCount = 8;
 
 		[Conditional("DEBUG")]
 		private void RecordInString(string a_str)
@@ -58,8 +63,6 @@ namespace RimWorld_LanguageWorker_French
 			bool detectedPawnName = false;
 			bool detectedGenerateName = false;
 
-			LogLanguageWorker.Message("Debug_NameCategory_StackFrame:");
-
 			for (int i = 0; i < callStack.FrameCount; i++)
 			{
 				StackFrame frame = callStack.GetFrame(i);
@@ -73,9 +76,13 @@ namespace RimWorld_LanguageWorker_French
 					Debug.Assert((!detectedPawnName && i == 4)
 							|| (detectedPawnName && i == 5));
 					if (i == 4) { detectedPawnName = true; }
-
-					LogLanguageWorker.Message("IsPawnName:Frame[" + i + "]: "
-					 + method.DeclaringType.ToString() + method.ToString());
+					if (!nameCategoryFrames.ContainsKey("IsPawnName" + i))
+					{
+						// Two possible keys: "IsPawnName4" and "IsPawnName5"
+						nameCategoryFrames.Add("IsPawnName" + i, i);
+						LogLanguageWorker.Message("IsPawnName:Frame[" + i + "]: "
+						 + method.DeclaringType.ToString() + method.ToString());
+					}
 				}
 
 				// Detect if called from  RimWorld.Planet.SettlementNameGenerator GenerateSettlementName
@@ -83,8 +90,12 @@ namespace RimWorld_LanguageWorker_French
 				if (method.Name == "GenerateSettlementName")
 				{
 					Debug.Assert(i == 5);
-					LogLanguageWorker.Message("IsSettlementName:Frame[" + i + "]: "
+					if (!nameCategoryFrames.ContainsKey("IsSettlementName"))
+					{
+						nameCategoryFrames.Add("IsSettlementName", i);
+						LogLanguageWorker.Message("IsSettlementName:Frame[" + i + "]: "
 					 + method.DeclaringType.ToString() + method.ToString());
+					}
 				}
 
 				// Detect if called from RimWorld.FeatureWorker AddFeature (WorldFeature names)
@@ -92,8 +103,12 @@ namespace RimWorld_LanguageWorker_French
 				if (method.Name == "AddFeature")
 				{
 					Debug.Assert(i == 5);
-					LogLanguageWorker.Message("IsWorldFeatureName:Frame[" + i + "]: "
+					if (!nameCategoryFrames.ContainsKey("IsWorldFeatureName"))
+					{
+						nameCategoryFrames.Add("IsWorldFeatureName", i);
+						LogLanguageWorker.Message("IsWorldFeatureName:Frame[" + i + "]: "
 					 + method.DeclaringType.ToString() + method.ToString());
+					}
 				}
 
 				// Detect if called from RimWorld.FactionGenerator RimWorld.Faction NewGeneratedFaction
@@ -101,8 +116,12 @@ namespace RimWorld_LanguageWorker_French
 				if (method.Name == "NewGeneratedFaction")
 				{
 					Debug.Assert(i == 5);
-					LogLanguageWorker.Message("IsFactionName:Frame[" + i + "]: "
+					if (!nameCategoryFrames.ContainsKey("IsFactionName"))
+					{
+						nameCategoryFrames.Add("IsFactionName", i);
+						LogLanguageWorker.Message("IsFactionName:Frame[" + i + "]: "
 					 + method.DeclaringType.ToString() + method.ToString());
+					}
 				}
 
 				// Detect if called from RimWorld.QuestGen.QuestNode_ResolveQuestName GenerateName
@@ -112,8 +131,12 @@ namespace RimWorld_LanguageWorker_French
 					&& method.DeclaringType.Equals(typeof(RimWorld.QuestGen.QuestNode_ResolveQuestName)))
 				{
 					Debug.Assert(i == 3);
-					LogLanguageWorker.Message("IsQuestName:Frame[" + i + "]: "
+					if (!nameCategoryFrames.ContainsKey("IsQuestName"))
+					{
+						nameCategoryFrames.Add("IsQuestName", i);
+						LogLanguageWorker.Message("IsQuestName:Frame[" + i + "]: "
 					 + method.DeclaringType.ToString() + method.ToString());
+					}
 				}
 
 				// Detect if called from RimWorld.CompArt GenerateTitle
@@ -122,21 +145,30 @@ namespace RimWorld_LanguageWorker_French
 					&& method.DeclaringType.Equals(typeof(RimWorld.CompArt)))
 				{
 					Debug.Assert(i == 2);
-					LogLanguageWorker.Message("IsArtName:Frame[" + i + "]: "
+					if (!nameCategoryFrames.ContainsKey("IsArtName"))
+					{
+						nameCategoryFrames.Add("IsArtName", i);
+						LogLanguageWorker.Message("IsArtName:Frame[" + i + "]: "
 					 + method.DeclaringType.ToString() + method.ToString());
+					}
 				}
 
 				// Detect if called from RimWorld.NameGenerator GenerateName(Verse.Grammar.GrammarRequest,...)
 				// Misleading: detect other types of names first.
+				// Many other methods have the same name, and  RimWorld.NameGenerator can also be called elsewhere.
 				// bool IsName() uses callStack.GetFrame(2)
 				if (method.Name == "GenerateName")
 				{
 					Debug.Assert(!detectedGenerateName && i == 2);
 					if (i == 2)
 					{
-						detectedGenerateName = true;
-						LogLanguageWorker.Message("IsName:Frame[" + i + "]: "
-						 + method.DeclaringType.ToString() + method.ToString());
+						if (!nameCategoryFrames.ContainsKey("IsName"))
+						{
+							nameCategoryFrames.Add("IsName", i);
+							detectedGenerateName = true;
+							LogLanguageWorker.Message("IsName:Frame[" + i + "]: "
+							 + method.DeclaringType.ToString() + method.ToString());
+						}
 					}
 				}
 			}
@@ -147,8 +179,11 @@ namespace RimWorld_LanguageWorker_French
 			if (str.NullOrEmpty())
 				return str;
 
-			//Debug_NameCategory_StackFrame has [Conditional("DEBUG")] attribute
-			Debug_NameCategory_StackFrame(callStack);
+			// Reduce log messages by memorizing the already debugged call stacks.
+			if (nameCategoryFrames.Count < __nameCategoryCount)
+			{
+				Debug_NameCategory_StackFrame(callStack);
+			}
 
 			string processed_str;
 
