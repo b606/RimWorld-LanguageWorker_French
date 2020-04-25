@@ -9,6 +9,11 @@ namespace RimWorld_LanguageWorker_French
 {
 	public partial class LanguageWorker_French : LanguageWorker
 	{
+		public LanguageWorker_French()
+		{
+			LanguageWorkerPatcher.DoPatching();
+		}
+
 		#region IResolver Support
 		private interface IResolver
 		{
@@ -732,6 +737,41 @@ namespace RimWorld_LanguageWorker_French
 				}
 			}
 			return item_raw;
+		}
+
+		public static void FixPawnGender(ref PawnKindDef kind, ref Gender gender, string relationInfo)
+		{
+			LanguageWorker_French my_lw = (RimWorld_LanguageWorker_French.LanguageWorker_French)Find.ActiveLanguageWorker;
+			if (kind != null)
+			{
+				LogMessage("FixPawnGender called.");
+				LogMessage("languageworker: " + Find.ActiveLanguageWorker.GetType());
+				LogMessage("kind: " + kind);
+				LogMessage("kind.label: " + kind.label);
+				LogMessage("kind.labelMale: " + kind.labelMale);
+				LogMessage("kind.labelFemale: " + kind.labelFemale);
+				LogMessage("gender: " + gender);
+				LogMessage("relationInfo: " + relationInfo);
+
+				StartStatsLogging(new StackTrace());
+
+				string oldlabel = kind.label;
+				if ((gender == Gender.Female) && !kind.labelFemale.NullOrEmpty())
+					kind.label = kind.labelFemale;
+				if ((gender == Gender.Male) && !kind.labelMale.NullOrEmpty())
+					kind.label = kind.labelMale;
+
+				if (!oldlabel.Equals(kind.label))
+				{
+					LogMessage("kind.label changed");
+					RecordInString("FixPawnGender: " + oldlabel);
+					RecordOutString("FixPawnGender: " + kind.label);
+				}
+
+				StopStatsLogging(oldlabel, kind.label);
+			}
+			else
+				LogMessage("kind == null");
 		}
 	}
 }
