@@ -403,7 +403,7 @@ namespace RimWorld_LanguageWorker_French
 
 		/// <summary>
 		/// ToTitleCase for pawns, world features and settlements names.
-		/// Pawn names may contain '<Nickname>'.
+		/// Pawn names may contain 'Nickname'.
 		/// The first word is always capitalized and all words are capitalized
 		/// except those listed in NonUppercaseWords and "d'".
 		/// N0TE: last name in NameTriple is not capitalized by the default
@@ -413,7 +413,6 @@ namespace RimWorld_LanguageWorker_French
 		/// <param name="str">String.</param>
 		public string ToTitleCaseProperName(string str)
 		{
-			StartStatsLogging(new StackTrace());
 			if (str.NullOrEmpty())
 				return str;
 
@@ -460,7 +459,6 @@ namespace RimWorld_LanguageWorker_French
 			}
 			string processed_str = string.Join(" ", array);
 
-			StopStatsLogging(str, processed_str);
 			return processed_str;
 		}
 
@@ -476,7 +474,6 @@ namespace RimWorld_LanguageWorker_French
 		/// <param name="str">String.</param>
 		public string ToTitleCaseOtherName(string str)
 		{
-			StartStatsLogging(new StackTrace());
 			if (str.NullOrEmpty())
 				return str;
 
@@ -549,7 +546,6 @@ namespace RimWorld_LanguageWorker_French
 			}
 			string processed_str = string.Join(" ", array);
 
-			StopStatsLogging(str, processed_str);
 			return processed_str;
 		}
 
@@ -561,7 +557,6 @@ namespace RimWorld_LanguageWorker_French
 		public string ToTitleCaseOther(string str)
 		{
 			// TODO: pas de capitalisation après "[uU]n", "[uU]ne"
-			StartStatsLogging(new StackTrace());
 			if (str.NullOrEmpty())
 				return str;
 
@@ -569,7 +564,6 @@ namespace RimWorld_LanguageWorker_French
 			string str2 = (num == 0) ? str[num].ToString().ToUpper() : (str.Substring(0, num) + char.ToUpper(str[num]));
 			string processed_str = str2 + str.Substring(num + 1);
 
-			StopStatsLogging(str, processed_str);
 			return processed_str;
 		}
 
