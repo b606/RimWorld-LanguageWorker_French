@@ -8,40 +8,45 @@ namespace RimWorld_LanguageWorker_French
 	public partial class LanguageWorker_French
 	{
 		// General purpose logger
-		public static Logger LogLanguageWorker = new Logger("LanguageWorker_French.log");
+		private static Logger LogLanguageWorker = new Logger("LanguageWorker_French.log");
 
 		// Light weight loggers, for diffs
 		private static Logger logLanguageWorkerIn = new Logger("LanguageWorkerIn.log");
 		private static Logger logLanguageWorkerOut = new Logger("LanguageWorkerOut.log");
 
 		// Heavy logger, for stats and CPU usage
-		private StatsLogger logStats = new StatsLogger();
-		public StatsLogger LogStats { get => logStats; set => logStats = value; }
+		private static StatsLogger logStats = new StatsLogger();
+		private static StatsLogger LogStats { get => logStats; set => logStats = value; }
 
 		// Save call stack frames information
 		private static Dictionary<string, int> nameCategoryFrames = new Dictionary<string, int>();
 		private const int __nameCategoryCount = 8;
 
+		public static void LogMessage(string a_str)
+		{
+			LogLanguageWorker.Message(a_str);
+		}
+
 		[Conditional("DEBUG")]
-		private void RecordInString(string a_str)
+		public static void RecordInString(string a_str)
 		{
 			logLanguageWorkerIn.Message(a_str);
 		}
 
 		[Conditional("DEBUG")]
-		private void RecordOutString(string a_str)
+		public static void RecordOutString(string a_str)
 		{
 			logLanguageWorkerOut.Message(a_str);
 		}
 
 		[Conditional("DEBUG")]
-		private void StartStatsLogging(StackTrace callStack, string acontext = null)
+		public static void StartStatsLogging(StackTrace callStack, string acontext = null)
 		{
 			LogStats.StartLogging(callStack, acontext);
 		}
 
 		[Conditional("DEBUG")]
-		private void StopStatsLogging(string original, string processed_str)
+		public static void StopStatsLogging(string original, string processed_str)
 		{
 			LogStats.StopLogging(original, processed_str);
 		}
@@ -57,7 +62,7 @@ namespace RimWorld_LanguageWorker_French
 		/// <param name="callStack">Call stack.</param>
 		//NOTE: verified for version up to 1.1.2609 rev633
 		[Conditional("DEBUG")]
-		private void Debug_NameCategory_StackFrame(StackTrace callStack)
+		public void Debug_NameCategory_StackFrame(StackTrace callStack)
 		{
 			bool detectedPawnName = false;
 			bool detectedGenerateName = false;
@@ -79,7 +84,7 @@ namespace RimWorld_LanguageWorker_French
 					{
 						// Two possible keys: "IsPawnName4" and "IsPawnName5"
 						nameCategoryFrames.Add("IsPawnName" + i, i);
-						LogLanguageWorker.Message("IsPawnName:Frame[" + i + "]: "
+						LogMessage("IsPawnName:Frame[" + i + "]: "
 						 + method.DeclaringType.ToString() + method.ToString());
 					}
 				}
@@ -92,7 +97,7 @@ namespace RimWorld_LanguageWorker_French
 					if (!nameCategoryFrames.ContainsKey("IsSettlementName"))
 					{
 						nameCategoryFrames.Add("IsSettlementName", i);
-						LogLanguageWorker.Message("IsSettlementName:Frame[" + i + "]: "
+						LogMessage("IsSettlementName:Frame[" + i + "]: "
 					 + method.DeclaringType.ToString() + method.ToString());
 					}
 				}
@@ -105,7 +110,7 @@ namespace RimWorld_LanguageWorker_French
 					if (!nameCategoryFrames.ContainsKey("IsWorldFeatureName"))
 					{
 						nameCategoryFrames.Add("IsWorldFeatureName", i);
-						LogLanguageWorker.Message("IsWorldFeatureName:Frame[" + i + "]: "
+						LogMessage("IsWorldFeatureName:Frame[" + i + "]: "
 					 + method.DeclaringType.ToString() + method.ToString());
 					}
 				}
@@ -118,7 +123,7 @@ namespace RimWorld_LanguageWorker_French
 					if (!nameCategoryFrames.ContainsKey("IsFactionName"))
 					{
 						nameCategoryFrames.Add("IsFactionName", i);
-						LogLanguageWorker.Message("IsFactionName:Frame[" + i + "]: "
+						LogMessage("IsFactionName:Frame[" + i + "]: "
 					 + method.DeclaringType.ToString() + method.ToString());
 					}
 				}
@@ -133,7 +138,7 @@ namespace RimWorld_LanguageWorker_French
 					if (!nameCategoryFrames.ContainsKey("IsQuestName"))
 					{
 						nameCategoryFrames.Add("IsQuestName", i);
-						LogLanguageWorker.Message("IsQuestName:Frame[" + i + "]: "
+						LogMessage("IsQuestName:Frame[" + i + "]: "
 					 + method.DeclaringType.ToString() + method.ToString());
 					}
 				}
@@ -147,7 +152,7 @@ namespace RimWorld_LanguageWorker_French
 					if (!nameCategoryFrames.ContainsKey("IsArtName"))
 					{
 						nameCategoryFrames.Add("IsArtName", i);
-						LogLanguageWorker.Message("IsArtName:Frame[" + i + "]: "
+						LogMessage("IsArtName:Frame[" + i + "]: "
 					 + method.DeclaringType.ToString() + method.ToString());
 					}
 				}
@@ -165,7 +170,7 @@ namespace RimWorld_LanguageWorker_French
 						{
 							nameCategoryFrames.Add("IsName", i);
 							detectedGenerateName = true;
-							LogLanguageWorker.Message("IsName:Frame[" + i + "]: "
+							LogMessage("IsName:Frame[" + i + "]: "
 							 + method.DeclaringType.ToString() + method.ToString());
 						}
 					}
