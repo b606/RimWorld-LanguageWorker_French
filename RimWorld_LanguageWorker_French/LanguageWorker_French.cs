@@ -683,7 +683,7 @@ namespace RimWorld_LanguageWorker_French
 		// The Regex ([<][^>]*[>]|) component takes any XML tag into account,
 		// ex. the name color tag <color=#D09B61FF> or <Name>
 		private static readonly Regex WordsWithoutElision = new Regex(@"\b(h[^ <>]+|onz[^ <>]+)\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-		// NOTE: exception "lorsque aucun", "lorsque aucun", "lorsque avec", "lorsque <prenom>"
+		// NOTE: exception "lorsque aucun", "lorsque aucune", "lorsque avec", "lorsque <prenom>"
 		private static readonly Regex ElisionE = new Regex(@"\b([cdjlmnst]|qu|quoiqu|lorsqu)e ([<][^>]*[>]|)([aàâäæeéèêëiîïoôöœuùüûh])", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 		private static readonly Regex ElisionLa = new Regex(@"\b(l)a ([<][^>]*[>]|)([aàâäæeéèêëiîïoôöœuùüûh])", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 		private static readonly Regex ElisionSi = new Regex(@"\b(s)i (ils?)\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -739,36 +739,35 @@ namespace RimWorld_LanguageWorker_French
 			return item_raw;
 		}
 
+		/// <summary>
+		/// Change the kind.label and the gender of the pawn so that
+		/// GrammarUtility.RulesForPawn generates grammatically correct rules.
+		/// </summary>
+		/// <param name="kind">Kind.</param>
+		/// <param name="gender">Gender.</param>
+		/// <param name="relationInfo">Relation info.</param>
 		public static void FixPawnGender(ref PawnKindDef kind, ref Gender gender, string relationInfo)
 		{
-			LanguageWorker_French my_lw = (RimWorld_LanguageWorker_French.LanguageWorker_French)Find.ActiveLanguageWorker;
 			if (kind != null)
 			{
-				LogMessage("FixPawnGender called.");
-				LogMessage("languageworker: " + Find.ActiveLanguageWorker.GetType());
-				LogMessage("kind: " + kind);
-				LogMessage("kind.label: " + kind.label);
-				LogMessage("kind.labelMale: " + kind.labelMale);
-				LogMessage("kind.labelFemale: " + kind.labelFemale);
-				LogMessage("gender: " + gender);
-				LogMessage("relationInfo: " + relationInfo);
+				/**
+				 * Changing the kind.label has a global side-effect.
+				 * The postfix method in the libHarmony patch ensures that
+				 * the kind.label will be restore to the original value.
+				 * This solution leaves GrammarUtility.RulesForPawn untouched.
+				 * 
+				 * Other solutions:
+				 * 1. Rewrite GrammarUtility.RulesForPawn by replacing kind.label
+				 * 		with RimWorld.GenLabel.BestKindLabel(kind, gender), ~100 lines.
+				 * 2. Detect calls with WithIndefiniteArticle(kind.label, gender)
+				 * 		and WithDefiniteArticle(kind.label, gender) from
+				 * 		GrammarUtility.RulesForPawn (tricky but no patch needed).
+				 */							 
 
-				StartStatsLogging(new StackTrace());
-
-				string oldlabel = kind.label;
 				if ((gender == Gender.Female) && !kind.labelFemale.NullOrEmpty())
 					kind.label = kind.labelFemale;
 				if ((gender == Gender.Male) && !kind.labelMale.NullOrEmpty())
 					kind.label = kind.labelMale;
-
-				if (!oldlabel.Equals(kind.label))
-				{
-					LogMessage("kind.label changed");
-					RecordInString("FixPawnGender: " + oldlabel);
-					RecordOutString("FixPawnGender: " + kind.label);
-				}
-
-				StopStatsLogging(oldlabel, kind.label);
 			}
 			else
 				LogMessage("kind == null");

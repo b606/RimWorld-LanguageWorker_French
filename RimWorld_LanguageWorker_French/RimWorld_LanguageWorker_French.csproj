@@ -60,6 +60,7 @@
     <Compile Include="LanguageWorker_French_Debug.cs" />
     <Compile Include="Patcher.cs" />
     <Compile Include="RulesForPawnPatch.cs" />
+    <Compile Include="InspectionPatch.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

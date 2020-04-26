@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Reflection;
 using HarmonyLib;
 using RimWorld;
@@ -24,11 +25,23 @@ namespace RimWorld_LanguageWorker_French
 					LanguageDatabase.activeLanguage.FriendlyNameEnglish));
 
 				harmony.PatchAll(assembly);
+				InspectPatches();
 
-				// retrieve all patches
-				//var myOriginalMethods = harmony.GetPatchedMethods();
-				//foreach (var original in myOriginalMethods) { }
+				FileLog.Log("Done.");
+			}
+			catch (Exception e)
+			{
+				FileLog.Log("Mod installation failed.");
+				FileLog.Log(string.Format("Exception: {0}", e));
+			}
+		}
 
+		// Retrieve all patches
+		[Conditional("DEBUG")]
+		public static void InspectPatches()
+		{
+			try
+			{
 				MethodInfo original = typeof(GrammarUtility).GetMethod("RulesForPawn",
 					new Type[] {
 						typeof(string), typeof(Name),
@@ -53,17 +66,12 @@ namespace RimWorld_LanguageWorker_French
 						FileLog.Log("priority: " + patch.priority);
 						FileLog.Log("before: " + patch.before);
 						FileLog.Log("after: " + patch.after);
-						//if (patch.owner == "com.b606.mods.languageworker" && patch.PatchMethod == prefix)
-						//return;
 					}
 				}
-
-				//harmony.Patch(original, prefix: new HarmonyMethod(prefix));
-				FileLog.Log("Done.");
 			}
 			catch (Exception e)
 			{
-				FileLog.Log("Mod installation failed.");
+				FileLog.Log("Patch inspection failed.");
 				FileLog.Log(string.Format("Exception: {0}", e));
 			}
 		}

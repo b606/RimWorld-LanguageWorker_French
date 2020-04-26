@@ -1,5 +1,18 @@
 2020-04-26  b606  <7627533+b606@users.noreply.github.com>
 
+	* InspectionPatch.cs:
+	* RimWorld_LanguageWorker_French.csproj: Added a patch for
+	debugging RimWorld and Verse classes.
+
+	* LanguageWorker_French.cs: Documentation and cleanup.
+
+	* Patcher.cs: Added a separate method InspectPatches().
+
+	* RulesForPawnPatch.cs: Fix the patch side effect with a
+	libHarmony __state variable.
+
+2020-04-26  b606  <7627533+b606@users.noreply.github.com>
+
 	* StatsLogger.cs: Fix Graphviz nodes with templates <...> in
 	the method name. 
 

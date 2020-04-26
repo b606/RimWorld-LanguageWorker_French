@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using HarmonyLib;
 using RimWorld;
 using Verse;
@@ -7,7 +8,9 @@ using Verse.Grammar;
 
 namespace RimWorld_LanguageWorker_French
 {
-
+	/// <summary>
+	/// Prefix and and postfix libHarmony patch for GrammarUtility.RulesForPawn
+	/// </summary>
 	[HarmonyPatch(typeof(GrammarUtility))]
 	[HarmonyPatch("RulesForPawn")]
 	[HarmonyPatch(new Type[] {
@@ -19,19 +22,34 @@ namespace RimWorld_LanguageWorker_French
 		typeof(Dictionary<string, string>), typeof(bool) })]
 	class RulesForPawnPatch
 	{
+		/// <summary>
+		/// A private class to save the physical character of the pawn
+		/// at the patch prefix and restore it at patch postfix.
+		/// Why: the language may differentiate the physical and grammatical gender. 
+		/// </summary>
 		private class PhysicalCharacter
 		{
-			private string kindLabel;
+			// References to the original for later use.
+			private PawnKindDef kind;
 			private Gender gender;
 
-			public PhysicalCharacter(string label, Gender gender)
+			// Save old values.
+			private string oldlabel;
+			private Gender oldgender;
+
+			public PhysicalCharacter(ref PawnKindDef kind, ref Gender gender)
 			{
-				this.kindLabel = label;
+				this.kind = kind;
 				this.gender = gender;
+				this.oldlabel = kind.label;
+				this.oldgender = gender;
 			}
 
-			public string KindLabel { get => kindLabel; set => kindLabel = value; }
+			public string KindLabel { get => kind.label; set => kind.label = value; }
 			public Gender Gender { get => gender; set => gender = value; }
+			public PawnKindDef Kind { get => kind; set => kind = value; }
+			public string OldLabel { get => oldlabel; set => oldlabel = value; }
+			public Gender OldGender { get => oldgender; set => oldgender = value; }
 		}
 
 		[HarmonyPrefix]
@@ -40,17 +58,13 @@ namespace RimWorld_LanguageWorker_French
 			int age, int chronologicalAge, string relationInfo,
 			bool everBeenColonistOrTameAnimal, bool everBeenQuestLodger,
 			bool isFactionLeader, List<RoyalTitle> royalTitles,
-			Dictionary<string, string> constants, bool addTags
-			//, out PhysicalCharacter __state
-			)
+			Dictionary<string, string> constants, bool addTags,
+			out PhysicalCharacter __state)
 		{
 			// Save the PhysicalCharacter because it might be overwritten in the patch
-			// with "GrammaticalCharacter".
-			//__state = new PhysicalCharacter(kind.label, gender);
+			__state = new PhysicalCharacter(ref kind, ref gender);
 
 			// if the current language is not the target, do nothing
-			LanguageWorker_French.LogMessage("-----------");
-			LanguageWorker_French.LogMessage(string.Format("RulesforPawnPrefix: {0}", LanguageDatabase.activeLanguage.FriendlyNameEnglish));
 			if (!LanguageDatabase.activeLanguage.FriendlyNameEnglish.Equals(LanguageWorkerPatcher.__targetLanguage))
 				return true;
 
@@ -62,24 +76,18 @@ namespace RimWorld_LanguageWorker_French
 		}
 
 		[HarmonyPostfix]
-		static IEnumerable<Rule> RulesforPawnPostfix(IEnumerable<Rule> __result
-			//,ref PawnKindDef kind, ref Gender gender, PhysicalCharacter __state
-			)
+		static IEnumerable<Rule> RulesforPawnPostfix(IEnumerable<Rule> __result, PhysicalCharacter __state)
 		{
-			// Restore the PhysicalCharacter.
-			//kind.label = __state.KindLabel;
-			//gender = __state.Gender;
-
-			if (__result != null)
+			// return the rules list
+			foreach (Rule r in __result)
 			{
-				LanguageWorker_French.LogMessage("result: " + __result);
-				foreach (Rule r in __result)
-					LanguageWorker_French.LogMessage(r.ToString());
+				yield return r;
 			}
-			else
-				LanguageWorker_French.LogMessage("result == null");
 
-			return __result;
+			// restore the physical character
+			string oldlabel = __state.OldLabel;
+			__state.KindLabel = oldlabel;
+			__state.Gender = __state.OldGender;
 		}
 	}
 }
