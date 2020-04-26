@@ -72,7 +72,8 @@ namespace RimWorld_LanguageWorker_French
 			{
 				return string.Format(NodeFormat, NodeId(),
 					declaringType,
-					Name.Replace("(", "(\\l  ").Replace(", ", ",\\l  ").Replace(")", "\\l)\\l ").ReplaceFirst(" ", "\\l"),
+					Name.Replace("(", "(\\l  ").Replace(", ", ",\\l  ").Replace(")", "\\l)\\l ").ReplaceFirst(" ", "\\l")
+										.Replace("<", "\\<").Replace(">", "\\>"),
 					context, Count, Time / Count, Time_ms());
 			}
 
