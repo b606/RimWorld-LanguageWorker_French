@@ -1,3 +1,11 @@
+// <code-header>
+//   <author>b606</author>
+//   <summary>
+//		Call graphs and stats recorder.
+//		Logs strings in and out of the languageworker when debugging.
+//	 </summary>
+// </code-header>
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

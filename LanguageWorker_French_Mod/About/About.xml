@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-	<name>LanguageWorkerFrench_Test</name>
+	<name>LanguageWorkerFrench_Mod</name>
 	<author>b606</author>
-  <packageId>b606.LanguageWorkerFrench.Test</packageId>
+  <packageId>b606.LanguageWorkerFrench.Mod</packageId>
   <supportedVersions>
     <li>1.0</li>
     <li>1.1</li>
   </supportedVersions>
-	<description>LanguageWorkerFrench_Test</description>
+	<description>LanguageWorkerFrench_Mod</description>
 </ModMetaData>

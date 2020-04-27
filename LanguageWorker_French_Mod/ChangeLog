@@ -1,3 +1,10 @@
+2020-04-27  b606  <7627533+b606@users.noreply.github.com>
+
+	* About.xml:
+	* LanguageWorker_French_Mod.mdproj: The name is officially
+	changed to LanguageWorker_French_Mod. Patches use Pardeike's
+	libHarmony.
+
 2020-04-21  b606  <7627533+b606@users.noreply.github.com>
 
 	* TestReport.html: Added TestReport.html to monitor changes

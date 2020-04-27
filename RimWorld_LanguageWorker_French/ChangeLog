@@ -1,3 +1,22 @@
+2020-04-27  b606  <7627533+b606@users.noreply.github.com>
+
+	* Logger.cs:
+	* Patcher.cs:
+	* StatsLogger.cs:
+	* InspectionPatch.cs:
+	* StringExtension.cs:
+	* RulesForPawnPatch.cs: Added file header.
+
+	* LanguageWorker_French.cs:
+	* LanguageWorker_French_Debug.cs: Added file header and moved
+	currently unused code to LanguageWorker_French_Debug.cs.
+
+	* RimWorld_LanguageWorker_French.csproj: The name is
+	officially changed to LanguageWorker_French_Mod. Patches use
+	Pardeike's libHarmony.
+
+	* packages.config: Update libHarmony version.
+
 2020-04-26  b606  <7627533+b606@users.noreply.github.com>
 
 	* InspectionPatch.cs:

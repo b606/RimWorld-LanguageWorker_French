@@ -12,9 +12,11 @@
     <None Include="About\About.xml" />
     <None Include="doc\LanguageInfo.xml" />
     <None Include="README.md" />
-    <None Include="Assemblies\LanguageWorker_French_Test.dll" />
-    <None Include="Assemblies\LanguageWorker_French_Test.pdb" />
     <None Include="doc\TestReport.html" />
+    <None Include="Assemblies\LanguageWorker_French_Mod.dll" />
+    <None Include="Assemblies\0Harmony.dll" />
+    <None Include="Assemblies\0Harmony.xml" />
+    <None Include="Assemblies\LanguageWorker_French_Mod.pdb" />
   </ItemGroup>
   <ExcludedFiles>
     <File>LanguageWorker_French_Mod.mdproj</File>

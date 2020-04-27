@@ -1,4 +1,10 @@
-using System.Diagnostics;
+// <code-header>
+//   <author>b606</author>
+//   <summary>
+//		Postfix libHarmony patch for logging the targeted function result.
+//	 </summary>
+// </code-header>
+
 using HarmonyLib;
 using Verse;
 using Verse.Grammar;

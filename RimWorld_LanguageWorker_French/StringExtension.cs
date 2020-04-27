@@ -1,4 +1,11 @@
-﻿using System;
+﻿// <code-header>
+//   <author>b606</author>
+//   <summary>
+//		Strings utility functions.
+//	 </summary>
+// </code-header>
+
+using System;
 using Verse;
 
 namespace RimWorld_LanguageWorker_French

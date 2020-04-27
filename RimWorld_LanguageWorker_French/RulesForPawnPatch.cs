@@ -1,6 +1,14 @@
-﻿using System;
+﻿// <code-header>
+//   <author>b606</author>
+//   <summary>
+//		Prefix and and postfix libHarmony patch for GrammarUtility.RulesForPawn.
+//		Fix the genders and names of pawns in the different texts where
+//		the kind.labels are incorrect.
+//	 </summary>
+// </code-header>
+
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using HarmonyLib;
 using RimWorld;
 using Verse;

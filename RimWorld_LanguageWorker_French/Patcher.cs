@@ -1,4 +1,11 @@
-﻿using System;
+﻿// <code-header>
+//   <author>b606</author>
+//   <summary>
+//		libHarmony patches manager.
+//	 </summary>
+// </code-header>
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
