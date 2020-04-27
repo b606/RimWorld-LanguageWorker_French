@@ -1,0 +1,964 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Rapport de test</title>
+<style>
+h1,h2  {
+  color: #7C7C7C;
+  font-family: Verdana, Helvetica, sans-serif;
+}
+p,ul  {
+  font-family: Verdana, Helvetica, sans-serif;
+}
+</style>
+</head>
+<body>
+<h1>Vérification des traitements effectués par l'assembly</h1>
+<p>
+vendredi 24 avril 2020, 15:50:36 (UTC+0200)
+<font color="#7C7C7C"><br/>Couleur :</font> <font color="red">texte avant traitement</font>
+<font color="#7C7C7C"><br/>Couleur :</font> <font color="blue">texte après traitement</font>
+<font color="#7C7C7C"><br/>Chaînes changées :</font> 184 /tmp/PostProcessed_in.txt
+<font color="#7C7C7C"><br/>Chaînes non changées :</font> 60 /tmp/PostProcessed_no.txt
+</p>
+<p>Dans l'ordre d'apparition dans le jeu, généralement :
+<ul>
+<li>Nom de planète</li>
+<li>Factions et leaders de factions</li>
+<li>Objets de la planète</li>
+<li>Premiers colons</li>
+<li>Objets d.arts (dev mode make_colony)</li>
+<li>Caravanes et traderships</li>
+<li>Quêtes</li>
+<li>Incident maps</li>
+<li>dev mode battle royal</li>
+</ul></p>
+<h2>1. Comparaison de /tmp/LanguageWorkerIn.log et de /tmp/LanguageWorkerOut.log</h2>
+<p>
+﻿ToTitleCase(OtherName): BH 1<br/>
+﻿ToTitleCase(OtherName): BH 1<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>a <font color="red">f</font>édération <font color="red">i</font>tinérante d'<font color="red">o</font>uluia<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>a <font color="blue">F</font>édération <font color="blue">I</font>tinérante d'<font color="blue">O</font>uluia<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>e <font color="red">t</font>raité d'<font color="red">h</font>isouistan <font color="red">n</font>ord<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>e <font color="blue">T</font>raité d'<font color="blue">H</font>isouistan <font color="blue">N</font>ord<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>a <font color="red">c</font>onvention <font color="red">w</font>itni<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>a <font color="blue">C</font>onvention <font color="blue">W</font>itni<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> Setoherder<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> Setoherder<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>a <font color="red">c</font>oncorde <font color="red">n</font>on <font color="red">t</font>echnologue <font color="red">y</font>ouberon<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>a <font color="blue">C</font>oncorde <font color="blue">N</font>on <font color="blue">T</font>echnologue <font color="blue">Y</font>ouberon<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> Indos <font color="red">n</font>ord-<font color="red">o</font>uest<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> Indos <font color="blue">N</font>ord-<font color="blue">O</font>uest<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>a <font color="red">f</font>édération <font color="red">m</font>ondiale de <font color="red">v</font>erda du <font color="red">n</font>ord-<font color="red">o</font>uest<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>a <font color="blue">F</font>édération <font color="blue">M</font>ondiale de <font color="blue">V</font>erda du <font color="blue">N</font>ord-<font color="blue">O</font>uest<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>a <font color="red">l</font>igue <font color="red">f</font>orte <font color="red">e</font>souristia<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>a <font color="blue">L</font>igue <font color="blue">F</font>orte <font color="blue">E</font>souristia<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>a <font color="red">c</font>onfédération <font color="red">i</font>tinérante d'<font color="red">a</font>ndherium<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>a <font color="blue">C</font>onfédération <font color="blue">I</font>tinérante d'<font color="blue">A</font>ndherium<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>e <font color="red">p</font>acte <font color="red">c</font>ommunautaire d'<font color="red">e</font>veverora<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>e <font color="blue">P</font>acte <font color="blue">C</font>ommunautaire d'<font color="blue">E</font>veverora<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Langtry<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Langtry<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>a <font color="red">f</font>usion de <font color="red">w</font>awasomeder<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>a <font color="blue">F</font>usion de <font color="blue">W</font>awasomeder<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> Reder<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> Reder<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> Histeoum<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> Histeoum<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>'<font color="red">a</font>ccord <font color="red">s</font>ocialiste d'<font color="red">e</font>nseba<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>'<font color="blue">A</font>ccord <font color="blue">S</font>ocialiste d'<font color="blue">E</font>nseba<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>a <font color="red">l</font>igue du <font color="red">p</font>euple de <font color="red">y</font>oulor<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>a <font color="blue">L</font>igue du <font color="blue">P</font>euple de <font color="blue">Y</font>oulor<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> Forlior du <font color="red">s</font>ud<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> Forlior du <font color="blue">S</font>ud<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>'<font color="red">a</font>lliance <font color="red">n</font>on <font color="red">t</font>echnologue <font color="red">t</font>hastenoum de l'<font color="red">e</font>st<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>'<font color="blue">A</font>lliance <font color="blue">N</font>on <font color="blue">T</font>echnologue <font color="blue">T</font>hastenoum de l'<font color="blue">E</font>st<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>e <font color="red">t</font>raité <font color="red">p</font>opuliste de <font color="red">w</font>asnotinum<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>e <font color="blue">T</font>raité <font color="blue">P</font>opuliste de <font color="blue">W</font>asnotinum<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> Shoalatdio<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> Shoalatdio<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> Arbo du <font color="red">s</font>ud-<font color="red">o</font>uest<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> Arbo du <font color="blue">S</font>ud-<font color="blue">O</font>uest<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Anedhurst<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Anedhurst<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>'<font color="red">a</font>lliance du <font color="red">c</font>aillou<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>'<font color="blue">A</font>lliance du <font color="blue">C</font>aillou<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>e <font color="red">p</font>euple <font color="red">c</font>ómaro<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>e <font color="blue">P</font>euple <font color="blue">C</font>ómaro<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>e <font color="red">p</font>euple de la <font color="red">c</font>olline<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>e <font color="blue">P</font>euple de la <font color="blue">C</font>olline<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>a <font color="red">c</font>oalition <font color="red">n</font>alou<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>a <font color="blue">C</font>oalition <font color="blue">N</font>alou<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>e <font color="red">c</font>lan <font color="red">c</font>roio<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>e <font color="blue">C</font>lan <font color="blue">C</font>roio<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>e <font color="red">p</font>acte des <font color="red">c</font>rêtes <font color="red">j</font>aunes<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>e <font color="blue">P</font>acte des <font color="blue">C</font>rêtes <font color="blue">J</font>aunes<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>a <font color="red">f</font>édération des <font color="red">é</font>tendues <font color="red">b</font>lanches<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>a <font color="blue">F</font>édération des <font color="blue">É</font>tendues <font color="blue">B</font>lanches<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>'<font color="red">u</font>nion de la <font color="red">c</font>rique <font color="red">g</font>rise<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>'<font color="blue">U</font>nion de la <font color="blue">C</font>rique <font color="blue">G</font>rise<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>a <font color="red">f</font>édération de <font color="red">q</font>uema<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>a <font color="blue">F</font>édération de <font color="blue">Q</font>uema<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>a <font color="red">f</font>édération de la <font color="red">f</font>alaise <font color="red">b</font>leue<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>a <font color="blue">F</font>édération de la <font color="blue">F</font>alaise <font color="blue">B</font>leue<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Combo <font color="red">g</font>rise<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Combo <font color="blue">G</font>rise<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>a <font color="red">l</font>eira des <font color="red">t</font>atous <font color="red">n</font>oirs<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>a <font color="blue">L</font>eira des <font color="blue">T</font>atous <font color="blue">N</font>oirs<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>a <font color="red">l</font>ánlé des <font color="red">p</font>andas <font color="red">r</font>ouges<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>a <font color="blue">L</font>ánlé des <font color="blue">P</font>andas <font color="blue">R</font>ouges<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>a <font color="red">t</font>ribu <font color="red">t</font>raléllo<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>a <font color="blue">T</font>ribu <font color="blue">T</font>raléllo<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>a <font color="red">c</font>onvention <font color="red">r</font>roa<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>a <font color="blue">C</font>onvention <font color="blue">R</font>roa<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>'<font color="red">a</font>lliance de la <font color="red">f</font>osse <font color="red">b</font>leue<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>'<font color="blue">A</font>lliance de la <font color="blue">F</font>osse <font color="blue">B</font>leue<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>e <font color="red">p</font>euple de la <font color="red">c</font>ime <font color="red">b</font>leue<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>e <font color="blue">P</font>euple de la <font color="blue">C</font>ime <font color="blue">B</font>leue<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>a <font color="red">t</font>robo des <font color="red">h</font>iboux <font color="red">v</font>iolets<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>a <font color="blue">T</font>robo des <font color="blue">H</font>iboux <font color="blue">V</font>iolets<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>a <font color="red">c</font>onfédération des <font color="red">o</font>asis<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>a <font color="blue">C</font>onfédération des <font color="blue">O</font>asis<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>a <font color="red">c</font>oalition de la <font color="red">f</font>alaise<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>a <font color="blue">C</font>oalition de la <font color="blue">F</font>alaise<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>e <font color="red">p</font>euple de <font color="red">t</font>robo<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>e <font color="blue">P</font>euple de <font color="blue">T</font>robo<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Rolezo <font color="red">o</font>range<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Rolezo <font color="blue">O</font>range<br/>
+<font color="#7C7C7C">ToTitleCase(PawnName):</font> Duegaller <font color="red">o</font>iseau-<font color="red">l</font>yre<br/>
+<font color="#7C7C7C">ToTitleCase(PawnName):</font> Duegaller <font color="blue">O</font>iseau-<font color="blue">L</font>yre<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>a <font color="red">t</font>rogo des <font color="red">h</font>iboux <font color="red">r</font>ouges<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>a <font color="blue">T</font>rogo des <font color="blue">H</font>iboux <font color="blue">R</font>ouges<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>a <font color="red">f</font>édération de la <font color="red">c</font>rique<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>a <font color="blue">F</font>édération de la <font color="blue">C</font>rique<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>a <font color="red">b</font>arseacer des <font color="red">g</font>élinottes <font color="red">o</font>ranges<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>a <font color="blue">B</font>arseacer des <font color="blue">G</font>élinottes <font color="blue">O</font>ranges<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>e <font color="red">p</font>acte des <font color="red">p</font>rairies<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>e <font color="blue">P</font>acte des <font color="blue">P</font>rairies<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>e <font color="red">c</font>lan de <font color="red">r</font>aas<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>e <font color="blue">C</font>lan de <font color="blue">R</font>aas<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>e <font color="red">p</font>acte de l'<font color="red">a</font>iguille<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>e <font color="blue">P</font>acte de l'<font color="blue">A</font>iguille<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>'<font color="red">a</font>lboisa des <font color="red">a</font>beilles <font color="red">o</font>ranges<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>'<font color="blue">A</font>lboisa des <font color="blue">A</font>beilles <font color="blue">O</font>ranges<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>a <font color="red">n</font>ation des <font color="red">d</font>épressions <font color="red">v</font>ertes<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>a <font color="blue">N</font>ation des <font color="blue">D</font>épressions <font color="blue">V</font>ertes<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>a <font color="red">c</font>oalition des <font color="red">m</font>esas<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>a <font color="blue">C</font>oalition des <font color="blue">M</font>esas<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>a <font color="red">c</font>onfédération de la <font color="red">f</font>osse<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>a <font color="blue">C</font>onfédération de la <font color="blue">F</font>osse<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Fosse <font color="red">v</font>iolette<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Fosse <font color="blue">V</font>iolette<br/>
+<font color="#7C7C7C">ToTitleCase(PawnName):</font> Lercha '<font color="red">c</font>orneille' <font color="red">g</font>oulo<br/>
+<font color="#7C7C7C">ToTitleCase(PawnName):</font> Lercha '<font color="blue">C</font>orneille' <font color="blue">G</font>oulo<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>es <font color="red">q</font>uerelleuses <font color="red">i</font>mpassibles<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>es <font color="blue">Q</font>uerelleuses <font color="blue">I</font>mpassibles<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>es <font color="red">l</font>éopards <font color="red">o</font>mbragés<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>es <font color="blue">L</font>éopards <font color="blue">O</font>mbragés<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>e <font color="red">p</font>eloton <font color="red">t</font>yrannie<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>e <font color="blue">P</font>eloton <font color="blue">T</font>yrannie<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>e <font color="red">p</font>arti <font color="red">d</font>ieu<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>e <font color="blue">P</font>arti <font color="blue">D</font>ieu<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>es <font color="red">é</font>quipiers de <font color="red">j</font>oug<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>es <font color="blue">É</font>quipiers de <font color="blue">J</font>oug<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>es <font color="red">r</font>evendeurs de l'<font color="red">o</font>ppression<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>es <font color="blue">R</font>evendeurs de l'<font color="blue">O</font>ppression<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>e <font color="red">c</font>lan <font color="red">s</font>ix-<font color="red">c</font>oups<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>e <font color="blue">C</font>lan <font color="blue">S</font>ix-<font color="blue">C</font>oups<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>es <font color="red">m</font>arteaux de <font color="red">f</font>orgeron<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>es <font color="blue">M</font>arteaux de <font color="blue">F</font>orgeron<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>es Mangeurs de <font color="red">b</font>idoche<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>es Mangeurs de <font color="blue">B</font>idoche<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>es <font color="red">h</font>éroïnes du <font color="red">c</font>onflit<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>es <font color="blue">H</font>éroïnes du <font color="blue">C</font>onflit<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Tiothad<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Tiothad<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>e Commonwealth <font color="red">b</font>risé<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>e Commonwealth <font color="blue">B</font>risé<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>'Empire des Réfugiés<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>'Empire des Réfugiés<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>'Imperium de la Perfection<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>'Imperium de la Perfection<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>e Dominion de <font color="red">r</font>edo<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>e Dominion de <font color="blue">R</font>edo<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>e Dominion de la Perfection<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>e Dominion de la Perfection<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>'Empire des Réfugiés<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>'Empire des Réfugiés<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>'Empire <font color="red">b</font>risée<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>'Empire <font color="blue">B</font>risée<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>e Dominion des Réfugiés<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>e Dominion des Réfugiés<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>e Commonwealth <font color="red">é</font>claté<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>e Commonwealth <font color="blue">É</font>claté<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="red">L</font>a Souveraineté d'<font color="red">i</font>nedo<br/>
+<font color="#7C7C7C">ToTitleCase(FactionName):</font> <font color="blue">l</font>a Souveraineté d'<font color="blue">I</font>nedo<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Osli<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Osli<br/>
+<font color="#7C7C7C">ToTitleCase(PawnName):</font> Dusnospro <font color="red">t</font>rodio<br/>
+<font color="#7C7C7C">ToTitleCase(PawnName):</font> Dusnospro <font color="blue">T</font>rodio<br/>
+<font color="#7C7C7C">ToTitleCase(ArtName):</font> Supplice noir<br/>
+<font color="#7C7C7C">ToTitleCase(ArtName):</font> Supplice noir<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Abanqueiro <font color="red">v</font>iolette<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Abanqueiro <font color="blue">V</font>iolette<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Braña<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Braña<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Combo <font color="red">o</font>range<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Combo <font color="blue">O</font>range<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Ineeaetium<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Ineeaetium<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Gabela <font color="red">v</font>ert<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Gabela <font color="blue">V</font>ert<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Uloro <font color="red">v</font>erte<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Uloro <font color="blue">V</font>erte<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Arehited<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Arehited<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Société de la <font color="red">g</font>renade<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Société de la <font color="blue">G</font>renade<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Bassinhurst<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Bassinhurst<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Canyon <font color="red">m</font>envas<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Canyon <font color="blue">M</font>envas<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Thahiden au <font color="red">l</font>ac<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Thahiden au <font color="blue">L</font>ac<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Caba <font color="red">o</font>range<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Caba <font color="blue">O</font>range<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Ñocoma <font color="red">r</font>ouge<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Ñocoma <font color="blue">R</font>ouge<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Carrière <font color="red">o</font>range<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Carrière <font color="blue">O</font>range<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Cai<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Cai<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Waron<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Waron<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Falaise <font color="red">g</font>uaasbust<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Falaise <font color="blue">G</font>uaasbust<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Nada <font color="red">v</font>iolet<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Nada <font color="blue">V</font>iolet<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Shohen<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Shohen<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Senotwell<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Senotwell<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Roche <font color="red">n</font>oire<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Roche <font color="blue">N</font>oire<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Mont de la <font color="red">m</font>isère<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Mont de la <font color="blue">M</font>isère<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Baseskiometaeum<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Baseskiometaeum<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Theoela<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Theoela<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Etholen<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Etholen<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Gorge <font color="red">b</font>rigand<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Gorge <font color="blue">B</font>rigand<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Hishank<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Hishank<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Teantha<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Teantha<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Plaine <font color="red">b</font>lanche<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Plaine <font color="blue">B</font>lanche<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Albocam<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Albocam<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Abrumeacam<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Abrumeacam<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Baitoga<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Baitoga<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Buthemere<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Buthemere<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Volubilis<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Volubilis<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Grotte <font color="red">d</font>iablesse<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Grotte <font color="blue">D</font>iablesse<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Ouroulhi<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Ouroulhi<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Regroupement sur la <font color="red">d</font>épression<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Regroupement sur la <font color="blue">D</font>épression<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Manabustio<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Manabustio<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Bassinbourg<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Bassinbourg<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Heden<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Heden<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Champ du <font color="red">v</font>autour<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Champ du <font color="blue">V</font>autour<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Hinandwa<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Hinandwa<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Boto<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Boto<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Zepla<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Zepla<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Rocher <font color="red">c</font>amisa<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Rocher <font color="blue">C</font>amisa<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Plaine <font color="red">n</font>oire<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Plaine <font color="blue">N</font>oire<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Butomeour<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Butomeour<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Quito<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Quito<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Colline des <font color="red">g</font>ros <font color="red">b</font>ras<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Colline des <font color="blue">G</font>ros <font color="blue">B</font>ras<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Plaine <font color="red">c</font>onquérante<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Plaine <font color="blue">C</font>onquérante<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Rosphosnor<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Rosphosnor<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Cricanada<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Cricanada<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Juno<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Juno<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Roche <font color="red">e</font>xécutrice<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Roche <font color="blue">E</font>xécutrice<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Regroupement du <font color="red">c</font>oncensus<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Regroupement du <font color="blue">C</font>oncensus<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Congers<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Congers<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Vallée de la <font color="red">f</font>lèche<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Vallée de la <font color="blue">F</font>lèche<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Xosga<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Xosga<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Baxada <font color="red">r</font>ouge<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Baxada <font color="blue">R</font>ouge<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Coseaiñobi <font color="red">o</font>range<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Coseaiñobi <font color="blue">O</font>range<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Lac <font color="red">d</font>uexo<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Lac <font color="blue">D</font>uexo<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Gades<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Gades<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Ñodairar <font color="red">g</font>ris<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Ñodairar <font color="blue">G</font>ris<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Lavego<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Lavego<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Butterand<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Butterand<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Ñoulocho<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Ñoulocho<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Areness<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Areness<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Breinigsville<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Breinigsville<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Bosquet <font color="red">v</font>ert<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Bosquet <font color="blue">V</font>ert<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Caxigo <font color="red">o</font>range<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Caxigo <font color="blue">O</font>range<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Colonie de <font color="red">c</font>hirurgienne<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Colonie de <font color="blue">C</font>hirurgienne<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Canto <font color="red">j</font>aune<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Canto <font color="blue">J</font>aune<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Falaise de <font color="red">g</font>arde-<font color="red">n</font>oir<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Falaise de <font color="blue">G</font>arde-<font color="blue">N</font>oir<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Boaxo <font color="red">g</font>ris<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Boaxo <font color="blue">G</font>ris<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Canbi<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Canbi<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Migaamble<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Migaamble<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Orteilos<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Orteilos<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Canton <font color="red">s</font>ombre<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Canton <font color="blue">S</font>ombre<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Courant du <font color="red">c</font>arreau<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Courant du <font color="blue">C</font>arreau<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Communauté <font color="red">c</font>riminel<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Communauté <font color="blue">C</font>riminel<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Kerkinitida<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Kerkinitida<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Teras<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Teras<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Jeu de l'<font color="red">o</font>iebourg<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Jeu de l'<font color="blue">O</font>iebourg<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Thburn<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Thburn<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Lloabru<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Lloabru<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Lindsey City<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> Lindsey City<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Île <font color="red">g</font>nou<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Île <font color="blue">G</font>nou<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Archipel <font color="red">b</font>alo<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Archipel <font color="blue">B</font>alo<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Archipel <font color="red">t</font>iolor<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Archipel <font color="blue">T</font>iolor<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Archipel <font color="red">h</font>enus<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Archipel <font color="blue">H</font>enus<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Péninsule <font color="red">l</font>agon <font color="red">v</font>ert<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Péninsule <font color="blue">L</font>agon <font color="blue">V</font>ert<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Récif <font color="red">c</font>amiño<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Récif <font color="blue">C</font>amiño<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Île <font color="red">j</font>oue <font color="red">l</font>ointaine<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Île <font color="blue">J</font>oue <font color="blue">L</font>ointaine<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Ilôt <font color="red">b</font>oto<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Ilôt <font color="blue">B</font>oto<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Île <font color="red">l</font>éboalergo<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Île <font color="blue">L</font>éboalergo<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Archipel <font color="red">d</font>oigt <font color="red">g</font>rossier<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Archipel <font color="blue">D</font>oigt <font color="blue">G</font>rossier<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Archipel <font color="red">i</font>rre<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Archipel <font color="blue">I</font>rre<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Île <font color="red">a</font>beille <font color="red">j</font>aune<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Île <font color="blue">A</font>beille <font color="blue">J</font>aune<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Ilôt <font color="red">w</font>asler<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Ilôt <font color="blue">W</font>asler<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Archipel <font color="red">s</font>abot <font color="red">v</font>iolet<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Archipel <font color="blue">S</font>abot <font color="blue">V</font>iolet<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Récif <font color="red">c</font>amtracroi<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Récif <font color="blue">C</font>amtracroi<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Rochers <font color="red">b</font>orba<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Rochers <font color="blue">B</font>orba<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Promontoire <font color="red">m</font>ouche <font color="red">j</font>aune<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Promontoire <font color="blue">M</font>ouche <font color="blue">J</font>aune<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Mouillage <font color="red">g</font>alga<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Mouillage <font color="blue">G</font>alga<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Mouillage <font color="red">r</font>eio<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Mouillage <font color="blue">R</font>eio<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Réservoir <font color="red">l</font>egua<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Réservoir <font color="blue">L</font>egua<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Lac <font color="red">d</font>inde-<font color="red">g</font>lacée<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Lac <font color="blue">D</font>inde-<font color="blue">G</font>lacée<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Mer <font color="red">i</font>thberium<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Mer <font color="blue">I</font>thberium<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Réservoir <font color="red">x</font>igoda<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Réservoir <font color="blue">X</font>igoda<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Lac <font color="red">h</font>eeria<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Lac <font color="blue">H</font>eeria<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Loch <font color="red">e</font>natba<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Loch <font color="blue">E</font>natba<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Mer <font color="red">t</font>edveussia<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Mer <font color="blue">T</font>edveussia<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Océan <font color="red">e</font>ntinum<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Océan <font color="blue">E</font>ntinum<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Lac <font color="red">c</font>hauve-<font color="red">s</font>ouris <font color="red">g</font>rise<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Lac <font color="blue">C</font>hauve-<font color="blue">S</font>ouris <font color="blue">G</font>rise<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Océan <font color="red">h</font>irondelle<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Océan <font color="blue">H</font>irondelle<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Océan <font color="red">b</font>eza<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Océan <font color="blue">B</font>eza<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Montagnes <font color="red">l</font>er<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Montagnes <font color="blue">L</font>er<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Collines <font color="red">c</font>amiño<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Collines <font color="blue">C</font>amiño<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Pics <font color="red">t</font>rosmicerbai<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Pics <font color="blue">T</font>rosmicerbai<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Falaises <font color="red">d</font>énouement d'<font color="red">h</font>ioum<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Falaises <font color="blue">D</font>énouement d'<font color="blue">H</font>ioum<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Montagnes <font color="red">a</font>tberon<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Montagnes <font color="blue">A</font>tberon<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Pics <font color="red">f</font>in de Celia<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Pics <font color="blue">F</font>in de Celia<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Montagnes <font color="red">o</font>ulyouhadunt<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Montagnes <font color="blue">O</font>ulyouhadunt<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Montagnes <font color="red">b</font>rícar<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Montagnes <font color="blue">B</font>rícar<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Montagnes <font color="red">e</font>ntuay<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Montagnes <font color="blue">E</font>ntuay<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Collines <font color="red">r</font>aie<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Collines <font color="blue">R</font>aie<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Pics <font color="red">z</font>ameacobar<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Pics <font color="blue">Z</font>ameacobar<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Montagnes <font color="red">t</font>rangaamb<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Montagnes <font color="blue">T</font>rangaamb<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Chaîne <font color="red">b</font>ison-<font color="red">g</font>ris<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Chaîne <font color="blue">B</font>ison-<font color="blue">G</font>ris<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Désert <font color="red">v</font>ache <font color="red">g</font>lacée<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Désert <font color="blue">V</font>ache <font color="blue">G</font>lacée<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Désert <font color="red">t</font>rophée d'<font color="red">a</font>mbda<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Désert <font color="blue">T</font>rophée d'<font color="blue">A</font>mbda<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Désert <font color="red">r</font>ésistance de l'<font color="red">a</font>lligator<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Désert <font color="blue">R</font>ésistance de l'<font color="blue">A</font>lligator<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Plateau <font color="red">t</font>ronc <font color="red">g</font>ris<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Plateau <font color="blue">T</font>ronc <font color="blue">G</font>ris<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Désert <font color="red">c</font>ygne-<font color="red">b</font>arbu<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Désert <font color="blue">C</font>ygne-<font color="blue">B</font>arbu<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Marécage <font color="red">o</font>urberon<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Marécage <font color="blue">O</font>urberon<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Marais <font color="red">b</font>anbocol<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Marais <font color="blue">B</font>anbocol<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Marais <font color="red">i</font>raalbo<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Marais <font color="blue">I</font>raalbo<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Forêt <font color="red">t</font>odio<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Forêt <font color="blue">T</font>odio<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Forêt <font color="red">a</font>bruño<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Forêt <font color="blue">A</font>bruño<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Buissons <font color="red">h</font>ase-<font color="red">n</font>oire<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Buissons <font color="blue">H</font>ase-<font color="blue">N</font>oire<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Bois <font color="red">b</font>anroga<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Bois <font color="blue">B</font>anroga<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Forêt <font color="red">x</font>ecoabe<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Forêt <font color="blue">X</font>ecoabe<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Jungle <font color="red">o</font>kapi-<font color="red">g</font>ris<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Jungle <font color="blue">O</font>kapi-<font color="blue">G</font>ris<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Jungle <font color="red">b</font>ufflonne <font color="red">r</font>onde<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Jungle <font color="blue">B</font>ufflonne <font color="blue">R</font>onde<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Landes <font color="red">l</font>egua<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Landes <font color="blue">L</font>egua<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Forêt <font color="red">a</font>tunt<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Forêt <font color="blue">A</font>tunt<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Forêt <font color="red">b</font>osara<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Forêt <font color="blue">B</font>osara<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Bush <font color="red">e</font>sna<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Bush <font color="blue">E</font>sna<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Maquis <font color="red">r</font>odaballo<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Maquis <font color="blue">R</font>odaballo<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Garrigue <font color="red">o</font>meevedio<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Garrigue <font color="blue">O</font>meevedio<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Inlandsis <font color="red">d</font>omartros<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Inlandsis <font color="blue">D</font>omartros<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Toundra <font color="red">b</font>isonne <font color="red">n</font>oire<br/>
+<font color="#7C7C7C">ToTitleCase(WorldFeatureName):</font> Toundra <font color="blue">B</font>isonne <font color="blue">N</font>oire<br/>
+<font color="#7C7C7C">ToTitleCase(PawnName):</font> Cambiar <font color="red">n</font>aeniro<br/>
+<font color="#7C7C7C">ToTitleCase(PawnName):</font> Cambiar <font color="blue">N</font>aeniro<br/>
+<font color="#7C7C7C">ToTitleCase(PawnName):</font> Lécatran <font color="red">r</font>aca<br/>
+<font color="#7C7C7C">ToTitleCase(PawnName):</font> Lécatran <font color="blue">R</font>aca<br/>
+<font color="#7C7C7C">ToTitleCase(PawnName):</font> Bico '<font color="red">b</font>aleine' <font color="red">c</font>omboa<br/>
+<font color="#7C7C7C">ToTitleCase(PawnName):</font> Bico '<font color="blue">B</font>aleine' <font color="blue">C</font>omboa<br/>
+<font color="#7C7C7C">ToTitleCase(PawnName):</font> Necailéba <font color="red">c</font>hamelle<br/>
+<font color="#7C7C7C">ToTitleCase(PawnName):</font> Necailéba <font color="blue">C</font>hamelle<br/>
+<font color="#7C7C7C">ToTitleCase(PawnName):</font> Migaloiro <font color="red">v</font>ert<br/>
+<font color="#7C7C7C">ToTitleCase(PawnName):</font> Migaloiro <font color="blue">V</font>ert<br/>
+<font color="#7C7C7C">ToTitleCase(PawnName):</font> Goo '<font color="red">t</font>ruite' <font color="red">n</font>eler<br/>
+<font color="#7C7C7C">ToTitleCase(PawnName):</font> Goo '<font color="blue">T</font>ruite' <font color="blue">N</font>eler<br/>
+<font color="#7C7C7C">ToTitleCase(PawnName):</font> Legua <font color="red">g</font>ago<br/>
+<font color="#7C7C7C">ToTitleCase(PawnName):</font> Legua <font color="blue">G</font>ago<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> La Colonie<br/>
+<font color="#7C7C7C">ToTitleCase(SettlementName):</font> La Colonie<br/>
+<font color="#7C7C7C">ToTitleCase(PawnName):</font> Daisy<br/>
+<font color="#7C7C7C">ToTitleCase(PawnName):</font> Daisy<br/>
+<font color="#7C7C7C">ToTitleCase(PawnName):</font> Lemon<br/>
+<font color="#7C7C7C">ToTitleCase(PawnName):</font> Lemon<br/>
+<font color="#7C7C7C">ToTitleCase(PawnName):</font> Penne<br/>
+<font color="#7C7C7C">ToTitleCase(PawnName):</font> Penne<br/>
+</p>
+<h2>2. Comparaison de /tmp/PostProcessed_in.txt et de /tmp/PostProcessed_out.txt</h2>
+<p>
+﻿PostProcessed_str[ToTitleCaseOtherName]:  52.7 µs:<font color="red">L</font>a <font color="red">f</font>édération <font color="red">i</font>tinérante d'<font color="red">o</font>uluia<br/>
+﻿PostProcessed_str[ToTitleCaseOtherName]:  52.7 µs:<font color="blue">l</font>a <font color="blue">F</font>édération <font color="blue">I</font>tinérante d'<font color="blue">O</font>uluia<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  19.1 µs:</font><font color="red">L</font>e <font color="red">t</font>raité d'<font color="red">h</font>isouistan <font color="red">n</font>ord<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  19.1 µs:</font><font color="blue">l</font>e <font color="blue">T</font>raité d'<font color="blue">H</font>isouistan <font color="blue">N</font>ord<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  16.5 µs:</font><font color="red">L</font>a <font color="red">c</font>onvention <font color="red">w</font>itni<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  16.5 µs:</font><font color="blue">l</font>a <font color="blue">C</font>onvention <font color="blue">W</font>itni<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  21.4 µs:</font><font color="red">L</font>a <font color="red">c</font>oncorde <font color="red">n</font>on <font color="red">t</font>echnologue <font color="red">y</font>ouberon<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  21.4 µs:</font><font color="blue">l</font>a <font color="blue">C</font>oncorde <font color="blue">N</font>on <font color="blue">T</font>echnologue <font color="blue">Y</font>ouberon<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  30.0 µs:</font>Indos <font color="red">n</font>ord-<font color="red">o</font>uest<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  30.0 µs:</font>Indos <font color="blue">N</font>ord-<font color="blue">O</font>uest<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  34.5 µs:</font><font color="red">L</font>a <font color="red">f</font>édération <font color="red">m</font>ondiale de <font color="red">v</font>erda du <font color="red">n</font>ord-<font color="red">o</font>uest<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  34.5 µs:</font><font color="blue">l</font>a <font color="blue">F</font>édération <font color="blue">M</font>ondiale de <font color="blue">V</font>erda du <font color="blue">N</font>ord-<font color="blue">O</font>uest<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  19.7 µs:</font><font color="red">L</font>a <font color="red">l</font>igue <font color="red">f</font>orte <font color="red">e</font>souristia<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  19.7 µs:</font><font color="blue">l</font>a <font color="blue">L</font>igue <font color="blue">F</font>orte <font color="blue">E</font>souristia<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  30.0 µs:</font><font color="red">L</font>a <font color="red">c</font>onfédération <font color="red">i</font>tinérante d'<font color="red">a</font>ndherium<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  30.0 µs:</font><font color="blue">l</font>a <font color="blue">C</font>onfédération <font color="blue">I</font>tinérante d'<font color="blue">A</font>ndherium<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  17.8 µs:</font><font color="red">L</font>e <font color="red">p</font>acte <font color="red">c</font>ommunautaire d'<font color="red">e</font>veverora<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  17.8 µs:</font><font color="blue">l</font>e <font color="blue">P</font>acte <font color="blue">C</font>ommunautaire d'<font color="blue">E</font>veverora<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  19.5 µs:</font><font color="red">L</font>a <font color="red">f</font>usion de <font color="red">w</font>awasomeder<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  19.5 µs:</font><font color="blue">l</font>a <font color="blue">F</font>usion de <font color="blue">W</font>awasomeder<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  40.9 µs:</font><font color="red">L</font>'<font color="red">a</font>ccord <font color="red">s</font>ocialiste d'<font color="red">e</font>nseba<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  40.9 µs:</font><font color="blue">l</font>'<font color="blue">A</font>ccord <font color="blue">S</font>ocialiste d'<font color="blue">E</font>nseba<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  30.5 µs:</font><font color="red">L</font>a <font color="red">l</font>igue du <font color="red">p</font>euple de <font color="red">y</font>oulor<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  30.5 µs:</font><font color="blue">l</font>a <font color="blue">L</font>igue du <font color="blue">P</font>euple de <font color="blue">Y</font>oulor<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  15.9 µs:</font>Forlior du <font color="red">s</font>ud<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  15.9 µs:</font>Forlior du <font color="blue">S</font>ud<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  27.1 µs:</font><font color="red">L</font>'<font color="red">a</font>lliance <font color="red">n</font>on <font color="red">t</font>echnologue <font color="red">t</font>hastenoum de l'<font color="red">e</font>st<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  27.1 µs:</font><font color="blue">l</font>'<font color="blue">A</font>lliance <font color="blue">N</font>on <font color="blue">T</font>echnologue <font color="blue">T</font>hastenoum de l'<font color="blue">E</font>st<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  33.0 µs:</font><font color="red">L</font>e <font color="red">t</font>raité <font color="red">p</font>opuliste de <font color="red">w</font>asnotinum<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  33.0 µs:</font><font color="blue">l</font>e <font color="blue">T</font>raité <font color="blue">P</font>opuliste de <font color="blue">W</font>asnotinum<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  16.8 µs:</font>Arbo du <font color="red">s</font>ud-<font color="red">o</font>uest<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  16.8 µs:</font>Arbo du <font color="blue">S</font>ud-<font color="blue">O</font>uest<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  26.4 µs:</font><font color="red">L</font>'<font color="red">a</font>lliance du <font color="red">c</font>aillou<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  26.4 µs:</font><font color="blue">l</font>'<font color="blue">A</font>lliance du <font color="blue">C</font>aillou<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  15.7 µs:</font><font color="red">L</font>e <font color="red">p</font>euple <font color="red">c</font>ómaro<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  15.7 µs:</font><font color="blue">l</font>e <font color="blue">P</font>euple <font color="blue">C</font>ómaro<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  18.1 µs:</font><font color="red">L</font>e <font color="red">p</font>euple de la <font color="red">c</font>olline<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  18.1 µs:</font><font color="blue">l</font>e <font color="blue">P</font>euple de la <font color="blue">C</font>olline<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  17.0 µs:</font><font color="red">L</font>a <font color="red">c</font>oalition <font color="red">n</font>alou<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  17.0 µs:</font><font color="blue">l</font>a <font color="blue">C</font>oalition <font color="blue">N</font>alou<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  14.9 µs:</font><font color="red">L</font>e <font color="red">c</font>lan <font color="red">c</font>roio<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  14.9 µs:</font><font color="blue">l</font>e <font color="blue">C</font>lan <font color="blue">C</font>roio<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  18.0 µs:</font><font color="red">L</font>e <font color="red">p</font>acte des <font color="red">c</font>rêtes <font color="red">j</font>aunes<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  18.0 µs:</font><font color="blue">l</font>e <font color="blue">P</font>acte des <font color="blue">C</font>rêtes <font color="blue">J</font>aunes<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  31.1 µs:</font><font color="red">L</font>a <font color="red">f</font>édération des <font color="red">é</font>tendues <font color="red">b</font>lanches<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  31.1 µs:</font><font color="blue">l</font>a <font color="blue">F</font>édération des <font color="blue">É</font>tendues <font color="blue">B</font>lanches<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  18.7 µs:</font><font color="red">L</font>'<font color="red">u</font>nion de la <font color="red">c</font>rique <font color="red">g</font>rise<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  18.7 µs:</font><font color="blue">l</font>'<font color="blue">U</font>nion de la <font color="blue">C</font>rique <font color="blue">G</font>rise<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  16.2 µs:</font><font color="red">L</font>a <font color="red">f</font>édération de <font color="red">q</font>uema<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  16.2 µs:</font><font color="blue">l</font>a <font color="blue">F</font>édération de <font color="blue">Q</font>uema<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  19.6 µs:</font><font color="red">L</font>a <font color="red">f</font>édération de la <font color="red">f</font>alaise <font color="red">b</font>leue<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  19.6 µs:</font><font color="blue">l</font>a <font color="blue">F</font>édération de la <font color="blue">F</font>alaise <font color="blue">B</font>leue<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  36.8 µs:</font>Combo <font color="red">g</font>rise<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  36.8 µs:</font>Combo <font color="blue">G</font>rise<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  22.4 µs:</font><font color="red">L</font>a <font color="red">l</font>eira des <font color="red">t</font>atous <font color="red">n</font>oirs<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  22.4 µs:</font><font color="blue">l</font>a <font color="blue">L</font>eira des <font color="blue">T</font>atous <font color="blue">N</font>oirs<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  28.1 µs:</font><font color="red">L</font>a <font color="red">l</font>ánlé des <font color="red">p</font>andas <font color="red">r</font>ouges<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  28.1 µs:</font><font color="blue">l</font>a <font color="blue">L</font>ánlé des <font color="blue">P</font>andas <font color="blue">R</font>ouges<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  33.5 µs:</font><font color="red">L</font>a <font color="red">t</font>ribu <font color="red">t</font>raléllo<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  33.5 µs:</font><font color="blue">l</font>a <font color="blue">T</font>ribu <font color="blue">T</font>raléllo<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  16.9 µs:</font><font color="red">L</font>a <font color="red">c</font>onvention <font color="red">r</font>roa<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  16.9 µs:</font><font color="blue">l</font>a <font color="blue">C</font>onvention <font color="blue">R</font>roa<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  19.9 µs:</font><font color="red">L</font>'<font color="red">a</font>lliance de la <font color="red">f</font>osse <font color="red">b</font>leue<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  19.9 µs:</font><font color="blue">l</font>'<font color="blue">A</font>lliance de la <font color="blue">F</font>osse <font color="blue">B</font>leue<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  42.3 µs:</font><font color="red">L</font>e <font color="red">p</font>euple de la <font color="red">c</font>ime <font color="red">b</font>leue<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  42.3 µs:</font><font color="blue">l</font>e <font color="blue">P</font>euple de la <font color="blue">C</font>ime <font color="blue">B</font>leue<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  19.0 µs:</font><font color="red">L</font>a <font color="red">t</font>robo des <font color="red">h</font>iboux <font color="red">v</font>iolets<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  19.0 µs:</font><font color="blue">l</font>a <font color="blue">T</font>robo des <font color="blue">H</font>iboux <font color="blue">V</font>iolets<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  17.7 µs:</font><font color="red">L</font>a <font color="red">c</font>onfédération des <font color="red">o</font>asis<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  17.7 µs:</font><font color="blue">l</font>a <font color="blue">C</font>onfédération des <font color="blue">O</font>asis<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  16.5 µs:</font><font color="red">L</font>a <font color="red">c</font>oalition de la <font color="red">f</font>alaise<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  16.5 µs:</font><font color="blue">l</font>a <font color="blue">C</font>oalition de la <font color="blue">F</font>alaise<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  15.7 µs:</font><font color="red">L</font>e <font color="red">p</font>euple de <font color="red">t</font>robo<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  15.7 µs:</font><font color="blue">l</font>e <font color="blue">P</font>euple de <font color="blue">T</font>robo<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  16.2 µs:</font>Rolezo <font color="red">o</font>range<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  16.2 µs:</font>Rolezo <font color="blue">O</font>range<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  18.8 µs:</font>Duegaller <font color="red">o</font>iseau-<font color="red">l</font>yre<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  18.8 µs:</font>Duegaller <font color="blue">O</font>iseau-<font color="blue">L</font>yre<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  19.4 µs:</font><font color="red">L</font>a <font color="red">t</font>rogo des <font color="red">h</font>iboux <font color="red">r</font>ouges<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  19.4 µs:</font><font color="blue">l</font>a <font color="blue">T</font>rogo des <font color="blue">H</font>iboux <font color="blue">R</font>ouges<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  20.3 µs:</font><font color="red">L</font>a <font color="red">f</font>édération de la <font color="red">c</font>rique<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  20.3 µs:</font><font color="blue">l</font>a <font color="blue">F</font>édération de la <font color="blue">C</font>rique<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  20.8 µs:</font><font color="red">L</font>a <font color="red">b</font>arseacer des <font color="red">g</font>élinottes <font color="red">o</font>ranges<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  20.8 µs:</font><font color="blue">l</font>a <font color="blue">B</font>arseacer des <font color="blue">G</font>élinottes <font color="blue">O</font>ranges<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  15.4 µs:</font><font color="red">L</font>e <font color="red">p</font>acte des <font color="red">p</font>rairies<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  15.4 µs:</font><font color="blue">l</font>e <font color="blue">P</font>acte des <font color="blue">P</font>rairies<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  16.6 µs:</font><font color="red">L</font>e <font color="red">c</font>lan de <font color="red">r</font>aas<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  16.6 µs:</font><font color="blue">l</font>e <font color="blue">C</font>lan de <font color="blue">R</font>aas<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  19.4 µs:</font><font color="red">L</font>e <font color="red">p</font>acte de l'<font color="red">a</font>iguille<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  19.4 µs:</font><font color="blue">l</font>e <font color="blue">P</font>acte de l'<font color="blue">A</font>iguille<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  20.6 µs:</font><font color="red">L</font>'<font color="red">a</font>lboisa des <font color="red">a</font>beilles <font color="red">o</font>ranges<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  20.6 µs:</font><font color="blue">l</font>'<font color="blue">A</font>lboisa des <font color="blue">A</font>beilles <font color="blue">O</font>ranges<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  21.3 µs:</font><font color="red">L</font>a <font color="red">n</font>ation des <font color="red">d</font>épressions <font color="red">v</font>ertes<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  21.3 µs:</font><font color="blue">l</font>a <font color="blue">N</font>ation des <font color="blue">D</font>épressions <font color="blue">V</font>ertes<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  18.2 µs:</font><font color="red">L</font>a <font color="red">c</font>oalition des <font color="red">m</font>esas<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  18.2 µs:</font><font color="blue">l</font>a <font color="blue">C</font>oalition des <font color="blue">M</font>esas<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  30.0 µs:</font><font color="red">L</font>a <font color="red">c</font>onfédération de la <font color="red">f</font>osse<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  30.0 µs:</font><font color="blue">l</font>a <font color="blue">C</font>onfédération de la <font color="blue">F</font>osse<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  14.1 µs:</font>Fosse <font color="red">v</font>iolette<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  14.1 µs:</font>Fosse <font color="blue">V</font>iolette<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  31.4 µs:</font>Lercha '<font color="red">c</font>orneille' <font color="red">g</font>oulo<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  31.4 µs:</font>Lercha '<font color="blue">C</font>orneille' <font color="blue">G</font>oulo<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  16.6 µs:</font><font color="red">L</font>es <font color="red">q</font>uerelleuses <font color="red">i</font>mpassibles<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  16.6 µs:</font><font color="blue">l</font>es <font color="blue">Q</font>uerelleuses <font color="blue">I</font>mpassibles<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  33.7 µs:</font><font color="red">L</font>es <font color="red">l</font>éopards <font color="red">o</font>mbragés<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  33.7 µs:</font><font color="blue">l</font>es <font color="blue">L</font>éopards <font color="blue">O</font>mbragés<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  15.2 µs:</font><font color="red">L</font>e <font color="red">p</font>eloton <font color="red">t</font>yrannie<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  15.2 µs:</font><font color="blue">l</font>e <font color="blue">P</font>eloton <font color="blue">T</font>yrannie<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  15.1 µs:</font><font color="red">L</font>e <font color="red">p</font>arti <font color="red">d</font>ieu<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  15.1 µs:</font><font color="blue">l</font>e <font color="blue">P</font>arti <font color="blue">D</font>ieu<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  26.7 µs:</font><font color="red">L</font>es <font color="red">é</font>quipiers de <font color="red">j</font>oug<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  26.7 µs:</font><font color="blue">l</font>es <font color="blue">É</font>quipiers de <font color="blue">J</font>oug<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  18.2 µs:</font><font color="red">L</font>es <font color="red">r</font>evendeurs de l'<font color="red">o</font>ppression<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  18.2 µs:</font><font color="blue">l</font>es <font color="blue">R</font>evendeurs de l'<font color="blue">O</font>ppression<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  17.5 µs:</font><font color="red">L</font>e <font color="red">c</font>lan <font color="red">s</font>ix-<font color="red">c</font>oups<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  17.5 µs:</font><font color="blue">l</font>e <font color="blue">C</font>lan <font color="blue">S</font>ix-<font color="blue">C</font>oups<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  27.8 µs:</font><font color="red">L</font>es <font color="red">m</font>arteaux de <font color="red">f</font>orgeron<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  27.8 µs:</font><font color="blue">l</font>es <font color="blue">M</font>arteaux de <font color="blue">F</font>orgeron<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  17.1 µs:</font><font color="red">L</font>es Mangeurs de <font color="red">b</font>idoche<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  17.1 µs:</font><font color="blue">l</font>es Mangeurs de <font color="blue">B</font>idoche<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  22.2 µs:</font><font color="red">L</font>es <font color="red">h</font>éroïnes du <font color="red">c</font>onflit<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  22.2 µs:</font><font color="blue">l</font>es <font color="blue">H</font>éroïnes du <font color="blue">C</font>onflit<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  42.0 µs:</font><font color="red">L</font>e Commonwealth <font color="red">b</font>risé<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  42.0 µs:</font><font color="blue">l</font>e Commonwealth <font color="blue">B</font>risé<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  17.2 µs:</font><font color="red">L</font>'Empire des Réfugiés<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  17.2 µs:</font><font color="blue">l</font>'Empire des Réfugiés<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  15.6 µs:</font><font color="red">L</font>'Imperium de la Perfection<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  15.6 µs:</font><font color="blue">l</font>'Imperium de la Perfection<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  20.8 µs:</font><font color="red">L</font>e Dominion de <font color="red">r</font>edo<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  20.8 µs:</font><font color="blue">l</font>e Dominion de <font color="blue">R</font>edo<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  16.8 µs:</font><font color="red">L</font>e Dominion de la Perfection<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  16.8 µs:</font><font color="blue">l</font>e Dominion de la Perfection<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  34.1 µs:</font><font color="red">L</font>'Empire <font color="red">b</font>risée<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  34.1 µs:</font><font color="blue">l</font>'Empire <font color="blue">B</font>risée<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  24.7 µs:</font><font color="red">L</font>e Dominion des Réfugiés<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  24.7 µs:</font><font color="blue">l</font>e Dominion des Réfugiés<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  38.4 µs:</font><font color="red">L</font>e Commonwealth <font color="red">é</font>claté<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  38.4 µs:</font><font color="blue">l</font>e Commonwealth <font color="blue">É</font>claté<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  19.6 µs:</font><font color="red">L</font>a Souveraineté d'<font color="red">i</font>nedo<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseOtherName]:  19.6 µs:</font><font color="blue">l</font>a Souveraineté d'<font color="blue">I</font>nedo<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  31.7 µs:</font>Dusnospro <font color="red">t</font>rodio<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  31.7 µs:</font>Dusnospro <font color="blue">T</font>rodio<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  18.2 µs:</font>Abanqueiro <font color="red">v</font>iolette<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  18.2 µs:</font>Abanqueiro <font color="blue">V</font>iolette<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  18.1 µs:</font>Combo <font color="red">o</font>range<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  18.1 µs:</font>Combo <font color="blue">O</font>range<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  21.3 µs:</font>Gabela <font color="red">v</font>ert<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  21.3 µs:</font>Gabela <font color="blue">V</font>ert<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  13.8 µs:</font>Uloro <font color="red">v</font>erte<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  13.8 µs:</font>Uloro <font color="blue">V</font>erte<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  47.3 µs:</font>Société de la <font color="red">g</font>renade<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  47.3 µs:</font>Société de la <font color="blue">G</font>renade<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  14.1 µs:</font>Canyon <font color="red">m</font>envas<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  14.1 µs:</font>Canyon <font color="blue">M</font>envas<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  25.0 µs:</font>Thahiden au <font color="red">l</font>ac<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  25.0 µs:</font>Thahiden au <font color="blue">L</font>ac<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  19.2 µs:</font>Caba <font color="red">o</font>range<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  19.2 µs:</font>Caba <font color="blue">O</font>range<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  15.6 µs:</font>Ñocoma <font color="red">r</font>ouge<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  15.6 µs:</font>Ñocoma <font color="blue">R</font>ouge<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  20.1 µs:</font>Carrière <font color="red">o</font>range<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  20.1 µs:</font>Carrière <font color="blue">O</font>range<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  13.8 µs:</font>Falaise <font color="red">g</font>uaasbust<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  13.8 µs:</font>Falaise <font color="blue">G</font>uaasbust<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  14.4 µs:</font>Nada <font color="red">v</font>iolet<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  14.4 µs:</font>Nada <font color="blue">V</font>iolet<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  13.4 µs:</font>Roche <font color="red">n</font>oire<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  13.4 µs:</font>Roche <font color="blue">N</font>oire<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  17.0 µs:</font>Mont de la <font color="red">m</font>isère<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  17.0 µs:</font>Mont de la <font color="blue">M</font>isère<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  12.4 µs:</font>Gorge <font color="red">b</font>rigand<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  12.4 µs:</font>Gorge <font color="blue">B</font>rigand<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  13.1 µs:</font>Plaine <font color="red">b</font>lanche<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  13.1 µs:</font>Plaine <font color="blue">B</font>lanche<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  15.3 µs:</font>Grotte <font color="red">d</font>iablesse<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  15.3 µs:</font>Grotte <font color="blue">D</font>iablesse<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  25.3 µs:</font>Regroupement sur la <font color="red">d</font>épression<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  25.3 µs:</font>Regroupement sur la <font color="blue">D</font>épression<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  15.4 µs:</font>Champ du <font color="red">v</font>autour<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  15.4 µs:</font>Champ du <font color="blue">V</font>autour<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  15.5 µs:</font>Rocher <font color="red">c</font>amisa<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  15.5 µs:</font>Rocher <font color="blue">C</font>amisa<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  13.8 µs:</font>Plaine <font color="red">n</font>oire<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  13.8 µs:</font>Plaine <font color="blue">N</font>oire<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  25.4 µs:</font>Colline des <font color="red">g</font>ros <font color="red">b</font>ras<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  25.4 µs:</font>Colline des <font color="blue">G</font>ros <font color="blue">B</font>ras<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  15.2 µs:</font>Plaine <font color="red">c</font>onquérante<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  15.2 µs:</font>Plaine <font color="blue">C</font>onquérante<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  18.6 µs:</font>Roche <font color="red">e</font>xécutrice<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  18.6 µs:</font>Roche <font color="blue">E</font>xécutrice<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  15.4 µs:</font>Regroupement du <font color="red">c</font>oncensus<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  15.4 µs:</font>Regroupement du <font color="blue">C</font>oncensus<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  16.8 µs:</font>Vallée de la <font color="red">f</font>lèche<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  16.8 µs:</font>Vallée de la <font color="blue">F</font>lèche<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  15.3 µs:</font>Baxada <font color="red">r</font>ouge<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  15.3 µs:</font>Baxada <font color="blue">R</font>ouge<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  15.5 µs:</font>Coseaiñobi <font color="red">o</font>range<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  15.5 µs:</font>Coseaiñobi <font color="blue">O</font>range<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  54.2 µs:</font>Lac <font color="red">d</font>uexo<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  54.2 µs:</font>Lac <font color="blue">D</font>uexo<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  18.8 µs:</font>Ñodairar <font color="red">g</font>ris<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  18.8 µs:</font>Ñodairar <font color="blue">G</font>ris<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  13.6 µs:</font>Bosquet <font color="red">v</font>ert<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  13.6 µs:</font>Bosquet <font color="blue">V</font>ert<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  14.3 µs:</font>Caxigo <font color="red">o</font>range<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  14.3 µs:</font>Caxigo <font color="blue">O</font>range<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  15.6 µs:</font>Colonie de <font color="red">c</font>hirurgienne<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  15.6 µs:</font>Colonie de <font color="blue">C</font>hirurgienne<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  14.2 µs:</font>Canto <font color="red">j</font>aune<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  14.2 µs:</font>Canto <font color="blue">J</font>aune<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  18.7 µs:</font>Falaise de <font color="red">g</font>arde-<font color="red">n</font>oir<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  18.7 µs:</font>Falaise de <font color="blue">G</font>arde-<font color="blue">N</font>oir<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  14.0 µs:</font>Boaxo <font color="red">g</font>ris<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  14.0 µs:</font>Boaxo <font color="blue">G</font>ris<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  14.7 µs:</font>Canton <font color="red">s</font>ombre<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  14.7 µs:</font>Canton <font color="blue">S</font>ombre<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  16.6 µs:</font>Courant du <font color="red">c</font>arreau<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  16.6 µs:</font>Courant du <font color="blue">C</font>arreau<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  20.6 µs:</font>Communauté <font color="red">c</font>riminel<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  20.6 µs:</font>Communauté <font color="blue">C</font>riminel<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  42.9 µs:</font>Jeu de l'<font color="red">o</font>iebourg<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  42.9 µs:</font>Jeu de l'<font color="blue">O</font>iebourg<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  15.2 µs:</font>Île <font color="red">g</font>nou<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  15.2 µs:</font>Île <font color="blue">G</font>nou<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  15.8 µs:</font>Archipel <font color="red">b</font>alo<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  15.8 µs:</font>Archipel <font color="blue">B</font>alo<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  15.5 µs:</font>Archipel <font color="red">t</font>iolor<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  15.5 µs:</font>Archipel <font color="blue">T</font>iolor<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  13.5 µs:</font>Archipel <font color="red">h</font>enus<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  13.5 µs:</font>Archipel <font color="blue">H</font>enus<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  27.3 µs:</font>Péninsule <font color="red">l</font>agon <font color="red">v</font>ert<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  27.3 µs:</font>Péninsule <font color="blue">L</font>agon <font color="blue">V</font>ert<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  14.2 µs:</font>Récif <font color="red">c</font>amiño<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  14.2 µs:</font>Récif <font color="blue">C</font>amiño<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  18.1 µs:</font>Île <font color="red">j</font>oue <font color="red">l</font>ointaine<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  18.1 µs:</font>Île <font color="blue">J</font>oue <font color="blue">L</font>ointaine<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  14.8 µs:</font>Ilôt <font color="red">b</font>oto<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  14.8 µs:</font>Ilôt <font color="blue">B</font>oto<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  15.6 µs:</font>Île <font color="red">l</font>éboalergo<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  15.6 µs:</font>Île <font color="blue">L</font>éboalergo<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  18.1 µs:</font>Archipel <font color="red">d</font>oigt <font color="red">g</font>rossier<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  18.1 µs:</font>Archipel <font color="blue">D</font>oigt <font color="blue">G</font>rossier<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  14.7 µs:</font>Archipel <font color="red">i</font>rre<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  14.7 µs:</font>Archipel <font color="blue">I</font>rre<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  54.5 µs:</font>Île <font color="red">a</font>beille <font color="red">j</font>aune<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  54.5 µs:</font>Île <font color="blue">A</font>beille <font color="blue">J</font>aune<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  14.8 µs:</font>Ilôt <font color="red">w</font>asler<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  14.8 µs:</font>Ilôt <font color="blue">W</font>asler<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  20.9 µs:</font>Archipel <font color="red">s</font>abot <font color="red">v</font>iolet<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  20.9 µs:</font>Archipel <font color="blue">S</font>abot <font color="blue">V</font>iolet<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  45.3 µs:</font>Récif <font color="red">c</font>amtracroi<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  45.3 µs:</font>Récif <font color="blue">C</font>amtracroi<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  14.3 µs:</font>Rochers <font color="red">b</font>orba<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  14.3 µs:</font>Rochers <font color="blue">B</font>orba<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  42.8 µs:</font>Promontoire <font color="red">m</font>ouche <font color="red">j</font>aune<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  42.8 µs:</font>Promontoire <font color="blue">M</font>ouche <font color="blue">J</font>aune<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  18.5 µs:</font>Mouillage <font color="red">g</font>alga<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  18.5 µs:</font>Mouillage <font color="blue">G</font>alga<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  21.1 µs:</font>Mouillage <font color="red">r</font>eio<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  21.1 µs:</font>Mouillage <font color="blue">R</font>eio<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  23.4 µs:</font>Réservoir <font color="red">l</font>egua<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  23.4 µs:</font>Réservoir <font color="blue">L</font>egua<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  22.2 µs:</font>Lac <font color="red">d</font>inde-<font color="red">g</font>lacée<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  22.2 µs:</font>Lac <font color="blue">D</font>inde-<font color="blue">G</font>lacée<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  14.0 µs:</font>Mer <font color="red">i</font>thberium<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  14.0 µs:</font>Mer <font color="blue">I</font>thberium<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  14.2 µs:</font>Réservoir <font color="red">x</font>igoda<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  14.2 µs:</font>Réservoir <font color="blue">X</font>igoda<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  17.5 µs:</font>Lac <font color="red">h</font>eeria<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  17.5 µs:</font>Lac <font color="blue">H</font>eeria<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  14.6 µs:</font>Loch <font color="red">e</font>natba<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  14.6 µs:</font>Loch <font color="blue">E</font>natba<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  15.5 µs:</font>Mer <font color="red">t</font>edveussia<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  15.5 µs:</font>Mer <font color="blue">T</font>edveussia<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  39.5 µs:</font>Océan <font color="red">e</font>ntinum<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  39.5 µs:</font>Océan <font color="blue">E</font>ntinum<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  24.4 µs:</font>Lac <font color="red">c</font>hauve-<font color="red">s</font>ouris <font color="red">g</font>rise<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  24.4 µs:</font>Lac <font color="blue">C</font>hauve-<font color="blue">S</font>ouris <font color="blue">G</font>rise<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  15.6 µs:</font>Océan <font color="red">h</font>irondelle<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  15.6 µs:</font>Océan <font color="blue">H</font>irondelle<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  15.5 µs:</font>Océan <font color="red">b</font>eza<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  15.5 µs:</font>Océan <font color="blue">B</font>eza<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  19.3 µs:</font>Montagnes <font color="red">l</font>er<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  19.3 µs:</font>Montagnes <font color="blue">L</font>er<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  15.9 µs:</font>Collines <font color="red">c</font>amiño<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  15.9 µs:</font>Collines <font color="blue">C</font>amiño<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  16.3 µs:</font>Pics <font color="red">t</font>rosmicerbai<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  16.3 µs:</font>Pics <font color="blue">T</font>rosmicerbai<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  19.5 µs:</font>Falaises <font color="red">d</font>énouement d'<font color="red">h</font>ioum<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  19.5 µs:</font>Falaises <font color="blue">D</font>énouement d'<font color="blue">H</font>ioum<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  13.9 µs:</font>Montagnes <font color="red">a</font>tberon<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  13.9 µs:</font>Montagnes <font color="blue">A</font>tberon<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  19.4 µs:</font>Pics <font color="red">f</font>in de Celia<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  19.4 µs:</font>Pics <font color="blue">F</font>in de Celia<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  23.2 µs:</font>Montagnes <font color="red">o</font>ulyouhadunt<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  23.2 µs:</font>Montagnes <font color="blue">O</font>ulyouhadunt<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  14.1 µs:</font>Montagnes <font color="red">b</font>rícar<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  14.1 µs:</font>Montagnes <font color="blue">B</font>rícar<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  40.1 µs:</font>Montagnes <font color="red">e</font>ntuay<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  40.1 µs:</font>Montagnes <font color="blue">E</font>ntuay<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  13.7 µs:</font>Collines <font color="red">r</font>aie<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  13.7 µs:</font>Collines <font color="blue">R</font>aie<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  15.5 µs:</font>Pics <font color="red">z</font>ameacobar<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  15.5 µs:</font>Pics <font color="blue">Z</font>ameacobar<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  18.8 µs:</font>Montagnes <font color="red">t</font>rangaamb<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  18.8 µs:</font>Montagnes <font color="blue">T</font>rangaamb<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  16.5 µs:</font>Chaîne <font color="red">b</font>ison-<font color="red">g</font>ris<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  16.5 µs:</font>Chaîne <font color="blue">B</font>ison-<font color="blue">G</font>ris<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  21.1 µs:</font>Désert <font color="red">v</font>ache <font color="red">g</font>lacée<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  21.1 µs:</font>Désert <font color="blue">V</font>ache <font color="blue">G</font>lacée<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  31.8 µs:</font>Désert <font color="red">t</font>rophée d'<font color="red">a</font>mbda<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  31.8 µs:</font>Désert <font color="blue">T</font>rophée d'<font color="blue">A</font>mbda<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  23.4 µs:</font>Désert <font color="red">r</font>ésistance de l'<font color="red">a</font>lligator<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  23.4 µs:</font>Désert <font color="blue">R</font>ésistance de l'<font color="blue">A</font>lligator<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  17.1 µs:</font>Plateau <font color="red">t</font>ronc <font color="red">g</font>ris<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  17.1 µs:</font>Plateau <font color="blue">T</font>ronc <font color="blue">G</font>ris<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  16.9 µs:</font>Désert <font color="red">c</font>ygne-<font color="red">b</font>arbu<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  16.9 µs:</font>Désert <font color="blue">C</font>ygne-<font color="blue">B</font>arbu<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  14.1 µs:</font>Marécage <font color="red">o</font>urberon<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  14.1 µs:</font>Marécage <font color="blue">O</font>urberon<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  17.4 µs:</font>Marais <font color="red">b</font>anbocol<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  17.4 µs:</font>Marais <font color="blue">B</font>anbocol<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  23.2 µs:</font>Marais <font color="red">i</font>raalbo<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  23.2 µs:</font>Marais <font color="blue">I</font>raalbo<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  16.7 µs:</font>Forêt <font color="red">t</font>odio<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  16.7 µs:</font>Forêt <font color="blue">T</font>odio<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  12.9 µs:</font>Forêt <font color="red">a</font>bruño<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  12.9 µs:</font>Forêt <font color="blue">A</font>bruño<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  18.4 µs:</font>Buissons <font color="red">h</font>ase-<font color="red">n</font>oire<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  18.4 µs:</font>Buissons <font color="blue">H</font>ase-<font color="blue">N</font>oire<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  14.6 µs:</font>Bois <font color="red">b</font>anroga<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  14.6 µs:</font>Bois <font color="blue">B</font>anroga<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  16.5 µs:</font>Forêt <font color="red">x</font>ecoabe<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  16.5 µs:</font>Forêt <font color="blue">X</font>ecoabe<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  19.9 µs:</font>Jungle <font color="red">o</font>kapi-<font color="red">g</font>ris<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  19.9 µs:</font>Jungle <font color="blue">O</font>kapi-<font color="blue">G</font>ris<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  28.7 µs:</font>Jungle <font color="red">b</font>ufflonne <font color="red">r</font>onde<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  28.7 µs:</font>Jungle <font color="blue">B</font>ufflonne <font color="blue">R</font>onde<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  45.9 µs:</font>Landes <font color="red">l</font>egua<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  45.9 µs:</font>Landes <font color="blue">L</font>egua<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  21.7 µs:</font>Forêt <font color="red">a</font>tunt<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  21.7 µs:</font>Forêt <font color="blue">A</font>tunt<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  21.1 µs:</font>Forêt <font color="red">b</font>osara<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  21.1 µs:</font>Forêt <font color="blue">B</font>osara<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  28.5 µs:</font>Bush <font color="red">e</font>sna<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  28.5 µs:</font>Bush <font color="blue">E</font>sna<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  24.9 µs:</font>Maquis <font color="red">r</font>odaballo<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  24.9 µs:</font>Maquis <font color="blue">R</font>odaballo<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  18.9 µs:</font>Garrigue <font color="red">o</font>meevedio<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  18.9 µs:</font>Garrigue <font color="blue">O</font>meevedio<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  19.4 µs:</font>Inlandsis <font color="red">d</font>omartros<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  19.4 µs:</font>Inlandsis <font color="blue">D</font>omartros<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  23.8 µs:</font>Toundra <font color="red">b</font>isonne <font color="red">n</font>oire<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  23.8 µs:</font>Toundra <font color="blue">B</font>isonne <font color="blue">N</font>oire<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  14.3 µs:</font>Cambiar <font color="red">n</font>aeniro<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  14.3 µs:</font>Cambiar <font color="blue">N</font>aeniro<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  15.4 µs:</font>Lécatran <font color="red">r</font>aca<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  15.4 µs:</font>Lécatran <font color="blue">R</font>aca<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  17.4 µs:</font>Bico '<font color="red">b</font>aleine' <font color="red">c</font>omboa<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  17.4 µs:</font>Bico '<font color="blue">B</font>aleine' <font color="blue">C</font>omboa<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  14.4 µs:</font>Necailéba <font color="red">c</font>hamelle<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  14.4 µs:</font>Necailéba <font color="blue">C</font>hamelle<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  16.3 µs:</font>Migaloiro <font color="red">v</font>ert<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  16.3 µs:</font>Migaloiro <font color="blue">V</font>ert<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  78.7 µs:</font>Goo '<font color="red">t</font>ruite' <font color="red">n</font>eler<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  78.7 µs:</font>Goo '<font color="blue">T</font>ruite' <font color="blue">N</font>eler<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  20.7 µs:</font>Legua <font color="red">g</font>ago<br/>
+<font color="#7C7C7C">PostProcessed_str[ToTitleCaseProperName]:  20.7 µs:</font>Legua <font color="blue">G</font>ago<br/>
+</p>
+<h2>3. Chaînes de caractères non traités</h2>
+<p>
+﻿PostProcessed_no[ToTitleCaseOtherName]:1 hits: 866.9 µs:BH 1<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseOtherName]:5 hits:  11.8 µs:</font>Setoherder<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:12 hits:  30.8 µs:</font>Langtry<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseOtherName]:14 hits:  13.1 µs:</font>Reder<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseOtherName]:15 hits:  14.0 µs:</font>Histeoum<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseOtherName]:21 hits:  10.1 µs:</font>Shoalatdio<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:23 hits:  15.6 µs:</font>Anedhurst<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:69 hits:   8.7 µs:</font>Tiothad<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:80 hits:  18.5 µs:</font>Osli<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseOther]:82 hits:  24.0 µs:</font>Supplice noir<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:84 hits:  13.2 µs:</font>Braña<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:86 hits:  29.3 µs:</font>Ineeaetium<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:89 hits:  15.9 µs:</font>Arehited<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:91 hits:   9.3 µs:</font>Bassinhurst<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:97 hits:  14.5 µs:</font>Cai<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:98 hits:   9.8 µs:</font>Waron<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:101 hits:   8.9 µs:</font>Shohen<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:102 hits:   8.0 µs:</font>Senotwell<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:105 hits:   7.3 µs:</font>Baseskiometaeum<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:106 hits:   9.0 µs:</font>Theoela<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:107 hits:   8.4 µs:</font>Etholen<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:109 hits:  11.8 µs:</font>Hishank<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:110 hits:   9.3 µs:</font>Teantha<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:112 hits:  11.0 µs:</font>Albocam<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:113 hits:   8.7 µs:</font>Abrumeacam<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:114 hits:   7.7 µs:</font>Baitoga<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:115 hits:   8.3 µs:</font>Buthemere<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:116 hits:  21.0 µs:</font>Volubilis<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:118 hits:   9.1 µs:</font>Ouroulhi<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:120 hits:  11.6 µs:</font>Manabustio<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:121 hits:   9.7 µs:</font>Bassinbourg<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:122 hits:  10.9 µs:</font>Heden<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:124 hits:   8.3 µs:</font>Hinandwa<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:125 hits:   7.0 µs:</font>Boto<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:126 hits:   8.1 µs:</font>Zepla<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:129 hits:   9.4 µs:</font>Butomeour<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:130 hits:   9.8 µs:</font>Quito<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:133 hits:   8.6 µs:</font>Rosphosnor<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:134 hits:  12.4 µs:</font>Cricanada<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:135 hits:   8.0 µs:</font>Juno<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:138 hits:   8.6 µs:</font>Congers<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:140 hits:  15.2 µs:</font>Xosga<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:144 hits:  11.1 µs:</font>Gades<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:146 hits:  10.3 µs:</font>Lavego<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:147 hits:  11.8 µs:</font>Butterand<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:148 hits:   9.2 µs:</font>Ñoulocho<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:149 hits:   7.6 µs:</font>Areness<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:150 hits:   7.5 µs:</font>Breinigsville<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:157 hits:  13.1 µs:</font>Canbi<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:158 hits:   8.1 µs:</font>Migaamble<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:159 hits:   7.4 µs:</font>Orteilos<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:163 hits:   8.9 µs:</font>Kerkinitida<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:164 hits:   9.6 µs:</font>Teras<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:166 hits:   8.4 µs:</font>Thburn<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:167 hits:   9.2 µs:</font>Lloabru<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:168 hits:  11.5 µs:</font>Lindsey City<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:242 hits:  20.7 µs:</font>La Colonie<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:243 hits:  10.6 µs:</font>Daisy<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:244 hits:  11.0 µs:</font>Lemon<br/>
+<font color="#7C7C7C">PostProcessed_no[ToTitleCaseProperName]:245 hits:  10.9 µs:</font>Penne<br/>
+</p>
+</body>
+</html>
