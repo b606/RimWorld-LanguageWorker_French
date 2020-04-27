@@ -55,8 +55,27 @@ Global
 		$2.scope = text/x-csharp
 		$2.TabWidth = 2
 		$2.IndentWidth = 2
+		$2.inheritsSet = null
 		$0.CSharpFormattingPolicy = $3
 		$3.scope = text/x-csharp
+		$0.TextStylePolicy = $4
+		$4.FileWidth = 80
+		$4.TabWidth = 2
+		$4.IndentWidth = 2
+		$4.scope = text/plain
+		$0.TextStylePolicy = $5
+		$5.inheritsSet = null
+		$5.scope = application/config+xml
+		$0.XmlFormattingPolicy = $6
+		$6.inheritsSet = null
+		$6.scope = application/config+xml
+		$0.TextStylePolicy = $7
+		$7.inheritsSet = null
+		$7.scope = application/xml
+		$0.XmlFormattingPolicy = $8
+		$8.scope = application/xml
+		$0.StandardHeader = $9
+		$9.Text = @<code-header>\n  <author>${AuthorName}</author>\n  <copyright file="${FileName}" company="My Company Name">\n    Copyright (c) ${AuthorName} ${Year}\n  </copyright>\n  <license href="license.txt"></license>\n  <date>${Date}</date>\n  <summary>summary</summary>\n  <revisions>\n    <revision initials="b606">Created the file and class</revision>\n  </revisions>\n</code-header>\n
 		version = 1.0
 	EndGlobalSection
 EndGlobal

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RimWorld_LanguageWorker_French</RootNamespace>
-    <AssemblyName>LanguageWorker_French_Test</AssemblyName>
+    <AssemblyName>LanguageWorker_French_Mod</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
@@ -47,6 +47,9 @@
       <HintPath>..\..\..\.steam\steam\steamapps\common\RimWorld\RimWorldLinux_Data\Managed\System.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="0Harmony">
+      <HintPath>..\packages\Lib.Harmony.2.0.0.10\lib\net35\0Harmony.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="LanguageWorker_French.cs" />
@@ -55,6 +58,12 @@
     <Compile Include="Logger.cs" />
     <Compile Include="StringExtension.cs" />
     <Compile Include="LanguageWorker_French_Debug.cs" />
+    <Compile Include="Patcher.cs" />
+    <Compile Include="RulesForPawnPatch.cs" />
+    <Compile Include="InspectionPatch.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

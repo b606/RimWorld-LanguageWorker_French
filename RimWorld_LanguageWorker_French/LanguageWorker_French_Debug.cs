@@ -1,43 +1,233 @@
-﻿using System;
+﻿// <code-header>
+//   <summary>
+//		LanguageWorker_French_Debug.cs contains functions (debugging and diagnostics)
+//		not for inclusion in the RimWorld LanguageWorker_French class.
+//	 </summary>
+// </code-header>
+
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using Verse;
 
 namespace RimWorld_LanguageWorker_French
 {
 	public partial class LanguageWorker_French
 	{
+		#region IResolver Support
+		private interface IResolver
+		{
+			string Resolve(string[] arguments);
+		}
+
+		private class ReplaceResolver : IResolver
+		{
+			// ^Replace('{0}', 'Мартомай'-'Мартомая', 'Июгуст'-'Июгуста', 'Сентоноябрь'-'Сентоноября', 'Декавраль'-'Декавраля')^
+			private static readonly Regex _argumentRegex = new Regex(@"'(?<old>[^']*?)'-'(?<new>[^']*?)'", RegexOptions.Compiled);
+
+			public string Resolve(string[] arguments)
+			{
+				if (arguments.Length == 0)
+				{
+					return null;
+				}
+
+				string input = arguments[0];
+
+				if (arguments.Length == 1)
+				{
+					return input;
+				}
+
+				for (int i = 1; i < arguments.Length; ++i)
+				{
+					string argument = arguments[i];
+
+					Match match = _argumentRegex.Match(argument);
+					if (!match.Success)
+					{
+						return null;
+					}
+
+					string oldValue = match.Groups["old"].Value;
+					string newValue = match.Groups["new"].Value;
+
+					if (oldValue == input)
+					{
+						return newValue;
+					}
+					//Log.Message(string.Format("input: {0}, old: {1}, new: {2}", input, oldGroup.Captures[i].Value, newGroup.Captures[i].Value));
+				}
+
+				return input;
+			}
+		}
+
+		private class NumberCaseResolver : IResolver
+		{
+			// '3.14': 1-'прошёл # день', 2-'прошло # дня', X-'прошло # дней'
+			private static readonly Regex _numberRegex = new Regex(@"(?<floor>[0-9]+)(\.(?<frac>[0-9]+))?", RegexOptions.Compiled);
+
+			public string Resolve(string[] arguments)
+			{
+				if (arguments.Length != 4)
+				{
+					return null;
+				}
+
+				string numberStr = arguments[0];
+				Match numberMatch = _numberRegex.Match(numberStr);
+				if (!numberMatch.Success)
+				{
+					return null;
+				}
+
+				bool hasFracPart = numberMatch.Groups["frac"].Success;
+
+				string floorStr = numberMatch.Groups["floor"].Value;
+
+				string formOne = arguments[1].Trim('\'');
+				string formSeveral = arguments[2].Trim('\'');
+				string formMany = arguments[3].Trim('\'');
+
+				if (hasFracPart)
+				{
+					return formSeveral.Replace("#", numberStr);
+				}
+
+				int floor = int.Parse(floorStr);
+				return GetFormForNumber(floor, formOne, formSeveral, formMany).Replace("#", numberStr);
+			}
+
+			private static string GetFormForNumber(int number, string formOne, string formSeveral, string formMany)
+			{
+				int firstPos = number % 10;
+				int secondPos = number / 10 % 10;
+
+				if (secondPos == 1)
+				{
+					return formMany;
+				}
+
+				switch (firstPos)
+				{
+					case 1:
+						return formOne;
+					case 2:
+					case 3:
+					case 4:
+						return formSeveral;
+					default:
+						return formMany;
+				}
+			}
+		}
+
+		private static readonly ReplaceResolver replaceResolver = new ReplaceResolver();
+		private static readonly NumberCaseResolver numberCaseResolver = new NumberCaseResolver();
+
+		private static readonly Regex _languageWorkerResolverRegex = new Regex(@"\^(?<resolverName>\w+)\(\s*(?<argument>[^|]+?)\s*(\|\s*(?<argument>[^|]+?)\s*)*\)\^", RegexOptions.Compiled);
+
+		private static string PostProcessResolver(string translation)
+		{
+			return _languageWorkerResolverRegex.Replace(translation, EvaluateResolver);
+		}
+
+		private static string EvaluateResolver(Match match)
+		{
+			string keyword = match.Groups["resolverName"].Value;
+
+			Group argumentsGroup = match.Groups["argument"];
+
+			string[] arguments = new string[argumentsGroup.Captures.Count];
+			for (int i = 0; i < argumentsGroup.Captures.Count; ++i)
+			{
+				arguments[i] = argumentsGroup.Captures[i].Value.Trim();
+			}
+
+			IResolver resolver = GetResolverByKeyword(keyword);
+
+			string result = resolver.Resolve(arguments);
+			if (result == null)
+			{
+				try
+				{
+					Log.Error(string.Format("Error happened while resolving LW instruction: \"{0}\"", match.Value));
+				}
+				catch (MissingMethodException e)
+				{
+					// Unit test does not initialize Verse.Log for some reason
+					Console.WriteLine("Log.Message: {0}", e.Message);
+				}
+				return match.Value;
+			}
+
+			return result;
+		}
+
+		private static IResolver GetResolverByKeyword(string keyword)
+		{
+			switch (keyword)
+			{
+				case "Replace":
+					return replaceResolver;
+				case "Number":
+					return numberCaseResolver;
+				default:
+					return null;
+			}
+		}
+
+		// Temporary resolver test
+		// French language does not use this mechanism yet.
+		public string TestResolver(string str)
+		{
+			return PostProcessResolver(str);
+		}
+		#endregion
+
 		// General purpose logger
-		public static Logger LogLanguageWorker = new Logger("LanguageWorker_French.log");
+		private static Logger LogLanguageWorker = new Logger("LanguageWorker_French.log");
 
 		// Light weight loggers, for diffs
 		private static Logger logLanguageWorkerIn = new Logger("LanguageWorkerIn.log");
 		private static Logger logLanguageWorkerOut = new Logger("LanguageWorkerOut.log");
 
 		// Heavy logger, for stats and CPU usage
-		private StatsLogger logStats = new StatsLogger();
-		public StatsLogger LogStats { get => logStats; set => logStats = value; }
+		private static StatsLogger logStats = new StatsLogger();
+		private static StatsLogger LogStats { get => logStats; set => logStats = value; }
+
+		// Save call stack frames information
+		private static Dictionary<string, int> nameCategoryFrames = new Dictionary<string, int>();
+		private const int __nameCategoryCount = 8;
+
+		public static void LogMessage(string a_str)
+		{
+			LogLanguageWorker.Message(a_str);
+		}
 
 		[Conditional("DEBUG")]
-		private void RecordInString(string a_str)
+		public static void RecordInString(string a_str)
 		{
 			logLanguageWorkerIn.Message(a_str);
 		}
 
 		[Conditional("DEBUG")]
-		private void RecordOutString(string a_str)
+		public static void RecordOutString(string a_str)
 		{
 			logLanguageWorkerOut.Message(a_str);
 		}
 
 		[Conditional("DEBUG")]
-		private void StartStatsLogging(StackTrace callStack, string acontext = null)
+		public static void StartStatsLogging(StackTrace callStack, string acontext = null)
 		{
 			LogStats.StartLogging(callStack, acontext);
 		}
 
 		[Conditional("DEBUG")]
-		private void StopStatsLogging(string original, string processed_str)
+		public static void StopStatsLogging(string original, string processed_str)
 		{
 			LogStats.StopLogging(original, processed_str);
 		}
@@ -51,14 +241,11 @@ namespace RimWorld_LanguageWorker_French
 		/// </summary>
 		/// <returns>List of frame indices of the detected methods</returns>
 		/// <param name="callStack">Call stack.</param>
-		//NOTE: verified for version up to 1.1.2609 rev633
 		[Conditional("DEBUG")]
-		private void Debug_NameCategory_StackFrame(StackTrace callStack)
+		public void Debug_NameCategory_StackFrame(StackTrace callStack)
 		{
 			bool detectedPawnName = false;
 			bool detectedGenerateName = false;
-
-			LogLanguageWorker.Message("Debug_NameCategory_StackFrame:");
 
 			for (int i = 0; i < callStack.FrameCount; i++)
 			{
@@ -73,9 +260,13 @@ namespace RimWorld_LanguageWorker_French
 					Debug.Assert((!detectedPawnName && i == 4)
 							|| (detectedPawnName && i == 5));
 					if (i == 4) { detectedPawnName = true; }
-
-					LogLanguageWorker.Message("IsPawnName:Frame[" + i + "]: "
-					 + method.DeclaringType.ToString() + method.ToString());
+					if (!nameCategoryFrames.ContainsKey("IsPawnName" + i))
+					{
+						// Two possible keys: "IsPawnName4" and "IsPawnName5"
+						nameCategoryFrames.Add("IsPawnName" + i, i);
+						LogMessage("IsPawnName:Frame[" + i + "]: "
+						 + method.DeclaringType.ToString() + method.ToString());
+					}
 				}
 
 				// Detect if called from  RimWorld.Planet.SettlementNameGenerator GenerateSettlementName
@@ -83,8 +274,12 @@ namespace RimWorld_LanguageWorker_French
 				if (method.Name == "GenerateSettlementName")
 				{
 					Debug.Assert(i == 5);
-					LogLanguageWorker.Message("IsSettlementName:Frame[" + i + "]: "
+					if (!nameCategoryFrames.ContainsKey("IsSettlementName"))
+					{
+						nameCategoryFrames.Add("IsSettlementName", i);
+						LogMessage("IsSettlementName:Frame[" + i + "]: "
 					 + method.DeclaringType.ToString() + method.ToString());
+					}
 				}
 
 				// Detect if called from RimWorld.FeatureWorker AddFeature (WorldFeature names)
@@ -92,8 +287,12 @@ namespace RimWorld_LanguageWorker_French
 				if (method.Name == "AddFeature")
 				{
 					Debug.Assert(i == 5);
-					LogLanguageWorker.Message("IsWorldFeatureName:Frame[" + i + "]: "
+					if (!nameCategoryFrames.ContainsKey("IsWorldFeatureName"))
+					{
+						nameCategoryFrames.Add("IsWorldFeatureName", i);
+						LogMessage("IsWorldFeatureName:Frame[" + i + "]: "
 					 + method.DeclaringType.ToString() + method.ToString());
+					}
 				}
 
 				// Detect if called from RimWorld.FactionGenerator RimWorld.Faction NewGeneratedFaction
@@ -101,8 +300,12 @@ namespace RimWorld_LanguageWorker_French
 				if (method.Name == "NewGeneratedFaction")
 				{
 					Debug.Assert(i == 5);
-					LogLanguageWorker.Message("IsFactionName:Frame[" + i + "]: "
+					if (!nameCategoryFrames.ContainsKey("IsFactionName"))
+					{
+						nameCategoryFrames.Add("IsFactionName", i);
+						LogMessage("IsFactionName:Frame[" + i + "]: "
 					 + method.DeclaringType.ToString() + method.ToString());
+					}
 				}
 
 				// Detect if called from RimWorld.QuestGen.QuestNode_ResolveQuestName GenerateName
@@ -112,8 +315,12 @@ namespace RimWorld_LanguageWorker_French
 					&& method.DeclaringType.Equals(typeof(RimWorld.QuestGen.QuestNode_ResolveQuestName)))
 				{
 					Debug.Assert(i == 3);
-					LogLanguageWorker.Message("IsQuestName:Frame[" + i + "]: "
+					if (!nameCategoryFrames.ContainsKey("IsQuestName"))
+					{
+						nameCategoryFrames.Add("IsQuestName", i);
+						LogMessage("IsQuestName:Frame[" + i + "]: "
 					 + method.DeclaringType.ToString() + method.ToString());
+					}
 				}
 
 				// Detect if called from RimWorld.CompArt GenerateTitle
@@ -122,21 +329,30 @@ namespace RimWorld_LanguageWorker_French
 					&& method.DeclaringType.Equals(typeof(RimWorld.CompArt)))
 				{
 					Debug.Assert(i == 2);
-					LogLanguageWorker.Message("IsArtName:Frame[" + i + "]: "
+					if (!nameCategoryFrames.ContainsKey("IsArtName"))
+					{
+						nameCategoryFrames.Add("IsArtName", i);
+						LogMessage("IsArtName:Frame[" + i + "]: "
 					 + method.DeclaringType.ToString() + method.ToString());
+					}
 				}
 
 				// Detect if called from RimWorld.NameGenerator GenerateName(Verse.Grammar.GrammarRequest,...)
 				// Misleading: detect other types of names first.
+				// Many other methods have the same name, and  RimWorld.NameGenerator can also be called elsewhere.
 				// bool IsName() uses callStack.GetFrame(2)
 				if (method.Name == "GenerateName")
 				{
 					Debug.Assert(!detectedGenerateName && i == 2);
 					if (i == 2)
 					{
-						detectedGenerateName = true;
-						LogLanguageWorker.Message("IsName:Frame[" + i + "]: "
-						 + method.DeclaringType.ToString() + method.ToString());
+						if (!nameCategoryFrames.ContainsKey("IsName"))
+						{
+							nameCategoryFrames.Add("IsName", i);
+							detectedGenerateName = true;
+							LogMessage("IsName:Frame[" + i + "]: "
+							 + method.DeclaringType.ToString() + method.ToString());
+						}
 					}
 				}
 			}
@@ -147,8 +363,11 @@ namespace RimWorld_LanguageWorker_French
 			if (str.NullOrEmpty())
 				return str;
 
-			//Debug_NameCategory_StackFrame has [Conditional("DEBUG")] attribute
-			Debug_NameCategory_StackFrame(callStack);
+			// Reduce log messages by memorizing the already debugged call stacks.
+			if (nameCategoryFrames.Count < __nameCategoryCount)
+			{
+				Debug_NameCategory_StackFrame(callStack);
+			}
 
 			string processed_str;
 
@@ -158,69 +377,52 @@ namespace RimWorld_LanguageWorker_French
 			{
 				// The fastest to detect: callStack.GetFrame(3)
 				// Capitalize only first letter (+ '\'')
-				RecordInString("ToTitleCase(QuestName): " + str);
 				processed_str = ToTitleCaseOther(str);
-				RecordOutString("ToTitleCase(QuestName): " + processed_str);
 			}
 			else
 			if (IsPawnName(callStack))
 			{
 				// callStack.GetFrame(4) or callStack.GetFrame(5)
-				RecordInString("ToTitleCase(PawnName): " + str);
 				processed_str = ToTitleCaseProperName(str);
-				RecordOutString("ToTitleCase(PawnName): " + processed_str);
 			}
 			else
 			if (IsSettlementName(callStack))
 			{
 				// callStack.GetFrame(5)
-				RecordInString("ToTitleCase(SettlementName): " + str);
 				processed_str = ToTitleCaseProperName(str);
-				RecordOutString("ToTitleCase(SettlementName): " + processed_str);
 			}
 			else
 			if (IsWorldFeatureName(callStack))
 			{
 				// callStack.GetFrame(5)
-				RecordInString("ToTitleCase(WorldFeatureName): " + str);
 				processed_str = ToTitleCaseProperName(str);
-				RecordOutString("ToTitleCase(WorldFeatureName): " + processed_str);
 			}
 			else
 			if (IsFactionName(callStack))
 			{
 				// callStack.GetFrame(5)
-				RecordInString("ToTitleCase(FactionName): " + str);
 				processed_str = ToTitleCaseOtherName(str);
-				RecordOutString("ToTitleCase(FactionName): " + processed_str);
 			}
 			else
 			if (IsArtName(callStack))
 			{
 				// callStack.GetFrame(2)
-				RecordInString("ToTitleCase(ArtName): " + str);
 				processed_str = ToTitleCaseOther(str);
-				RecordOutString("ToTitleCase(ArtName): " + processed_str);
 			}
 			else
 			if (IsName(callStack))
 			{
 				// Any other names generated by RimWorld.NameGenerator: callStack.GetFrame(2)
 				// RimWorld.TradeShip
-				RecordInString("ToTitleCase(OtherName): " + str);
 				processed_str = ToTitleCaseOtherName(str);
-				RecordOutString("ToTitleCase(OtherName): " + processed_str);
 			}
 			else
 			{
 				// Normal title : capitalize first letter.
-				RecordInString("ToTitleCase(OtherTitle): " + str);
 				processed_str = ToTitleCaseOther(str);
-				RecordOutString("ToTitleCase(OtherTitle): " + processed_str);
 			}
 
 			return processed_str;
 		}
-
 	}
 }

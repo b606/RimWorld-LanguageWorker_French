@@ -1,3 +1,18 @@
+// <code-header>
+//   <summary>
+//		LanguageWorker_French.cs contains the main functions destined
+//		to inclusion in the RimWorld LanguageWorker_French class
+//		(after hacky code cleaned out).
+//	 </summary>
+//   <revisions>
+//     <revision>2020-04-14: b606 added functionalities for RimWorld patching with Pardeike's libHarmony.</revision>
+//     <revision>2020-03-25: b606 adapted the project to LanguageWorker_French.</revision>
+//     <revision>2019-01-05: Adirelle wrote the first Regex for LanguageWorker_French.</revision>
+//     <revision>2018-10-01: Elevator created the project for testing RimWorld LanguageWorker_Russian classes.</revision>
+//     <revision>2018-05-09: Ludeon (Ison) introduced the LanguageWorker classes to help translations.</revision>
+//   </revisions>
+// </code-header>
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,177 +24,10 @@ namespace RimWorld_LanguageWorker_French
 {
 	public partial class LanguageWorker_French : LanguageWorker
 	{
-		#region IResolver Support
-		private interface IResolver
+		public LanguageWorker_French()
 		{
-			string Resolve(string[] arguments);
+			LanguageWorkerPatcher.DoPatching();
 		}
-
-		private class ReplaceResolver : IResolver
-		{
-			// ^Replace('{0}', 'Мартомай'-'Мартомая', 'Июгуст'-'Июгуста', 'Сентоноябрь'-'Сентоноября', 'Декавраль'-'Декавраля')^
-			private static readonly Regex _argumentRegex = new Regex(@"'(?<old>[^']*?)'-'(?<new>[^']*?)'", RegexOptions.Compiled);
-
-			public string Resolve(string[] arguments)
-			{
-				if (arguments.Length == 0)
-				{
-					return null;
-				}
-
-				string input = arguments[0];
-
-				if (arguments.Length == 1)
-				{
-					return input;
-				}
-
-				for (int i = 1; i < arguments.Length; ++i)
-				{
-					string argument = arguments[i];
-
-					Match match = _argumentRegex.Match(argument);
-					if (!match.Success)
-					{
-						return null;
-					}
-
-					string oldValue = match.Groups["old"].Value;
-					string newValue = match.Groups["new"].Value;
-
-					if (oldValue == input)
-					{
-						return newValue;
-					}
-					//Log.Message(string.Format("input: {0}, old: {1}, new: {2}", input, oldGroup.Captures[i].Value, newGroup.Captures[i].Value));
-				}
-
-				return input;
-			}
-		}
-
-		private class NumberCaseResolver : IResolver
-		{
-			// '3.14': 1-'прошёл # день', 2-'прошло # дня', X-'прошло # дней'
-			private static readonly Regex _numberRegex = new Regex(@"(?<floor>[0-9]+)(\.(?<frac>[0-9]+))?", RegexOptions.Compiled);
-
-			public string Resolve(string[] arguments)
-			{
-				if (arguments.Length != 4)
-				{
-					return null;
-				}
-
-				string numberStr = arguments[0];
-				Match numberMatch = _numberRegex.Match(numberStr);
-				if (!numberMatch.Success)
-				{
-					return null;
-				}
-
-				bool hasFracPart = numberMatch.Groups["frac"].Success;
-
-				string floorStr = numberMatch.Groups["floor"].Value;
-
-				string formOne = arguments[1].Trim('\'');
-				string formSeveral = arguments[2].Trim('\'');
-				string formMany = arguments[3].Trim('\'');
-
-				if (hasFracPart)
-				{
-					return formSeveral.Replace("#", numberStr);
-				}
-
-				int floor = int.Parse(floorStr);
-				return GetFormForNumber(floor, formOne, formSeveral, formMany).Replace("#", numberStr);
-			}
-
-			private static string GetFormForNumber(int number, string formOne, string formSeveral, string formMany)
-			{
-				int firstPos = number % 10;
-				int secondPos = number / 10 % 10;
-
-				if (secondPos == 1)
-				{
-					return formMany;
-				}
-
-				switch (firstPos)
-				{
-					case 1:
-						return formOne;
-					case 2:
-					case 3:
-					case 4:
-						return formSeveral;
-					default:
-						return formMany;
-				}
-			}
-		}
-
-		private static readonly ReplaceResolver replaceResolver = new ReplaceResolver();
-		private static readonly NumberCaseResolver numberCaseResolver = new NumberCaseResolver();
-
-		private static readonly Regex _languageWorkerResolverRegex = new Regex(@"\^(?<resolverName>\w+)\(\s*(?<argument>[^|]+?)\s*(\|\s*(?<argument>[^|]+?)\s*)*\)\^", RegexOptions.Compiled);
-
-		private static string PostProcessResolver(string translation)
-		{
-			return _languageWorkerResolverRegex.Replace(translation, EvaluateResolver);
-		}
-
-		private static string EvaluateResolver(Match match)
-		{
-			string keyword = match.Groups["resolverName"].Value;
-
-			Group argumentsGroup = match.Groups["argument"];
-
-			string[] arguments = new string[argumentsGroup.Captures.Count];
-			for (int i = 0; i < argumentsGroup.Captures.Count; ++i)
-			{
-				arguments[i] = argumentsGroup.Captures[i].Value.Trim();
-			}
-
-			IResolver resolver = GetResolverByKeyword(keyword);
-
-			string result = resolver.Resolve(arguments);
-			if (result == null)
-			{
-				try
-				{
-					Log.Error(string.Format("Error happened while resolving LW instruction: \"{0}\"", match.Value));
-				}
-				catch (MissingMethodException e)
-				{
-					// Unit test does not initialize Verse.Log for some reason
-					Console.WriteLine("Log.Message: {0}", e.Message);
-				}
-				return match.Value;
-			}
-
-			return result;
-		}
-
-		private static IResolver GetResolverByKeyword(string keyword)
-		{
-			switch (keyword)
-			{
-				case "Replace":
-					return replaceResolver;
-				case "Number":
-					return numberCaseResolver;
-				default:
-					return null;
-			}
-		}
-
-		// Temporary resolver test
-		// French language does not use this mechanism yet.
-		public string TestResolver(string str)
-		{
-			return PostProcessResolver(str);
-		}
-		#endregion
 
 		// in plural, replace "ail" with "aux"
 		private static readonly HashSet<string> Exceptions_Plural_aux = new HashSet<string> {
@@ -403,7 +251,7 @@ namespace RimWorld_LanguageWorker_French
 
 		/// <summary>
 		/// ToTitleCase for pawns, world features and settlements names.
-		/// Pawn names may contain '<Nickname>'.
+		/// Pawn names may contain 'Nickname'.
 		/// The first word is always capitalized and all words are capitalized
 		/// except those listed in NonUppercaseWords and "d'".
 		/// N0TE: last name in NameTriple is not capitalized by the default
@@ -413,7 +261,6 @@ namespace RimWorld_LanguageWorker_French
 		/// <param name="str">String.</param>
 		public string ToTitleCaseProperName(string str)
 		{
-			StartStatsLogging(new StackTrace());
 			if (str.NullOrEmpty())
 				return str;
 
@@ -460,7 +307,6 @@ namespace RimWorld_LanguageWorker_French
 			}
 			string processed_str = string.Join(" ", array);
 
-			StopStatsLogging(str, processed_str);
 			return processed_str;
 		}
 
@@ -476,7 +322,6 @@ namespace RimWorld_LanguageWorker_French
 		/// <param name="str">String.</param>
 		public string ToTitleCaseOtherName(string str)
 		{
-			StartStatsLogging(new StackTrace());
 			if (str.NullOrEmpty())
 				return str;
 
@@ -549,7 +394,6 @@ namespace RimWorld_LanguageWorker_French
 			}
 			string processed_str = string.Join(" ", array);
 
-			StopStatsLogging(str, processed_str);
 			return processed_str;
 		}
 
@@ -561,7 +405,6 @@ namespace RimWorld_LanguageWorker_French
 		public string ToTitleCaseOther(string str)
 		{
 			// TODO: pas de capitalisation après "[uU]n", "[uU]ne"
-			StartStatsLogging(new StackTrace());
 			if (str.NullOrEmpty())
 				return str;
 
@@ -569,7 +412,6 @@ namespace RimWorld_LanguageWorker_French
 			string str2 = (num == 0) ? str[num].ToString().ToUpper() : (str.Substring(0, num) + char.ToUpper(str[num]));
 			string processed_str = str2 + str.Substring(num + 1);
 
-			StopStatsLogging(str, processed_str);
 			return processed_str;
 		}
 
@@ -684,7 +526,7 @@ namespace RimWorld_LanguageWorker_French
 		// The Regex ([<][^>]*[>]|) component takes any XML tag into account,
 		// ex. the name color tag <color=#D09B61FF> or <Name>
 		private static readonly Regex WordsWithoutElision = new Regex(@"\b(h[^ <>]+|onz[^ <>]+)\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-		// NOTE: exception "lorsque aucun", "lorsque aucun", "lorsque avec", "lorsque <prenom>"
+		// NOTE: exception "lorsque aucun", "lorsque aucune", "lorsque avec", "lorsque <prenom>"
 		private static readonly Regex ElisionE = new Regex(@"\b([cdjlmnst]|qu|quoiqu|lorsqu)e ([<][^>]*[>]|)([aàâäæeéèêëiîïoôöœuùüûh])", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 		private static readonly Regex ElisionLa = new Regex(@"\b(l)a ([<][^>]*[>]|)([aàâäæeéèêëiîïoôöœuùüûh])", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 		private static readonly Regex ElisionSi = new Regex(@"\b(s)i (ils?)\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -710,7 +552,7 @@ namespace RimWorld_LanguageWorker_French
 			str = ALe.Replace(str, new MatchEvaluator(ReplaceALe));
 
 			// Clean out zero-width space
-			return str.Replace("\u200B","");
+			return str.Replace("\u200B", "");
 		}
 
 		private static string ReplaceALe(Match match)
@@ -738,6 +580,40 @@ namespace RimWorld_LanguageWorker_French
 				}
 			}
 			return item_raw;
+		}
+
+		/// <summary>
+		/// Change the kind.label and the gender of the pawn so that
+		/// GrammarUtility.RulesForPawn generates grammatically correct rules.
+		/// </summary>
+		/// <param name="kind">Kind.</param>
+		/// <param name="gender">Gender.</param>
+		/// <param name="relationInfo">Relation info.</param>
+		public static void FixPawnGender(ref PawnKindDef kind, ref Gender gender, string relationInfo)
+		{
+			if (kind != null)
+			{
+				/**
+				 * Changing the kind.label has a global side-effect.
+				 * The postfix method in the libHarmony patch ensures that
+				 * the kind.label will be restore to the original value.
+				 * This solution leaves GrammarUtility.RulesForPawn untouched.
+				 * 
+				 * Other solutions:
+				 * 1. Rewrite GrammarUtility.RulesForPawn by replacing kind.label
+				 * 		with RimWorld.GenLabel.BestKindLabel(kind, gender), ~100 lines.
+				 * 2. Detect calls with WithIndefiniteArticle(kind.label, gender)
+				 * 		and WithDefiniteArticle(kind.label, gender) from
+				 * 		GrammarUtility.RulesForPawn (tricky but no patch needed).
+				 */
+
+				if ((gender == Gender.Female) && !kind.labelFemale.NullOrEmpty())
+					kind.label = kind.labelFemale;
+				if ((gender == Gender.Male) && !kind.labelMale.NullOrEmpty())
+					kind.label = kind.labelMale;
+			}
+			else
+				LogMessage("kind == null");
 		}
 	}
 }

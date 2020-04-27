@@ -1,3 +1,11 @@
+// <code-header>
+//   <author>b606</author>
+//   <summary>
+//		Call graphs and stats recorder.
+//		Logs strings in and out of the languageworker when debugging.
+//	 </summary>
+// </code-header>
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -72,7 +80,8 @@ namespace RimWorld_LanguageWorker_French
 			{
 				return string.Format(NodeFormat, NodeId(),
 					declaringType,
-					Name.Replace("(", "(\\l  ").Replace(", ", ",\\l  ").Replace(")", "\\l)\\l ").ReplaceFirst(" ", "\\l"),
+					Name.Replace("(", "(\\l  ").Replace(", ", ",\\l  ").Replace(")", "\\l)\\l ").ReplaceFirst(" ", "\\l")
+										.Replace("<", "\\<").Replace(">", "\\>"),
 					context, Count, Time / Count, Time_ms());
 			}
 

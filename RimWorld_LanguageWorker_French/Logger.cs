@@ -1,4 +1,11 @@
-﻿using System;
+﻿// <code-header>
+//   <author>b606</author>
+//   <summary>
+//		File logger class outside the game path (in the system /tmp folder).
+//	 </summary>
+// </code-header>
+
+using System;
 using System.IO;
 using System.Text;
 
