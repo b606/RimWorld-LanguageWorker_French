@@ -1,3 +1,13 @@
+2020-04-29  b606  <7627533+b606@users.noreply.github.com>
+
+	* LanguageWorker_French.cs: Fix the grammatical gender and
+	kind labels for epicene words in the HashSets
+	PawnKind_FemaleOnly and PawnKind_MaleOnly.
+
+	* RulesForPawnPatch.cs: Modified the class PhysicalCharacter
+	to save and restore gender, kind.label, kind.labelMale and
+	kind.labelFemale.
+
 2020-04-27  b606  <7627533+b606@users.noreply.github.com>
 
 	* Logger.cs:

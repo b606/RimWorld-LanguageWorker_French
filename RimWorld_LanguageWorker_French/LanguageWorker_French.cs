@@ -103,6 +103,45 @@ namespace RimWorld_LanguageWorker_French
 			"onz" // , "onze", "onzième"
     };
 
+		private static readonly HashSet<string> PawnKind_FemaleOnly = new HashSet<string> {
+			"Boomalope",
+			"Gazelle",
+			"Megaspider",
+			"Ostrich",
+			"Tortoise"
+		};
+
+		private static readonly HashSet<string> PawnKind_MaleOnly = new HashSet<string>{
+			"Alphabeaver",
+			"Bear_Grizzly",
+			"Boomrat",
+			"Capybara",
+			"Caribou",
+			"Cassowary",
+			"Chinchilla",
+			"Cobra",
+			"Cougar",
+			"Dromedary",
+			"Elk",
+			"Emu",
+			"Fox_Fennec",
+			"GuineaPig",
+			"Husky",
+			"Iguana",
+			"LabradorRetriever",
+			"Lynx",
+			"Megascarab",
+			"Megasloth",
+			"Muffalo",
+			"Raccoon",
+			"Rhinoceros",
+			"Spelopede",
+			"Squirrel",
+			"Thrumbo",
+			"Warg",
+			"YorkshireTerrier"
+		};
+
 		// For ToTitleCase: No uppercase if in the middle of the string
 		private static HashSet<string> NonUppercaseWords = new HashSet<string>
 		{
@@ -607,13 +646,61 @@ namespace RimWorld_LanguageWorker_French
 				 * 		GrammarUtility.RulesForPawn (tricky but no patch needed).
 				 */
 
-				if ((gender == Gender.Female) && !kind.labelFemale.NullOrEmpty())
-					kind.label = kind.labelFemale;
-				if ((gender == Gender.Male) && !kind.labelMale.NullOrEmpty())
-					kind.label = kind.labelMale;
+				string oldlabel = kind.label;
+				Gender oldgender = gender;
+
+				switch (gender)
+				{
+					case Gender.Female:
+						if (PawnKind_MaleOnly.Contains(kind.defName))
+						{
+							// the grammar uses male only as gender
+							gender = Gender.Male;
+							// RW will use kind.labelMale since the grammatical gender is Male !
+							kind.labelMale = kind.label + " femelle";
+
+							if (kind.labelFemale.NullOrEmpty())
+							{
+								// build one if the language does not provide kind.labelFemale
+								kind.labelFemale = kind.label + " femelle";
+							}
+						}
+
+						// for previous RW version, overwrite kind.label
+						if (!kind.labelFemale.NullOrEmpty())
+						{
+							kind.label = kind.labelFemale;
+						}
+						break;
+					case Gender.Male:
+						if (PawnKind_FemaleOnly.Contains(kind.defName))
+						{
+							// the grammar uses female only as gender
+							gender = Gender.Female;
+							// RW will use kind.labelFemale since the grammatical gender is Female !
+							kind.labelFemale = kind.label + " mâle";
+
+							if (kind.labelMale.NullOrEmpty())
+							{
+								// build one if the language does not provide kind.labelMale
+								kind.labelMale = kind.label + " mâle";
+							}
+						}
+
+						// for previous RW version, overwrite kind.label
+						if (!kind.labelMale.NullOrEmpty())
+						{
+							kind.label = kind.labelMale;
+						}
+						break;
+					case Gender.None:
+						// the grammar uses male as default neuter gender
+						gender = Gender.Male;
+						break;
+				}
 			}
 			else
-				LogMessage("kind == null");
+				LogMessage("--kind == null");
 		}
 	}
 }

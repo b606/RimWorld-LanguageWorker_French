@@ -43,6 +43,8 @@ namespace RimWorld_LanguageWorker_French
 
 			// Save old values.
 			private string oldlabel;
+			private string oldlabelMale;
+			private string oldlabelFemale;
 			private Gender oldgender;
 
 			public PhysicalCharacter(ref PawnKindDef kind, ref Gender gender)
@@ -50,14 +52,29 @@ namespace RimWorld_LanguageWorker_French
 				this.kind = kind;
 				this.gender = gender;
 				this.oldlabel = kind.label;
+				this.oldlabelMale = kind.labelMale;
+				this.oldlabelFemale = kind.labelFemale;
 				this.oldgender = gender;
 			}
 
+
+			public void RestoreCharacter()
+			{
+				this.kind.label = this.oldlabel;
+				this.kind.labelMale = this.oldlabelMale;
+				this.kind.labelFemale = this.oldlabelFemale;
+				this.gender = this.oldgender;
+			}
+
 			public string KindLabel { get => kind.label; set => kind.label = value; }
+			public string KindLabelMale { get => kind.labelMale; set => kind.labelMale = value; }
+			public string KindLabelFemale { get => kind.labelFemale; set => kind.labelFemale = value; }
 			public Gender Gender { get => gender; set => gender = value; }
 			public PawnKindDef Kind { get => kind; set => kind = value; }
-			public string OldLabel { get => oldlabel; set => oldlabel = value; }
 			public Gender OldGender { get => oldgender; set => oldgender = value; }
+			public string OldLabel { get => oldlabel; set => oldlabel = value; }
+			public string OldLabelMale { get => oldlabelMale; set => oldlabelMale = value; }
+			public string OldLabelFemale { get => oldlabelFemale; set => oldlabelFemale = value; }
 		}
 
 		[HarmonyPrefix]
@@ -93,9 +110,7 @@ namespace RimWorld_LanguageWorker_French
 			}
 
 			// restore the physical character
-			string oldlabel = __state.OldLabel;
-			__state.KindLabel = oldlabel;
-			__state.Gender = __state.OldGender;
+			__state.RestoreCharacter();
 		}
 	}
 }
