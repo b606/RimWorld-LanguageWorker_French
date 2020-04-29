@@ -17,6 +17,8 @@
     <None Include="Assemblies\0Harmony.dll" />
     <None Include="Assemblies\0Harmony.xml" />
     <None Include="Assemblies\LanguageWorker_French_Mod.pdb" />
+    <None Include="doc\TestReport-ArtNames.html" />
+    <None Include="doc\TestReport-FactionName.html" />
   </ItemGroup>
   <ExcludedFiles>
     <File>LanguageWorker_French_Mod.mdproj</File>

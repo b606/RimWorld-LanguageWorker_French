@@ -56,6 +56,11 @@ Il faut refaire les étapes précédentes dans l'ordre inverse.
  
 #### Changelog
 
+2020/04/29.
+  - Correction des genres grammaticaux des espèces d'animaux :
+    PawnKind toujours au féminin en français : Boomalope, Gazelle, Megaspider, Ostrich, Tortoise.
+    PawnKind toujours au masculin en français : Alphabeaver, Bear_Grizzly, Boomrat, Capybara, Caribou, Cassowary, Chinchilla, Cobra, Cougar, Dromedary, Elk, Emu, Fox_Fennec, GuineaPig, Husky, Iguana, LabradorRetriever, Lynx, Megascarab, Megasloth, Muffalo, Raccoon, Rhinoceros, Spelopede, Squirrel, Thrumbo, Warg, YorkshireTerrier.
+
 2020/04/27.
   - Patch pour corriger les accords de genre des noms d'animaux (et des pawns en général), illustration dans le wiki.
   - Le nom du mod est officiellement LanguageWorker_French_Mod (b606.languageworkerfrench.mod).
