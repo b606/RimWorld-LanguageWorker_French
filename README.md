@@ -8,26 +8,30 @@ Credits:
    https://github.com/Ludeon/RimWorld-fr/ (Credit to Adirelle for the first regexes)
  - Thanks to Pardeike for his fabulous libHarmony patching library.
 
-#### Goal
+### Goal
  - Maintain the French RimWorld Translation at maximum quality.
  - Make the French LanguageWorker in RimWorld at maximum quality.
  - Testbed for the French LanguageWorker in RimWorld.
  
-#### Vérification des résultats
+### Vérification des résultats
 
 Les modifications faites par ce mod concernent essentiellement la qualité de la traduction, qui sont impossibles à faire sans modifier le code C# du jeu. Ce mod est donc un complément du travail des traducteurs de RimWorld-fr (https://github.com/Ludeon/RimWorld-fr/) pour le jeu actuel, ou en attendant l'intégration de ces modifications dans une prochaine version du jeu.
 
-Le mod est focalisé sur les accords de mots, les règles de grammaire ou de typographie etc. Si vous avez l'œil averti, vous verrez un subtil changement par-ci par-là.
+Le mod est focalisé sur les accords de mots, les règles de grammaire ou de typographie etc. Si vous avez l'œil averti, vous verrez un subtil changement par-ci par-là. J'espère que vous apprecierez les quelques améliorations dans le français du jeu :smile:
 
 Des captures d'écran les illustrent dans le Wiki (https://github.com/b606/RimWorld-LanguageWorker_French/wiki).
 
-Un rapport de test détaillé montre l'évolution et le travail que fait le mod derrière la scène : https://htmlpreview.github.io/?https://github.com/b606/RimWorld-LanguageWorker_French/blob/master/LanguageWorker_French_Mod/doc/TestReport.html.
+Un rapport de test détaillé montre l'évolution et le travail que fait le mod derrière la scène : https://htmlpreview.github.io/?https://github.com/b606/RimWorld-LanguageWorker_French/blob/master/Archives/doc/TestReport.html.
 
-N'hésitez pas à remonter les suggestions, les problèmes ou bugs sur ce site.
+N'hésitez pas à remonter les suggestions, les problèmes ou bugs sur ce site en ouvrant un issue.
 
-#### Installation
+### Installation
 
- 1. Télécharger l'archive zip des binaires compilés (https://github.com/b606/RimWorld-LanguageWorker_French/releases/latest) et l'extraire dans le répertoire de Mods de RimWorld.
+À partir de la version 1.1.0, il suffit de télécharger l'archive zip des binaires compilés (https://github.com/b606/RimWorld-LanguageWorker_French/releases/latest), de l'extraire dans le répertoire de Mods de RimWorld, et d'activer ou désactiver le mod "LanguageWorkerFrench_Test" dans le jeu.
+
+EDIT 2020/05/01: la procédure pour les versions avant le 1.1.0 est toujours valable mais non nécessaire. Texte laissé ici pendant quelque temps pour mémoire.
+
+~~ 1. Télécharger l'archive zip des binaires compilés (https://github.com/b606/RimWorld-LanguageWorker_French/releases/latest) et l'extraire dans le répertoire de Mods de RimWorld.
  
  2. Activer le mod "LanguageWorkerFrench_Test" dans le jeu.
  
@@ -43,7 +47,7 @@ N'hésitez pas à remonter les suggestions, les problèmes ou bugs sur ce site.
    au lieu de `<languageWorkerClass>LanguageWorker_French</languageWorkerClass>`.   
     NB: Je cherche actuellement le moyen d'éviter cette étape pour faciliter l'installation (à suivre).
    
- 4. Relancer RimWorld pour apprecier quelques améliorations dans le français du jeu :smile:,
+ 4. Relancer RimWorld pour apprecier quelques améliorations dans le français du jeu,
     et ne pas hésiter à remonter ici les suggestions.
  
 #### Désinstallation
@@ -52,9 +56,12 @@ Il faut refaire les étapes précédentes dans l'ordre inverse.
 
  1. Remettre `<languageWorkerClass>LanguageWorker_French</languageWorkerClass>` dans 
     le fichier LanguageInfo.xml.
- 2. Désactiver le mod dans le jeu.
+ 2. Désactiver le mod dans le jeu. ~~
  
-#### Changelog
+### Changelog
+
+2020/05/01.
+  - Depuis la version 1.1.0, le mod paramètre automatiquement le module de traitement pour le langage français (languageWorkerClass). L'activation est basée sur le nom interne du langage ("friendly name: French") et ne concerne pas les autres langages qui n'ont pas ce nom interne. Il n'y a plus besoin de toucher au fichier LanguageInfo.xml.
 
 2020/04/29.
   - Correction des genres grammaticaux des espèces d'animaux :
@@ -80,10 +87,10 @@ Il faut refaire les étapes précédentes dans l'ordre inverse.
       dans RimWorld, à mettre à jour si besoin).
   - Corrige les X_possessive [mst]a et [mst]on/[mst]a en [mst]on avant une voyelle et h muet.
   
-#### Travaux en cours
+### Travaux en cours
 
   - ~~Corriger les noms d'espèces au masculin ou féminin dans les textes du jeu (si la prochaine version de RW ne le corrige pas).~~
-  - Pouvoir activer le mod sans toucher au fichier LanguageInfo.xml : nécessite de se brancher dans le code de démarrage.
+  - ~~Pouvoir activer le mod sans toucher au fichier LanguageInfo.xml : nécessite de se brancher dans le code de démarrage.~~
   - Développer d'autres patches là où il y aurait besoin (les Tales, les textes des interfaces etc).
  
 ---
