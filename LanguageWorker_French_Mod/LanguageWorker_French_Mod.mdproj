@@ -10,15 +10,13 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="About\About.xml" />
-    <None Include="doc\LanguageInfo.xml" />
     <None Include="README.md" />
-    <None Include="doc\TestReport.html" />
     <None Include="Assemblies\LanguageWorker_French_Mod.dll" />
     <None Include="Assemblies\0Harmony.dll" />
     <None Include="Assemblies\0Harmony.xml" />
     <None Include="Assemblies\LanguageWorker_French_Mod.pdb" />
-    <None Include="doc\TestReport-ArtNames.html" />
-    <None Include="doc\TestReport-FactionName.html" />
+    <None Include="About\Preview.png" />
+    <None Include="About\Preview.xcf" />
   </ItemGroup>
   <ExcludedFiles>
     <File>LanguageWorker_French_Mod.mdproj</File>

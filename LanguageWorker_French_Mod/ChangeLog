@@ -1,3 +1,17 @@
+2020-05-02  b606  <7627533+b606@users.noreply.github.com>
+
+	* About.xml:
+	* Preview.png:
+	* Preview.xcf:
+	* LanguageWorker_French_Mod.mdproj: Added mod description and
+	preview image.
+
+	* TestReport.html:
+	* LanguageInfo.xml:
+	* TestReport-ArtNames.html:
+	* TestReport-FactionName.html: Moved docs out of the mod
+	subfolder.
+
 2020-04-27  b606  <7627533+b606@users.noreply.github.com>
 
 	* About.xml:

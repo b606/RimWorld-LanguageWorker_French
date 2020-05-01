@@ -10,7 +10,7 @@
             <RootEntry>
               <path>..\LanguageWorker_French_Mod\LanguageWorker_French_Mod.mdproj</path>
             </RootEntry>
-            <targetFile>..\archives\LanguageWorker_French_Mod.zip</targetFile>
+            <targetFile>..\Archives\archives\LanguageWorker_French_Mod.zip</targetFile>
             <format>MonoDevelop.Projects.MSBuild.MSBuildFileFormatVS12</format>
             <ctype>SourcesZipPackageBuilder</ctype>
           </Builder>

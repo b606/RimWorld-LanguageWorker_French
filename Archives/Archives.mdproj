@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ItemType>GenericProject</ItemType>
+    <ProjectGuid>{5B5C8002-6A77-486D-90D4-E25367C8A6C3}</ProjectGuid>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Default|AnyCPU' ">
+    <OutputPath>.\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="archives\LanguageWorker_French_Mod-1.0.3.zip" />
+    <None Include="archives\LanguageWorker_French_Mod-1.0.1-.zip" />
+    <None Include="archives\LanguageWorkerFrench_Mod-1.0.0.zip" />
+    <None Include="archives\LanguageWorker_French_Mod-1.0.2.zip" />
+    <None Include="doc\TestReport.html" />
+    <None Include="doc\TestReport-ArtNames.html" />
+    <None Include="doc\TestReport-FactionName.html" />
+    <None Include="doc\LanguageInfo.xml" />
+  </ItemGroup>
+</Project>

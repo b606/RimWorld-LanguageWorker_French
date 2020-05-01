@@ -1,0 +1,13 @@
+2020-05-02  b606  <7627533+b606@users.noreply.github.com>
+
+	* Archives.mdproj:
+	* TestReport.html:
+	* LanguageInfo.xml:
+	* TestReport-ArtNames.html:
+	* TestReport-FactionName.html:
+	* LanguageWorkerFrench_Mod-1.0.0.zip:
+	* LanguageWorker_French_Mod-1.0.3.zip:
+	* LanguageWorker_French_Mod-1.0.2.zip:
+	* LanguageWorker_French_Mod-1.0.1-.zip: Moved all docs and
+	archives to the project Archives subfolder.
+

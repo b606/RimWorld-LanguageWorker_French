@@ -1,11 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-	<name>LanguageWorkerFrench_Mod</name>
+	<name>LanguageWorker_French Mod</name>
 	<author>b606</author>
   <packageId>b606.LanguageWorkerFrench.Mod</packageId>
   <supportedVersions>
     <li>1.0</li>
     <li>1.1</li>
   </supportedVersions>
-	<description>LanguageWorkerFrench_Mod</description>
+	<description>LanguageWorker_French Mod améliore le français dans RimWorld.
+    
+Les modifications faites par ce mod concernent essentiellement la qualité de la traduction, qui sont impossibles à faire sans modifier le code C# du jeu. Ce mod est donc un complément du travail des traducteurs de Ludeon/RimWorld-fr.
+
+Le mod est focalisé sur les accords de mots, les règles de grammaire ou de typographie etc. Si vous avez l'œil averti, vous apprecierez les changements par-ci par-là. Des captures d'écran les illustrent dans le Wiki (https://github.com/b606/RimWorld-LanguageWorker_French/wiki). N'hésitez pas à remonter les suggestions, les problèmes ou bugs sur ce site.
+
+Merci à :
+Elevator89 pour le code initial, à Adirelle pour les premiers Regex, et Pardeike pour libHarmony.
+</description>
 </ModMetaData>
