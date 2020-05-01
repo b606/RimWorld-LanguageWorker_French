@@ -26,7 +26,9 @@ namespace RimWorld_LanguageWorker_French
 	{
 		public LanguageWorker_French()
 		{
-			LanguageWorkerPatcher.DoPatching();
+			//StartStatsLogging(new StackTrace());
+			LogMessage("--LanguageWorker_French ctor called.");
+			//StopStatsLogging("LanguageWorker_French", "LanguageWorker_French");
 		}
 
 		// in plural, replace "ail" with "aux"

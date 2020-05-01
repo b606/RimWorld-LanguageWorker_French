@@ -1,7 +1,7 @@
 ﻿// <code-header>
 //   <author>b606</author>
 //   <summary>
-//		Prefix and and postfix libHarmony patch for GrammarUtility.RulesForPawn.
+//		RulesForPawnPatch: Prefix and and postfix libHarmony patch for GrammarUtility.RulesForPawn.
 //		Fix the genders and names of pawns in the different texts where
 //		the kind.labels are incorrect.
 //	 </summary>
@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using HarmonyLib;
 using RimWorld;
 using Verse;
@@ -19,15 +20,7 @@ namespace RimWorld_LanguageWorker_French
 	/// <summary>
 	/// Prefix and and postfix libHarmony patch for GrammarUtility.RulesForPawn
 	/// </summary>
-	[HarmonyPatch(typeof(GrammarUtility))]
-	[HarmonyPatch("RulesForPawn")]
-	[HarmonyPatch(new Type[] {
-		typeof(string), typeof(Name),
-		typeof(string), typeof(PawnKindDef), typeof(Gender), typeof(Faction),
-		typeof(int), typeof(int), typeof(string),
-		typeof(bool), typeof(bool),
-		typeof(bool), typeof(List<RoyalTitle>),
-		typeof(Dictionary<string, string>), typeof(bool) })]
+	[HarmonyPatch]
 	class RulesForPawnPatch
 	{
 		/// <summary>
@@ -75,6 +68,21 @@ namespace RimWorld_LanguageWorker_French
 			public string OldLabel { get => oldlabel; set => oldlabel = value; }
 			public string OldLabelMale { get => oldlabelMale; set => oldlabelMale = value; }
 			public string OldLabelFemale { get => oldlabelFemale; set => oldlabelFemale = value; }
+		}
+
+		[HarmonyTargetMethod]
+		static MethodBase TargetMethod()
+		{
+			MethodInfo original = typeof(GrammarUtility).GetMethod("RulesForPawn",
+				new Type[] {
+						typeof(string), typeof(Name),
+						typeof(string), typeof(PawnKindDef), typeof(Gender), typeof(Faction),
+						typeof(int), typeof(int), typeof(string),
+						typeof(bool), typeof(bool),
+						typeof(bool), typeof(List<RoyalTitle>),
+						typeof(Dictionary<string, string>), typeof(bool)
+				});
+			return original;
 		}
 
 		[HarmonyPrefix]

@@ -289,7 +289,7 @@ namespace RimWorld_LanguageWorker_French
 				hitIndex = loggedKeys.Count;
 				LogStats.Message(string.Format("#{0}:{1:##.0} µs", hitIndex, elapsed));
 				CallerStats previous = null;
-				// Log up to two levels
+				// Log all stackframes
 				for (int i = 0; i < callStack.FrameCount; i++)
 				{
 					StackFrame frame = callStack.GetFrame(i);

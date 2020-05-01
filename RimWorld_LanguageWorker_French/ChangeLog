@@ -1,3 +1,20 @@
+2020-05-01  b606  <7627533+b606@users.noreply.github.com>
+
+	* LanguageWorker_French.cs: Moved
+	LanguageWorkerPatcher.DoPatching() to the class
+	LanguageWorker_Mod.
+
+	* LanguageWorker_Mod.cs:
+	* LoadedLanguagePatch.cs:
+	* RimWorld_LanguageWorker_French.csproj: Added the class
+	LanguageWorker_Mod and a libHarmony prefix patch to autoload
+	the language worker.
+
+	* RulesForPawnPatch.cs: Changed the patch to use Harmony
+	TargetMethod().
+
+	* StatsLogger.cs: Fix a comment.
+
 2020-04-29  b606  <7627533+b606@users.noreply.github.com>
 
 	* LanguageWorker_French.cs: Fix the grammatical gender and
