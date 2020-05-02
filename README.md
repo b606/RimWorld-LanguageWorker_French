@@ -31,32 +31,26 @@ N'hésitez pas à remonter les suggestions, les problèmes ou bugs sur ce site e
 
 EDIT 2020/05/01: la procédure pour les versions avant le 1.1.0 est toujours valable mais non nécessaire. Texte laissé ici pendant quelque temps pour mémoire.
 
-~~ 1. Télécharger l'archive zip des binaires compilés (https://github.com/b606/RimWorld-LanguageWorker_French/releases/latest) et l'extraire dans le répertoire de Mods de RimWorld.
+ ~~ 1. Télécharger l'archive zip des binaires compilés (https://github.com/b606/RimWorld-LanguageWorker_French/releases/latest) et l'extraire dans le répertoire de Mods de RimWorld. ~~ 
  
- 2. Activer le mod "LanguageWorkerFrench_Test" dans le jeu.
+ ~~ 2. Activer le mod "LanguageWorkerFrench_Test" dans le jeu. ~~ 
  
-    **ATTENTION** : si le mod n'est pas activé avant l'étape suivante, le jeu ne s'executera
-    pas correctement et vous serez obligé de fermer RimWorld brutalement (par un `xkill`).
+** ~~ATTENTION~~ ** : ~~si le mod n'est pas activé avant l'étape suivante, le jeu ne s'executera pas correctement et vous serez obligé de fermer RimWorld brutalement (par un xkill).~~ 
     
-    TIP : Çà m'arrive si souvent que j'utilise une branche git spéciale pour le test de ce mod.
-    Vous pouvez alternativement modifier ModsConfig.xml pour contenir `<li>b606.languageworkerfrench.mod</li>`
-    dans la section `<activeMods>`, ce qui vous évite de relancer le jeu à chaque changement.
+ ~~TIP : Çà m'arrive si souvent que j'utilise une branche git spéciale pour le test de ce mod. Vous pouvez alternativement modifier ModsConfig.xml pour contenir &lt;li&gt;b606.languageworkerfrench.mod&lt;/li&gt; dans la section &lt;activeMods&gt;, ce qui vous évite de relancer le jeu à chaque changement.~~ 
     
- 3. Modifier le fichier LanguageInfo.xml dans le répertoire `Core/Languages/RimWorld-fr` (ou `Core/Languages/French`) pour contenir
-   `<languageWorkerClass>RimWorld_LanguageWorker_French.LanguageWorker_French</languageWorkerClass>`
-   au lieu de `<languageWorkerClass>LanguageWorker_French</languageWorkerClass>`.   
-    NB: Je cherche actuellement le moyen d'éviter cette étape pour faciliter l'installation (à suivre).
+ ~~3. Modifier le fichier LanguageInfo.xml dans le répertoire `Core/Languages/RimWorld-fr` (ou `Core/Languages/French`) pour contenir `<languageWorkerClass>RimWorld_LanguageWorker_French.LanguageWorker_French</languageWorkerClass>` au lieu de `<languageWorkerClass>LanguageWorker_French</languageWorkerClass>`.~~ 
+  ~~NB: Je cherche actuellement le moyen d'éviter cette étape pour faciliter l'installation (à suivre).~~ 
    
- 4. Relancer RimWorld pour apprecier quelques améliorations dans le français du jeu,
-    et ne pas hésiter à remonter ici les suggestions.
+ ~~4. Relancer RimWorld pour apprecier quelques améliorations dans le français du jeu, et ne pas hésiter à remonter ici les suggestions.~~ 
  
-#### Désinstallation
+~~ #### Désinstallation ~~
 
-Il faut refaire les étapes précédentes dans l'ordre inverse.
+~~Il faut refaire les étapes précédentes dans l'ordre inverse.~~ 
 
- 1. Remettre `<languageWorkerClass>LanguageWorker_French</languageWorkerClass>` dans 
-    le fichier LanguageInfo.xml.
- 2. Désactiver le mod dans le jeu. ~~
+~~1. Remettre `<languageWorkerClass>LanguageWorker_French</languageWorkerClass>` dans le fichier LanguageInfo.xml.~~ 
+
+ 2. Désactiver le mod dans le jeu.
  
 ### Changelog
 
