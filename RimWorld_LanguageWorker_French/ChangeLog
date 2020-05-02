@@ -1,3 +1,7 @@
+2020-05-02  b606  <7627533+b606@users.noreply.github.com>
+
+	* AssemblyInfo.cs: Chaged assebly version
+
 2020-05-01  b606  <7627533+b606@users.noreply.github.com>
 
 	* LanguageWorker_French.cs: Moved
