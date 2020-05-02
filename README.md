@@ -1,4 +1,6 @@
 # RimWorld-LanguageWorker_French
+![]( https://raw.githubusercontent.com/wiki/b606/RimWorld-LanguageWorker_French/images/LWKR_French_Mod_banner.png)
+
 A mod to make the French language in RimWorld as grammatically correct as possible.
 
 Credits:
