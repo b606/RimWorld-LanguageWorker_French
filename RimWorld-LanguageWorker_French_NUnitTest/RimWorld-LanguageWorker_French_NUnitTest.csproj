@@ -9,7 +9,7 @@
     <RootNamespace>RimWorldLanguageWorker_French_NUnitTest</RootNamespace>
     <AssemblyName>RimWorld-LanguageWorker_French_NUnitTest</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
-    <ReleaseVersion>1.0</ReleaseVersion>
+    <ReleaseVersion>1.1.0</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

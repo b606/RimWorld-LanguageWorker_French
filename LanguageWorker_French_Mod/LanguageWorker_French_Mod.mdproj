@@ -3,7 +3,7 @@
   <PropertyGroup>
     <ItemType>GenericProject</ItemType>
     <ProjectGuid>{9EE74833-2CC4-40C4-86C7-F5D36A347BD0}</ProjectGuid>
-    <ReleaseVersion>1.0</ReleaseVersion>
+    <ReleaseVersion>1.1.0</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Default|AnyCPU' ">
     <OutputPath>.\</OutputPath>
