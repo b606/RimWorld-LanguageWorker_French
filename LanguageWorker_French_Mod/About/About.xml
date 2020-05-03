@@ -11,9 +11,12 @@
     
 Les modifications faites par ce mod concernent essentiellement la qualité de la traduction, qui sont impossibles à faire sans modifier le code C# du jeu. Ce mod est donc un complément du travail des traducteurs de Ludeon/RimWorld-fr.
 
-Le mod est focalisé sur les accords de mots, les règles de grammaire ou de typographie etc. Si vous avez l'œil averti, vous apprecierez les changements par-ci par-là. Des captures d'écran les illustrent dans le Wiki (https://github.com/b606/RimWorld-LanguageWorker_French/wiki). N'hésitez pas à remonter les suggestions, les problèmes ou bugs sur ce site.
+Le mod est focalisé sur les accords de mots, les règles de grammaire ou de typographie etc. Si vous avez l'œil averti, vous apprecierez les changements par-ci par-là. Des captures d'écran les illustrent dans le Wiki https://github.com/b606/RimWorld-LanguageWorker_French/wiki. N'hésitez pas à remonter les suggestions, les problèmes ou bugs sur ce site.
 
 Merci à :
-Elevator89 pour le code initial, à Adirelle pour les premiers Regex, et Pardeike pour libHarmony.
+Elevator89 pour le code initial, à Adirelle pour les premiers Regex, Pardeike pour libHarmony, et kiliak pour les tests.
+
+Telechargement : https://github.com/b606/RimWorld-LanguageWorker_French/releases/latest
+Pour m'encourager : j'adore le kofi [url=https://ko-fi.com/Z8Z51KQ21][img width=96 height=24]https://cdn.ko-fi.com/cdn/kofi5.png?v=2[/img][/url]
 </description>
 </ModMetaData>
