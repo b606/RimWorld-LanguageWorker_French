@@ -1,3 +1,23 @@
+2020-05-04  b606  <7627533+b606@users.noreply.github.com>
+
+	* InspectionPatch.cs: Extended InspectionPatch to many
+	GenerateGrammarRequest methods. Missing:
+	PlayLogEntry_Interaction.
+
+	* RulesForDefPatch.cs:
+	* LanguageWorker_French.cs:
+	* RulesForBodyPartRecordPatch.cs:
+	* RimWorld_LanguageWorker_French.csproj: Added patches for
+	RulesForDef and RulesForBodyPartRecord in GrammarUtility.
+	Detect labels which are already in plural. Fix gender (do not
+	use "Proits"-> son/sa) and rules for plural only labels.
+
+	* StatsLogger.cs:
+	* LanguageWorker_French_Debug.cs: Added debugging function
+	IntermediateLogging for use between StartLogging/StopLogging.
+
+	* Patcher.cs: Switch Harmony.DEBUG on (or off) when needed.
+
 2020-05-02  b606  <7627533+b606@users.noreply.github.com>
 
 	* AssemblyInfo.cs: Chaged assebly version

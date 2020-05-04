@@ -232,6 +232,12 @@ namespace RimWorld_LanguageWorker_French
 			LogStats.StopLogging(original, processed_str);
 		}
 
+		[Conditional("DEBUG")]
+		public static void IntermediateLogging(string original, string processed_str)
+		{
+			LogStats.IntermediateLogging(original, processed_str);
+		}
+
 		/// <summary>
 		/// Temporary hacks:
 		/// Ensure that the correct frame indices are used to to detect the string categories.

@@ -171,7 +171,7 @@ namespace RimWorld_LanguageWorker_French
 
 			public static string ToGraphHeaderString()
 			{
-				// dump a line of data heaeder in csv format
+				// dump a line of data header in csv format
 				return "index,hitCount,hitProcessed,hitNotProcessed," +
 					"context,changed,length,hits,minTime,avgTime,maxTime,totalTime";
 			}
@@ -332,6 +332,13 @@ namespace RimWorld_LanguageWorker_French
 			LogCallStack(original, currentCallStack, elapsed);
 			// Log all PostProcessed strings
 			LogProcessedString(original, processed_str, elapsed);
+		}
+
+		[Conditional("DEBUG")]
+		internal void IntermediateLogging(string original, string processed_str)
+		{
+			Debug.Assert(stopwatch.IsRunning);
+			LogProcessedString(original, processed_str, GetMicroseconds(stopwatch));
 		}
 
 		#region IDisposable Support

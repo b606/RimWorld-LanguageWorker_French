@@ -22,6 +22,9 @@ namespace RimWorld_LanguageWorker_French
 
 		public static void DoPatching()
 		{
+#if DEBUG
+			Harmony.DEBUG = true;
+#endif
 			try
 			{
 				Harmony harmony = new Harmony(id: "com.b606.mods.languageworker");

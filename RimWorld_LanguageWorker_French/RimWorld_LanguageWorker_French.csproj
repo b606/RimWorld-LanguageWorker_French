@@ -63,6 +63,8 @@
     <Compile Include="InspectionPatch.cs" />
     <Compile Include="LanguageWorker_Mod.cs" />
     <Compile Include="LoadedLanguagePatch.cs" />
+    <Compile Include="RulesForDefPatch.cs" />
+    <Compile Include="RulesForBodyPartRecordPatch.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

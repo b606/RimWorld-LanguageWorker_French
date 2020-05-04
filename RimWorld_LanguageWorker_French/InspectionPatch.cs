@@ -5,16 +5,31 @@
 //	 </summary>
 // </code-header>
 
+using System.Collections.Generic;
+using System.Reflection;
 using HarmonyLib;
 using Verse;
 using Verse.Grammar;
 
 namespace RimWorld_LanguageWorker_French
 {
-	[HarmonyPatch(typeof(BattleLogEntry_RangedImpact))]
-	[HarmonyPatch("GenerateGrammarRequest")]
-	public class InspectionPatch
+	[HarmonyPatch]
+	public static class InspectionPatch
 	{
+		[HarmonyTargetMethods]
+		static IEnumerable<MethodBase> TargetMethods()
+		{
+			yield return AccessTools.Method(typeof(BattleLogEntry_AbilityUsed), "GenerateGrammarRequest");
+			yield return AccessTools.Method(typeof(BattleLogEntry_DamageTaken), "GenerateGrammarRequest");
+			yield return AccessTools.Method(typeof(BattleLogEntry_Event), "GenerateGrammarRequest");
+			yield return AccessTools.Method(typeof(BattleLogEntry_ExplosionImpact), "GenerateGrammarRequest");
+			yield return AccessTools.Method(typeof(BattleLogEntry_MeleeCombat), "GenerateGrammarRequest");
+			yield return AccessTools.Method(typeof(BattleLogEntry_RangedFire), "GenerateGrammarRequest");
+			yield return AccessTools.Method(typeof(BattleLogEntry_RangedImpact), "GenerateGrammarRequest");
+			yield return AccessTools.Method(typeof(BattleLogEntry_StateTransition), "GenerateGrammarRequest");
+			yield return AccessTools.Method(typeof(LogEntry_DamageResult), "GenerateGrammarRequest");
+		}
+
 		[HarmonyPostfix]
 		static void Postfix(GrammarRequest __result)
 		{

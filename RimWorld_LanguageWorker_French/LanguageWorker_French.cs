@@ -19,6 +19,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using Verse;
+using Verse.Grammar;
 
 namespace RimWorld_LanguageWorker_French
 {
@@ -167,6 +168,34 @@ namespace RimWorld_LanguageWorker_French
 			"von"
 		};
 
+		// Some labels are usually in plural because of contexts
+		private static readonly HashSet<string> DefLabel_InPlural = new HashSet<string> {
+		// ThingDef/Races_* tools..label
+			"griffes",
+			"dents",
+			"défenses",
+			"mandibules",
+			"mignonnes petites dents",
+			"crocs acérés",
+		// BodyPart group
+			"yeux",
+		// HediffDef
+			"engelures",
+			"taillades",
+			"artères bouchées",
+			"mécanites fibreuses",
+			"parasites musculaires",
+			"mécanites sensorielles",
+			"vers intestinaux",
+		//ThingDef
+			"rideaux",
+			"décombres",
+			"sacs de sable éventrés",
+			"débris",
+			"croquettes",
+			"hautes herbes"
+		};
+
 		public override string WithIndefiniteArticle(string str, Gender gender, bool plural = false, bool name = false)
 		{
 			// TODO: names with h do not get elision
@@ -175,7 +204,9 @@ namespace RimWorld_LanguageWorker_French
 			if (name)
 				return str;
 
-			if (plural)
+			// Detect words in DefLabel_InPlural which are obviously plural.
+			// Needed here because of "TOOL_definite", etc in BattleLogEntry_MeleeCombat.GenerateGrammarRequest.
+			if (plural || DefLabel_InPlural.Contains(str))
 				return "des " + str;
 
 			return (gender == Gender.Female ? "une " : "un ") + str;
@@ -190,7 +221,8 @@ namespace RimWorld_LanguageWorker_French
 			if (name)
 				return str;
 
-			if (plural)
+			// Detect words obviously plural
+			if (plural || DefLabel_InPlural.Contains(str))
 				return "les " + str;
 
 			char first = str[0];
@@ -503,42 +535,64 @@ namespace RimWorld_LanguageWorker_French
 		{
 			// FIXME: pluralize for compound words
 			if (str.NullOrEmpty())
+			{
 				return str;
+			}
 
 			// Do not pluralize
 			if (count == 1)
+			{
 				return str;
+			}
+
+			StartStatsLogging(new StackTrace());
 
 			// Exceptions to general rules for plural
 			string item = str.ToLower();
+			string str_pluralized = str;
+
 			if (Exceptions_Plural_aux.Contains(item))
 			{
-				return str.Substring(0, str.Length - 3) + "aux";
+				str_pluralized = str.Substring(0, str.Length - 3) + "aux";
 			}
-			if (Exceptions_Plural_s.Contains(item))
+			else if (Exceptions_Plural_s.Contains(item))
 			{
-				return str + "s";
+				str_pluralized = str + "s";
 			}
-			if (Exceptions_Plural_x.Contains(item))
+			else if (Exceptions_Plural_x.Contains(item))
 			{
-				return str + "x";
+				str_pluralized = str + "x";
+			}
+			else
+			{
+				// words ending with "s", "x" or "z": do not change anything
+				char last = str[str.Length - 1];
+				if (last == 's' || last == 'x' || last == 'z')
+				{
+					str_pluralized = str;
+				}
+				else
+				{
+					if (str.EndsWith("al", StringComparison.CurrentCulture))
+					{
+						// words ending with "al": replace "al" by "aux"
+						str_pluralized = str.Substring(0, str.Length - 2) + "aux";
+					}
+					else if (str.EndsWith("au", StringComparison.CurrentCulture) | str.EndsWith("eu", StringComparison.CurrentCulture))
+					{
+						// words ending with "au" or "eu": append "x"
+						str_pluralized = str + "x";
+					}
+					else
+					{
+						// general case: append s
+						str_pluralized = str + "s";
+					}
+				}
 			}
 
-			// words ending with "s", "x" or "z": do not change anything
-			char last = str[str.Length - 1];
-			if (last == 's' || last == 'x' || last == 'z')
-				return str;
-
-			// words ending with "al": replace "al" by "aux"
-			if (str.EndsWith("al", StringComparison.CurrentCulture))
-				return str.Substring(0, str.Length - 2) + "aux";
-
-			// words ending with "au" or "eu": append "x"
-			if (str.EndsWith("au", StringComparison.CurrentCulture) | str.EndsWith("eu", StringComparison.CurrentCulture))
-				return str + "x";
-
-			// general case: append s
-			return str + "s";
+			StopStatsLogging(str, str_pluralized);
+			return str_pluralized;
 		}
 
 		public override string PostProcessed(string str)
@@ -704,5 +758,96 @@ namespace RimWorld_LanguageWorker_French
 			else
 				LogMessage("--kind == null");
 		}
+
+		/// <summary>
+		/// Code shamelessly copied from the base game and hopefully included there.
+		/// Fixs the rules for def in GrammarUtility.RulesForDef.
+		///
+		/// The main change is the use of gender.GetPossessive() instead of "Proits".Translate()
+		/// in the last rule (This fix shoud apply to all languages).
+		///
+		/// Specific to French: detect whether some def.label are in plural only
+		/// Other language might add some specific symbols here if needed.
+		/// </summary>
+		/// <returns>The grammar rules for def.</returns>
+		/// <param name="prefix">rules prefix.</param>
+		/// <param name="def">Def.</param>
+		public static IEnumerable<Rule> FixRulesForDef(string prefix, Def def)
+		{
+			StartStatsLogging(new StackTrace());
+			if (def == null)
+			{
+				Log.ErrorOnce($"Tried to insert rule {prefix} for null def", 79641686);
+				yield break;
+			}
+
+			LanguageWorker languageWorker = Find.ActiveLanguageWorker;
+			Gender gender = LanguageDatabase.activeLanguage.ResolveGender(def.label);
+			bool plural = DefLabel_InPlural.Contains(def.label);
+
+			if (!prefix.NullOrEmpty())
+			{
+				prefix += "_";
+			}
+			yield return new Rule_String(prefix + "label", def.label);
+			if (def is PawnKindDef)
+			{
+				yield return new Rule_String(prefix + "labelPlural", ((PawnKindDef)def).GetLabelPlural());
+			}
+			else
+			{
+				// Log to inspect the difference with the original rules
+				yield return new Rule_String(prefix + "labelPlural", plural ? def.label : languageWorker.Pluralize(def.label));
+			}
+			yield return new Rule_String(prefix + "description", def.description);
+			yield return new Rule_String(prefix + "definite", languageWorker.WithDefiniteArticle(def.label, gender, plural));
+			yield return new Rule_String(prefix + "indefinite", languageWorker.WithIndefiniteArticle(def.label, gender, plural));
+			yield return new Rule_String(prefix + "possessive", plural ? "ses" : gender.GetPossessive());
+
+			// Log to inspect the difference with the original rules
+			IntermediateLogging("FixRulesForDef(" + prefix + "definite" + "): " + languageWorker.WithDefiniteArticle(def.label),
+				"FixRulesForDef(" + prefix + "definite" + "): " + languageWorker.WithDefiniteArticle(def.label, gender, plural));
+			IntermediateLogging("FixRulesForDef(" + prefix + "indefinite" + "): " + languageWorker.WithIndefiniteArticle(def.label),
+				"FixRulesForDef(" + prefix + "indefinite" + "): " + languageWorker.WithIndefiniteArticle(def.label, gender, plural));
+			IntermediateLogging("FixRulesForDef(" + prefix + "possessive" + "): " + "Proits".Translate(),
+				"FixRulesForDef(" + prefix + "possessive" + "): " + (plural ? "ses" : gender.GetPossessive()));
+
+			StopStatsLogging("FixRulesForDef", "FixRulesForDef");
+		}
+
+		public static IEnumerable<Rule> FixRulesForBodyPartRecord(string prefix, BodyPartRecord part)
+		{
+			StartStatsLogging(new StackTrace());
+
+			if (part == null)
+			{
+				Log.ErrorOnce($"Tried to insert rule {prefix} for null body part", 394876778);
+				yield break;
+			}
+
+			LanguageWorker languageWorker = Find.ActiveLanguageWorker;
+			Gender gender = LanguageDatabase.activeLanguage.ResolveGender(part.Label);
+			bool plural = DefLabel_InPlural.Contains(part.Label);
+
+			if (!prefix.NullOrEmpty())
+			{
+				prefix += "_";
+			}
+			yield return new Rule_String(prefix + "label", part.Label);
+			yield return new Rule_String(prefix + "definite", languageWorker.WithDefiniteArticle(part.Label, gender, plural));
+			yield return new Rule_String(prefix + "indefinite", languageWorker.WithIndefiniteArticle(part.Label, gender, plural));
+			yield return new Rule_String(prefix + "possessive", plural ? "ses" : gender.GetPossessive());
+
+			// Log to inspect the difference with the original rules
+			IntermediateLogging("FixRulesForBodyPartRecord(" + prefix + "definite" + "): " + languageWorker.WithDefiniteArticle(part.Label),
+				"FixRulesForBodyPartRecord(" + prefix + "definite" + "): " + languageWorker.WithDefiniteArticle(part.Label, gender, plural));
+			IntermediateLogging("FixRulesForBodyPartRecord(" + prefix + "indefinite" + "): " + languageWorker.WithIndefiniteArticle(part.Label),
+				"FixRulesForBodyPartRecord(" + prefix + "indefinite" + "): " + languageWorker.WithIndefiniteArticle(part.Label, gender, plural));
+			IntermediateLogging("FixRulesForDef(" + prefix + "possessive" + "): " + "Proits".Translate(),
+				"FixRulesForBodyPartRecord(" + prefix + "possessive" + "): " + (plural ? "ses" : gender.GetPossessive()));
+
+			StopStatsLogging("FixRulesForBodyPartRecord", "FixRulesForBodyPartRecord");
+		}
+
 	}
 }
