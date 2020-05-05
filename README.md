@@ -25,11 +25,11 @@ Des captures d'écran les illustrent dans le Wiki (https://github.com/b606/RimWo
 
 Un rapport de test détaillé montre l'évolution et le travail que fait le mod derrière la scène : https://htmlpreview.github.io/?https://github.com/b606/RimWorld-LanguageWorker_French/blob/master/Archives/doc/TestReport.html.
 
-N'hésitez pas à remonter les suggestions, les problèmes ou bugs sur ce site en ouvrant un issue.
+N'hésitez pas à remonter les suggestions, les problèmes ou bugs sur ce site en ouvrant une nouvelle page dans l'onglet Issue.
 
 ### Installation
 
-À partir de la version 1.1.0, il suffit de télécharger l'archive zip des binaires compilés (https://github.com/b606/RimWorld-LanguageWorker_French/releases/latest), de l'extraire dans le répertoire de Mods de RimWorld, et d'activer ou désactiver le mod "LanguageWorkerFrench_Test" dans le jeu :
+À partir de la version 1.1.0, le mod est sur Steam (https://steamcommunity.com/sharedfiles/filedetails/?id=2081845369). Sinon, il suffit de télécharger l'archive zip des binaires compilés (https://github.com/b606/RimWorld-LanguageWorker_French/releases/latest), de l'extraire dans le répertoire de Mods de RimWorld, et d'activer ou désactiver le mod "LanguageWorkerFrench_Test" dans le jeu :
 
  - sous Windows : `C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\LanguageWorker_French_Mod`
  - sous Linux : `~/.steam/steam/steamapps/common/RimWorld/Mods/LanguageWorker_French_Mod`
@@ -39,7 +39,7 @@ N'hésitez pas à remonter les suggestions, les problèmes ou bugs sur ce site e
  
 #### Installation alternative pour les versions avant 1.1.0
 
-EDIT 2020/05/01: la procédure pour les versions avant le 1.1.0 est toujours valable mais non nécessaire. Texte laissé ici pendant quelque temps pour mémoire.
+EDIT 2020/05/01: la procédure pour les versions avant le 1.1.0 est toujours valable mais non nécessaire.
 
   1. Télécharger l'archive zip des binaires compilés (https://github.com/b606/RimWorld-LanguageWorker_French/releases/latest) et l'extraire dans le répertoire de Mods de RimWorld.
  
@@ -52,6 +52,13 @@ EDIT 2020/05/01: la procédure pour les versions avant le 1.1.0 est toujours val
   **Désinstallation** : refaire les étapes précédentes dans l'ordre inverse et désactiver le mod dans le jeu.
  
 ### Changelog
+
+2020/05/05.
+  - Corrections des RulesForDef et RulesForBodyPartRecord pour fixer le genre des mots considérés neutre en anglais.
+    Plusieurs marqueurs "x_possessive" sont donc fonctionnels au lieu de "son/sa".
+    Les labels au pluriel sont détectés. Ils donneront "ses", "les x" pour "x_definite" et "des x" pour "x_indefinite".
+  - Développement complet de la fonction de pluralisation pour presque tous les labels dans le jeu (1555 labels),
+    et correction de certains d'entre eux dans la traduction RimWorld-fr.
 
 2020/05/01.
   - Depuis la version 1.1.0, le mod paramètre automatiquement le module de traitement pour le langage français (languageWorkerClass). L'activation est basée sur le nom interne du langage ("friendly name: French") et ne concerne pas les autres langages qui n'ont pas ce nom interne. Il n'y a plus besoin de toucher au fichier LanguageInfo.xml.
