@@ -54,9 +54,11 @@ EDIT 2020/05/01: la procédure pour les versions avant le 1.1.0 est toujours val
 ### Changelog
 
 2020/05/05.
-  - Corrections des RulesForDef et RulesForBodyPartRecord pour fixer le genre des mots considérés neutre en anglais.
-    Plusieurs marqueurs "x_possessive" sont donc fonctionnels au lieu de "son/sa".
-    Les labels au pluriel sont détectés. Ils donneront "ses", "les x" pour "x_definite" et "des x" pour "x_indefinite".
+  - Corrections pour fixer le genre des mots considérés neutre en anglais (patchs des RulesForDef et 
+    RulesForBodyPartRecord). Plusieurs marqueurs "x_possessive" sont donc fonctionnels pour les traducteurs de
+    RimWorld-fr, au lieu de "son/sa" (ou "le/la") jusqu'ici.
+ - Les labels toujours au pluriel sont détectés. Comme il se doit, ils se résoudront en "ses" pour les tags 
+   "x_possessive", "les x" pour "x_definite" et "des x" pour "x_indefinite".
   - Développement complet de la fonction de pluralisation pour presque tous les labels dans le jeu (1555 labels),
     et correction de certains d'entre eux dans la traduction RimWorld-fr.
 
