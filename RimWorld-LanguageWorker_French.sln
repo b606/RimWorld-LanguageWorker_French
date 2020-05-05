@@ -89,6 +89,9 @@ Global
 		$8.scope = application/xml
 		$0.StandardHeader = $9
 		$9.Text = @<code-header>\n  <author>${AuthorName}</author>\n  <copyright file="${FileName}" company="My Company Name">\n    Copyright (c) ${AuthorName} ${Year}\n  </copyright>\n  <license href="license.txt"></license>\n  <date>${Date}</date>\n  <summary>summary</summary>\n  <revisions>\n    <revision initials="b606">Created the file and class</revision>\n  </revisions>\n</code-header>\n
+		$0.TextStylePolicy = $10
+		$10.inheritsSet = null
+		$10.scope = text/html
 		version = 1.1.0
 	EndGlobalSection
 EndGlobal
