@@ -2,6 +2,7 @@
 <ModMetaData>
 	<name>LanguageWorker_French Mod</name>
 	<author>b606</author>
+  <url>https://github.com/b606/RimWorld-LanguageWorker_French/</url>
   <packageId>b606.LanguageWorkerFrench.Mod</packageId>
   <supportedVersions>
     <li>1.0</li>
@@ -11,12 +12,20 @@
     
 Les modifications faites par ce mod concernent essentiellement la qualité de la traduction, qui sont impossibles à faire sans modifier le code C# du jeu. Ce mod est donc un complément du travail des traducteurs de Ludeon/RimWorld-fr.
 
-Le mod est focalisé sur les accords de mots, les règles de grammaire ou de typographie etc. Si vous avez l'œil averti, vous apprecierez les changements par-ci par-là. Des captures d'écran les illustrent dans le Wiki https://github.com/b606/RimWorld-LanguageWorker_French/wiki. N'hésitez pas à remonter les suggestions, les problèmes ou bugs sur ce site.
+Le mod est focalisé sur les accords de mots, les règles de grammaire ou de typographie etc. Si vous avez l'œil averti, vous apprecierez les changements par-ci par-là. Des captures d'écran les illustrent dans le Wiki du mod, https://github.com/b606/RimWorld-LanguageWorker_French/wiki. N'hésitez pas à remonter les suggestions, les problèmes ou bugs sur ce site.
 
-Merci à :
+&lt;b&gt;Merci à&lt;/b&gt;
 Elevator89 pour le code initial, à Adirelle pour les premiers Regex, Pardeike pour libHarmony, et kiliak pour les tests.
 
-Telechargement : https://github.com/b606/RimWorld-LanguageWorker_French/releases/latest
-Pour m'encourager : j'adore le kofi [url=https://ko-fi.com/Z8Z51KQ21][img width=96 height=24]https://cdn.ko-fi.com/cdn/kofi5.png?v=2[/img][/url]
+&lt;b&gt;Téléchargement&lt;/b&gt;
+https://github.com/b606/RimWorld-LanguageWorker_French/releases/latest
+
+&lt;b&gt;Autre mod&lt;/b&gt;
+EdB Prepare Carefully [Français]
+https://steamcommunity.com/sharedfiles/filedetails/?id=2081907934
+
+&lt;b&gt;Pour m'encourager&lt;/b&gt;
+- une petite pouce approbatrice
+- j'adore aussi le kofi https://ko-fi.com/b606at0116
 </description>
 </ModMetaData>

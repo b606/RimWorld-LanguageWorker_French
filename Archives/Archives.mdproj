@@ -9,13 +9,11 @@
     <OutputPath>.\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="archives\LanguageWorker_French_Mod-1.0.3.zip" />
-    <None Include="archives\LanguageWorker_French_Mod-1.0.1-.zip" />
-    <None Include="archives\LanguageWorkerFrench_Mod-1.0.0.zip" />
-    <None Include="archives\LanguageWorker_French_Mod-1.0.2.zip" />
     <None Include="doc\TestReport.html" />
     <None Include="doc\TestReport-ArtNames.html" />
     <None Include="doc\TestReport-FactionName.html" />
     <None Include="doc\LanguageInfo.xml" />
+    <None Include="doc\TestReport-Pluralize.html" />
+    <None Include="doc\TestReport-RulesPatch.html" />
   </ItemGroup>
 </Project>
