@@ -146,25 +146,37 @@ namespace RimWorld_LanguageWorker_French
 		};
 
 		// For ToTitleCase: No uppercase if in the middle of the string
+		// For Pluralize: Contains most of the prepositions (stopping test for compound words)
 		private static HashSet<string> NonUppercaseWords = new HashSet<string>
 		{
 			"à", // "à la",
 			"au",
 			"avec",
+			"chez",
+			"dans",
 			"de", // "de la",
 			"des",
+			"dès",
+			"devant",
 			"du",
 			"en",
+			"entre",
 			"et",
+			"hors",
+			"jusqu'à",
+			"jusqu'au",
+			"jusque",
 			"la",
 			"le",
 			"les",
 			"lez",
 			"par",
 			"pour",
+			"post",
+			"sans",
 			"sur", // "sur le", "sur la",
 			"vers",
-			"van",
+			"van", // some foreign words
 			"von"
 		};
 
@@ -531,22 +543,8 @@ namespace RimWorld_LanguageWorker_French
 			return processed_str;
 		}
 
-		public override string Pluralize(string str, Gender gender, int count = -1)
+		private string PluralizeOneWord(string str, Gender gender, int count = -1)
 		{
-			// FIXME: pluralize for compound words
-			if (str.NullOrEmpty())
-			{
-				return str;
-			}
-
-			// Do not pluralize
-			if (count == 1)
-			{
-				return str;
-			}
-
-			StartStatsLogging(new StackTrace());
-
 			// Exceptions to general rules for plural
 			string item = str.ToLower();
 			string str_pluralized = str;
@@ -562,6 +560,29 @@ namespace RimWorld_LanguageWorker_French
 			else if (Exceptions_Plural_x.Contains(item))
 			{
 				str_pluralized = str + "x";
+			}
+			else if (str.Equals("box", StringComparison.CurrentCulture))
+			{
+				// Foreign words
+				str_pluralized = "boxes";
+			}
+			else if (str.Equals("œil", StringComparison.CurrentCulture))
+			{
+				// plural exceptions should be in a lookup dictionary
+				str_pluralized = "yeux";
+			}
+			else if (str.Equals("pilum", StringComparison.CurrentCulture))
+			{
+				str_pluralized = "pila";
+			}
+			else if (str.ToLower().Equals("yorkshire", StringComparison.CurrentCulture)
+				|| str.ToLower().Equals("molotov", StringComparison.CurrentCulture)
+				|| str.ToLower().Equals("pemmican", StringComparison.CurrentCulture)
+				|| str.ToLower().Equals("pekoe", StringComparison.CurrentCulture)
+				)
+			{
+				// Foreign words
+				str_pluralized = str;
 			}
 			else
 			{
@@ -590,6 +611,128 @@ namespace RimWorld_LanguageWorker_French
 					}
 				}
 			}
+
+			return str_pluralized;
+		}
+
+		private string PluralizeHyphenated(string str, Gender gender, int count = -1)
+		{
+			string[] array = str.Split('-');
+			if (array.NullOrEmpty())
+				return str;
+
+			if (array.Length == 1)
+			{
+				return PluralizeOneWord(str, gender, count);
+			}
+
+			// compound words
+			for (int i = 0; i < array.Length; i++)
+			{
+				// stop pluralization after these words
+				if (NonUppercaseWords.Contains(array[i])
+					|| array[i].Equals("lance")
+					|| array[i].Equals("pare")
+					|| array[i].Equals("anti")
+					|| array[i].Equals("dompte")
+					) // or more generally, any verb
+				{
+					break;
+				}
+				else if (
+						 array[i].Equals("mini")
+					|| array[i].Equals("mono")
+					|| array[i].Equals("multi")
+					|| array[i].Equals("mi")
+					|| array[i].Equals("demi")
+					|| array[i].Equals("semi")
+					|| array[i].Equals("t")     // t-shirt
+					|| array[i].Equals("hi")    // hi-tech
+					|| array[i].Equals("carbu") // game specific
+					|| array[i].Equals("gastro")
+					|| array[i].Equals("go")
+					|| array[i].Equals("wake")
+					|| array[i].Equals("mech")
+					|| array[i].Equals("avant")
+					|| array[i].Equals("arrière")
+					|| array[i].Equals("après")
+					|| array[i].Equals("contre")
+					)
+				{
+					// exception to the pluralize rules
+					continue;
+				}
+				else
+				{
+					array[i] = PluralizeOneWord(array[i], gender, count);
+				}
+			}
+
+			return string.Join("-", array);
+		}
+
+		public override string Pluralize(string str, Gender gender, int count = -1)
+		{
+			if (str.NullOrEmpty())
+			{
+				return str;
+			}
+
+			// Do not pluralize
+			if (count == 1)
+			{
+				return str;
+			}
+
+			StartStatsLogging(new StackTrace());
+
+			string[] array = str.Split(' ');
+
+			for (int i = 0; i < array.Length; i++)
+			{
+				// stop pluralization after these words
+				if (NonUppercaseWords.Contains(array[i])
+					|| array[i].StartsWith("d'", StringComparison.CurrentCulture)
+					|| array[i].StartsWith("(", StringComparison.CurrentCulture)
+				)
+				{
+					break;
+				}
+				else if ((i > 0) && (i < array.Length - 1) && array[i].Equals("non") // in the middle ?
+							|| array[i].ToLower().Equals("avant")   // adverbs
+							|| array[i].ToLower().Equals("arrière")
+							|| array[i].ToLower().Equals("hautement")
+							|| array[i].ToLower().Equals("iem")			// game specific
+							|| array[i].ToLower().Equals("ia")
+							|| array[i].ToLower().Equals("luciferium")
+							|| array[i].Equals("-") // a separator ' - '
+						)
+				{
+					// invariants
+					continue;
+				}
+				else
+				{
+					array[i] = PluralizeHyphenated(array[i], gender, count);
+				}
+			}
+
+			// Common last adjectives in the game
+			int n = array.Length;
+			if (array[n - 1].StartsWith("(", StringComparison.CurrentCulture))
+				n -= 1;
+
+			if ((n > 0) &&
+					( array[n - 1].StartsWith("inachevé", StringComparison.CurrentCulture)
+				|| array[n - 1].StartsWith("lié", StringComparison.CurrentCulture)
+				|| array[n - 1].StartsWith("improvisé", StringComparison.CurrentCulture)
+				|| array[n - 1].StartsWith("éventré", StringComparison.CurrentCulture)
+				))
+			{
+				array[n - 1] = PluralizeHyphenated(array[n - 1], gender, count);
+			}
+
+			string str_pluralized = string.Join(" ", array);
 
 			StopStatsLogging(str, str_pluralized);
 			return str_pluralized;

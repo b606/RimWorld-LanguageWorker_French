@@ -1,3 +1,9 @@
+2020-05-05  b606  <7627533+b606@users.noreply.github.com>
+
+	* LanguageWorker_French.cs: Pluralize function completed for
+	quasi-totality of the labels in the game. The unit test
+	contains 1555 of them.
+
 2020-05-04  b606  <7627533+b606@users.noreply.github.com>
 
 	* InspectionPatch.cs: Extended InspectionPatch to many

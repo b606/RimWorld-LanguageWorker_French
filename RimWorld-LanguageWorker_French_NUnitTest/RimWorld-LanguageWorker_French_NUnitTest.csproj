@@ -49,6 +49,7 @@
     <Compile Include="ReplaceResolverTest.cs" />
     <Compile Include="TestPostProcessed.cs" />
     <Compile Include="TestToTitleCase.cs" />
+    <Compile Include="TestPluralize.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RimWorld_LanguageWorker_French\RimWorld_LanguageWorker_French.csproj">

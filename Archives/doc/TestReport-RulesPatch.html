@@ -1,0 +1,286 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Rapport de test</title>
+<style>
+h1,h2  {
+<font color="#7C7C7C">  color:</font> #7C7C7C;
+<font color="#7C7C7C">  font-family:</font> Verdana, Helvetica, sans-serif;
+}
+p,ul  {
+<font color="#7C7C7C">  font-family:</font> Verdana, Helvetica, sans-serif;
+}
+</style>
+</head>
+<body>
+<h1>Vérification des traitements effectués par l'assembly</h1>
+<p>
+<font color="#7C7C7C">lundi 4 mai 2020, 09:</font>04:46 (UTC+0200)
+<font color="#7C7C7C"><font color="#7C7C7C"><br/>Couleur :</font></font> <font color="red">texte avant traitement</font>
+<font color="#7C7C7C"><font color="#7C7C7C"><br/>Couleur :</font></font> <font color="blue">texte après traitement</font>
+<font color="#7C7C7C"><font color="#7C7C7C"><br/>Chaînes changées :</font></font> 53 /tmp/PostProcessed_in.txt
+<font color="#7C7C7C"><font color="#7C7C7C"><br/>Chaînes non changées :</font></font> 132 /tmp/PostProcessed_no.txt
+</p>
+<font color="#7C7C7C"><p>Dans l'ordre d'apparition dans le jeu, généralement :</font>
+<ul>
+<li>Nom de planète</li>
+<li>Factions et leaders de factions</li>
+<li>Objets de la planète</li>
+<li>Premiers colons</li>
+<li>Objets d.arts (dev mode make_colony)</li>
+<li>Caravanes et traderships</li>
+<li>Quêtes</li>
+<li>Incident maps</li>
+<li>dev mode battle royal</li>
+</ul></p>
+<h2>1. Comparaison de /tmp/LanguageWorkerIn.log et de /tmp/LanguageWorkerOut.log</h2>
+<p>
+﻿<br/>
+﻿<br/>
+</p>
+<h2>2. Comparaison de /tmp/PostProcessed_in.txt et de /tmp/PostProcessed_out.txt</h2>
+<p>
+<font color="#7C7C7C">﻿PostProcessed_str[Pluralize]:</font> 229.5 µs:ikwa<font color="red"></font><br/>
+<font color="#7C7C7C">﻿PostProcessed_str[Pluralize]:</font> 229.5 µs:ikwa<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font> 229.5 µs:FixRulesForDef(WEAPON_possessive): son<font color="red">/sa</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font> 229.5 µs:FixRulesForDef(WEAPON_possessive): son<font color="blue"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[MoveNext]:</font> 316.8 µs:FixRulesForDef(CULPRITHEDIFF_originaltarget_possessive): son<font color="red">/sa</font><br/>
+<font color="#7C7C7C">PostProcessed_str[MoveNext]:</font> 316.8 µs:FixRulesForDef(CULPRITHEDIFF_originaltarget_possessive): son<font color="blue"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  38.1 µs:perforation<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  38.1 µs:perforation<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  38.1 µs:FixRulesForDef(CULPRITHEDIFF_possessive): son<font color="red">/sa</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  38.1 µs:FixRulesForDef(CULPRITHEDIFF_possessive): son<font color="blue"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[MoveNext]:</font> 120.5 µs:FixRulesForDef(CULPRITHEDIFF_target_possessive): son<font color="red">/sa</font><br/>
+<font color="#7C7C7C">PostProcessed_str[MoveNext]:</font> 120.5 µs:FixRulesForDef(CULPRITHEDIFF_target_possessive): son<font color="blue"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  16.0 µs:fracture<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  16.0 µs:fracture<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  45.0 µs:partie du corps manquante<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  45.0 µs:partie du corps manquante<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  18.9 µs:fusil d'assaut<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  18.9 µs:fusil d'assaut<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  22.4 µs:balle de fusil d'assaut<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  22.4 µs:balle de fusil d'assaut<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  22.4 µs:FixRulesForDef(WEAPON_projectile_possessive): s<font color="red">on/s</font>a<br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  22.4 µs:FixRulesForDef(WEAPON_projectile_possessive): s<font color="blue"></font>a<br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  17.8 µs:alocasia<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  17.8 µs:alocasia<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  17.8 µs:FixRulesForDef(COVER_possessive): son<font color="red">/sa</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  17.8 µs:FixRulesForDef(COVER_possessive): son<font color="blue"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  20.0 µs:mitrailleuse<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  20.0 µs:mitrailleuse<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  22.5 µs:balle de mitrailleuse<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  22.5 µs:balle de mitrailleuse<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  14.1 µs:cecropia<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  14.1 µs:cecropia<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  24.8 µs:gravats - granite<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  24.8 µs:gravats - granite<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  10.8 µs:minigun<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  10.8 µs:minigun<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  22.9 µs:balle de minigun<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  22.9 µs:balle de minigun<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  24.7 µs:peuplier<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  24.7 µs:peuplier<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  16.7 µs:fusil à impulsion<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  16.7 µs:fusil à impulsion<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  27.7 µs:balle de fusil à impulsion<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  27.7 µs:balle de fusil à impulsion<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  26.2 µs:fusil à pompe automatique<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  26.2 µs:fusil à pompe automatique<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  28.9 µs:balle de fusil à pompe<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  28.9 µs:balle de fusil à pompe<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  17.6 µs:palmier<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  17.6 µs:palmier<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  25.2 µs:pistolet automatique<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  25.2 µs:pistolet automatique<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  27.2 µs:balle de pistolet automatique<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  27.2 µs:balle de pistolet automatique<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  43.3 µs:épée mono-moléculaire<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  43.3 µs:épée mono-moléculaire<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  33.3 µs:pistolet-mitrailleur<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  33.3 µs:pistolet-mitrailleur<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  26.3 µs:balle de pistolet-mitrailleur<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  26.3 µs:balle de pistolet-mitrailleur<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  19.1 µs:fusil à pompe<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  19.1 µs:fusil à pompe<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  13.8 µs:bambou<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  13.8 µs:bambou<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  23.8 µs:gravats - calcaire<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  23.8 µs:gravats - calcaire<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  21.5 µs:pistolet-mitrailleur lourd<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  21.5 µs:pistolet-mitrailleur lourd<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  30.8 µs:balle de pistolet-mitrailleur lourd<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  30.8 µs:balle de pistolet-mitrailleur lourd<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  28.7 µs:épée mono-moléculaire liée<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  28.7 µs:épée mono-moléculaire liée<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  21.5 µs:épée plasmique<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  21.5 µs:épée plasmique<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  13.8 µs:revolver<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  13.8 µs:revolver<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  22.2 µs:balle de revolver<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  22.2 µs:balle de revolver<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  21.4 µs:fusil de précision<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  21.4 µs:fusil de précision<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  29.0 µs:balle de fusil de précision<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  29.0 µs:balle de fusil de précision<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  16.8 µs:buisson<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  16.8 µs:buisson<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  19.9 µs:marteau de Zeus lié<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  19.9 µs:marteau de Zeus lié<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  20.9 µs:arc composite<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  20.9 µs:arc composite<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  27.2 µs:flèche d'arc composite<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  27.2 µs:flèche d'arc composite<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  13.0 µs:chêne<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  13.0 µs:chêne<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  39.5 µs:FixRulesForDef(RECIPIENT_possessive): son<font color="red">/sa</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  39.5 µs:FixRulesForDef(RECIPIENT_possessive): son<font color="blue"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  44.5 µs:carabine de survie<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  44.5 µs:carabine de survie<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  53.0 µs:balle de carabine de survie<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  53.0 µs:balle de carabine de survie<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  23.8 µs:griffure<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  23.8 µs:griffure<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  20.7 µs:blessure par balle<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  20.7 µs:blessure par balle<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  13.8 µs:contusion<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  13.8 µs:contusion<font color="blue">s</font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  29.4 µs:taillade<font color="red"></font><br/>
+<font color="#7C7C7C">PostProcessed_str[Pluralize]:</font>  29.4 µs:taillade<font color="blue">s</font><br/>
+</p>
+<h2>3. Chaînes de caractères non traités</h2>
+<p>
+<font color="#7C7C7C">﻿PostProcessed_no[Pluralize]:</font>2 hits: 229.5 µs:FixRulesForDef(WEAPON_definite): l'ikwa<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>3 hits: 229.5 µs:FixRulesForDef(WEAPON_indefinite): un ikwa<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>5 hits: 229.5 µs:FixRulesForDef<br/>
+<font color="#7C7C7C">PostProcessed_no[MoveNext]:</font>71 hits: 207.8 µs:FixRulesForDef(CULPRITHEDIFF_originaltarget_definite): le pied gauche<br/>
+<font color="#7C7C7C">PostProcessed_no[MoveNext]:</font>72 hits: 269.0 µs:FixRulesForDef(CULPRITHEDIFF_originaltarget_indefinite): un pied gauche<br/>
+<font color="#7C7C7C">PostProcessed_no[MoveNext]:</font>74 hits: 367.2 µs:FixRulesForBodyPartRecord<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>240 hits:  38.1 µs:FixRulesForDef(CULPRITHEDIFF_definite): le perforation<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>241 hits:  38.1 µs:FixRulesForDef(CULPRITHEDIFF_indefinite): un perforation<br/>
+<font color="#7C7C7C">PostProcessed_no[MoveNext]:</font>249 hits:  52.2 µs:FixRulesForDef(CULPRITHEDIFF_target_definite): le corps<br/>
+<font color="#7C7C7C">PostProcessed_no[MoveNext]:</font>250 hits:  92.8 µs:FixRulesForDef(CULPRITHEDIFF_target_indefinite): un corps<br/>
+<font color="#7C7C7C">PostProcessed_no[MoveNext]:</font>257 hits:  47.5 µs:FixRulesForDef(CULPRITHEDIFF_originaltarget_definite): le corps<br/>
+<font color="#7C7C7C">PostProcessed_no[MoveNext]:</font>258 hits:  75.9 µs:FixRulesForDef(CULPRITHEDIFF_originaltarget_indefinite): un corps<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>266 hits:  16.0 µs:FixRulesForDef(CULPRITHEDIFF_definite): la fracture<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>267 hits:  16.0 µs:FixRulesForDef(CULPRITHEDIFF_indefinite): une fracture<br/>
+<font color="#7C7C7C">PostProcessed_no[MoveNext]:</font>275 hits:  55.2 µs:FixRulesForDef(CULPRITHEDIFF_target_definite): la colonne vertébrale<br/>
+<font color="#7C7C7C">PostProcessed_no[MoveNext]:</font>276 hits: 107.4 µs:FixRulesForDef(CULPRITHEDIFF_target_indefinite): une colonne vertébrale<br/>
+<font color="#7C7C7C">PostProcessed_no[MoveNext]:</font>283 hits:  46.0 µs:FixRulesForDef(CULPRITHEDIFF_originaltarget_definite): la colonne vertébrale<br/>
+<font color="#7C7C7C">PostProcessed_no[MoveNext]:</font>284 hits:  74.5 µs:FixRulesForDef(CULPRITHEDIFF_originaltarget_indefinite): une colonne vertébrale<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>830 hits:  45.0 µs:FixRulesForDef(CULPRITHEDIFF_definite): la partie du corps manquante<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>831 hits:  45.0 µs:FixRulesForDef(CULPRITHEDIFF_indefinite): une partie du corps manquante<br/>
+<font color="#7C7C7C">PostProcessed_no[MoveNext]:</font>839 hits:  67.8 µs:FixRulesForDef(CULPRITHEDIFF_target_definite): la tête<br/>
+<font color="#7C7C7C">PostProcessed_no[MoveNext]:</font>840 hits: 106.4 µs:FixRulesForDef(CULPRITHEDIFF_target_indefinite): une tête<br/>
+<font color="#7C7C7C">PostProcessed_no[MoveNext]:</font>847 hits:  45.6 µs:FixRulesForDef(CULPRITHEDIFF_originaltarget_definite): la tête<br/>
+<font color="#7C7C7C">PostProcessed_no[MoveNext]:</font>848 hits:  73.4 µs:FixRulesForDef(CULPRITHEDIFF_originaltarget_indefinite): une tête<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1154 hits:  18.9 µs:FixRulesForDef(WEAPON_definite): le fusil d'assaut<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1155 hits:  18.9 µs:FixRulesForDef(WEAPON_indefinite): un fusil d'assaut<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1164 hits:  22.4 µs:FixRulesForDef(WEAPON_projectile_definite): la balle de fusil d'assaut<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1165 hits:  22.4 µs:FixRulesForDef(WEAPON_projectile_indefinite): une balle de fusil d'assaut<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1174 hits:  17.8 µs:FixRulesForDef(COVER_definite): l'alocasia<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1175 hits:  17.8 µs:FixRulesForDef(COVER_indefinite): un alocasia<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1213 hits:   2.0 µs:marteau de Zeus<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1214 hits:   2.0 µs:FixRulesForDef(WEAPON_definite): le marteau de Zeus<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1215 hits:   2.0 µs:FixRulesForDef(WEAPON_indefinite): un marteau de Zeus<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1234 hits:  20.0 µs:FixRulesForDef(WEAPON_definite): la mitrailleuse<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1235 hits:  20.0 µs:FixRulesForDef(WEAPON_indefinite): une mitrailleuse<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1244 hits:  22.5 µs:FixRulesForDef(WEAPON_projectile_definite): la balle de mitrailleuse<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1245 hits:  22.5 µs:FixRulesForDef(WEAPON_projectile_indefinite): une balle de mitrailleuse<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1254 hits:  14.1 µs:FixRulesForDef(COVER_definite): le cecropia<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1255 hits:  14.1 µs:FixRulesForDef(COVER_indefinite): un cecropia<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1314 hits:  24.8 µs:FixRulesForDef(COVER_definite): le gravats - granite<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1315 hits:  24.8 µs:FixRulesForDef(COVER_indefinite): un gravats - granite<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1324 hits:  10.8 µs:FixRulesForDef(WEAPON_definite): le minigun<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1325 hits:  10.8 µs:FixRulesForDef(WEAPON_indefinite): un minigun<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1334 hits:  22.9 µs:FixRulesForDef(WEAPON_projectile_definite): la balle de minigun<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1335 hits:  22.9 µs:FixRulesForDef(WEAPON_projectile_indefinite): une balle de minigun<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1344 hits:  24.7 µs:FixRulesForDef(COVER_definite): le peuplier<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1345 hits:  24.7 µs:FixRulesForDef(COVER_indefinite): un peuplier<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1354 hits:  16.7 µs:FixRulesForDef(WEAPON_definite): le fusil à impulsion<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1355 hits:  16.7 µs:FixRulesForDef(WEAPON_indefinite): un fusil à impulsion<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1364 hits:  27.7 µs:FixRulesForDef(WEAPON_projectile_definite): la balle de fusil à impulsion<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1365 hits:  27.7 µs:FixRulesForDef(WEAPON_projectile_indefinite): une balle de fusil à impulsion<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1374 hits:  26.2 µs:FixRulesForDef(WEAPON_definite): le fusil à pompe automatique<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1375 hits:  26.2 µs:FixRulesForDef(WEAPON_indefinite): un fusil à pompe automatique<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1384 hits:  28.9 µs:FixRulesForDef(WEAPON_projectile_definite): la balle de fusil à pompe<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1385 hits:  28.9 µs:FixRulesForDef(WEAPON_projectile_indefinite): une balle de fusil à pompe<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1414 hits:  17.6 µs:FixRulesForDef(COVER_definite): le palmier<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1415 hits:  17.6 µs:FixRulesForDef(COVER_indefinite): un palmier<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1424 hits:  25.2 µs:FixRulesForDef(WEAPON_definite): le pistolet automatique<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1425 hits:  25.2 µs:FixRulesForDef(WEAPON_indefinite): un pistolet automatique<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1434 hits:  27.2 µs:FixRulesForDef(WEAPON_projectile_definite): la balle de pistolet automatique<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1435 hits:  27.2 µs:FixRulesForDef(WEAPON_projectile_indefinite): une balle de pistolet automatique<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1454 hits:  43.3 µs:FixRulesForDef(WEAPON_definite): l'épée mono-moléculaire<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1455 hits:  43.3 µs:FixRulesForDef(WEAPON_indefinite): une épée mono-moléculaire<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1484 hits:  33.3 µs:FixRulesForDef(WEAPON_definite): le pistolet-mitrailleur<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1485 hits:  33.3 µs:FixRulesForDef(WEAPON_indefinite): un pistolet-mitrailleur<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1494 hits:  26.3 µs:FixRulesForDef(WEAPON_projectile_definite): la balle de pistolet-mitrailleur<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1495 hits:  26.3 µs:FixRulesForDef(WEAPON_projectile_indefinite): une balle de pistolet-mitrailleur<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1544 hits:  19.1 µs:FixRulesForDef(WEAPON_definite): le fusil à pompe<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1545 hits:  19.1 µs:FixRulesForDef(WEAPON_indefinite): un fusil à pompe<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1604 hits:  13.8 µs:FixRulesForDef(COVER_definite): le bambou<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1605 hits:  13.8 µs:FixRulesForDef(COVER_indefinite): un bambou<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1764 hits:  23.8 µs:FixRulesForDef(COVER_definite): le gravats - calcaire<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1765 hits:  23.8 µs:FixRulesForDef(COVER_indefinite): un gravats - calcaire<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1804 hits:  21.5 µs:FixRulesForDef(WEAPON_definite): le pistolet-mitrailleur lourd<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1805 hits:  21.5 µs:FixRulesForDef(WEAPON_indefinite): un pistolet-mitrailleur lourd<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1814 hits:  30.8 µs:FixRulesForDef(WEAPON_projectile_definite): la balle de pistolet-mitrailleur lourd<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1815 hits:  30.8 µs:FixRulesForDef(WEAPON_projectile_indefinite): une balle de pistolet-mitrailleur lourd<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1834 hits:  28.7 µs:FixRulesForDef(WEAPON_definite): l'épée mono-moléculaire liée<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>1835 hits:  28.7 µs:FixRulesForDef(WEAPON_indefinite): une épée mono-moléculaire liée<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>2014 hits:  21.5 µs:FixRulesForDef(WEAPON_definite): l'épée plasmique<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>2015 hits:  21.5 µs:FixRulesForDef(WEAPON_indefinite): une épée plasmique<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>2044 hits:  13.8 µs:FixRulesForDef(WEAPON_definite): le revolver<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>2045 hits:  13.8 µs:FixRulesForDef(WEAPON_indefinite): un revolver<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>2054 hits:  22.2 µs:FixRulesForDef(WEAPON_projectile_definite): la balle de revolver<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>2055 hits:  22.2 µs:FixRulesForDef(WEAPON_projectile_indefinite): une balle de revolver<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>2204 hits:  21.4 µs:FixRulesForDef(WEAPON_definite): le fusil de précision<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>2205 hits:  21.4 µs:FixRulesForDef(WEAPON_indefinite): un fusil de précision<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>2214 hits:  29.0 µs:FixRulesForDef(WEAPON_projectile_definite): la balle de fusil de précision<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>2215 hits:  29.0 µs:FixRulesForDef(WEAPON_projectile_indefinite): une balle de fusil de précision<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>2314 hits:  16.8 µs:FixRulesForDef(COVER_definite): le buisson<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>2315 hits:  16.8 µs:FixRulesForDef(COVER_indefinite): un buisson<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>2884 hits:  19.9 µs:FixRulesForDef(WEAPON_definite): le marteau de Zeus lié<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>2885 hits:  19.9 µs:FixRulesForDef(WEAPON_indefinite): un marteau de Zeus lié<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>2943 hits:   2.2 µs:lance-charges<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>2944 hits:   2.2 µs:FixRulesForDef(WEAPON_definite): le lance-charges<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>2945 hits:   2.2 µs:FixRulesForDef(WEAPON_indefinite): un lance-charges<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>3504 hits:  20.9 µs:FixRulesForDef(WEAPON_definite): l'arc composite<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>3505 hits:  20.9 µs:FixRulesForDef(WEAPON_indefinite): un arc composite<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>3514 hits:  27.2 µs:FixRulesForDef(WEAPON_projectile_definite): la flèche d'arc composite<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>3515 hits:  27.2 µs:FixRulesForDef(WEAPON_projectile_indefinite): une flèche d'arc composite<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>3524 hits:  13.0 µs:FixRulesForDef(COVER_definite): le chêne<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>3525 hits:  13.0 µs:FixRulesForDef(COVER_indefinite): un chêne<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>3962 hits:  39.5 µs:FixRulesForDef(RECIPIENT_definite): le gravats - granite<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>3963 hits:  39.5 µs:FixRulesForDef(RECIPIENT_indefinite): un gravats - granite<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>3972 hits:  44.5 µs:FixRulesForDef(WEAPON_definite): la carabine de survie<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>3973 hits:  44.5 µs:FixRulesForDef(WEAPON_indefinite): une carabine de survie<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>3982 hits:  53.0 µs:FixRulesForDef(WEAPON_projectile_definite): la balle de carabine de survie<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>3983 hits:  53.0 µs:FixRulesForDef(WEAPON_projectile_indefinite): une balle de carabine de survie<br/>
+<font color="#7C7C7C">PostProcessed_no[MoveNext]:</font>4091 hits: 135.5 µs:FixRulesForDef(CULPRITHEDIFF_originaltarget_definite): le torse<br/>
+<font color="#7C7C7C">PostProcessed_no[MoveNext]:</font>4092 hits: 193.9 µs:FixRulesForDef(CULPRITHEDIFF_originaltarget_indefinite): un torse<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>5170 hits:  23.8 µs:FixRulesForDef(CULPRITHEDIFF_definite): la griffure<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>5171 hits:  23.8 µs:FixRulesForDef(CULPRITHEDIFF_indefinite): une griffure<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>5216 hits:  20.7 µs:FixRulesForDef(CULPRITHEDIFF_definite): la blessure par balle<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>5217 hits:  20.7 µs:FixRulesForDef(CULPRITHEDIFF_indefinite): une blessure par balle<br/>
+<font color="#7C7C7C">PostProcessed_no[MoveNext]:</font>6091 hits:  87.1 µs:FixRulesForDef(CULPRITHEDIFF_target_definite): le crâne<br/>
+<font color="#7C7C7C">PostProcessed_no[MoveNext]:</font>6092 hits: 206.2 µs:FixRulesForDef(CULPRITHEDIFF_target_indefinite): un crâne<br/>
+<font color="#7C7C7C">PostProcessed_no[MoveNext]:</font>6099 hits: 115.2 µs:FixRulesForDef(CULPRITHEDIFF_originaltarget_definite): le cerveau<br/>
+<font color="#7C7C7C">PostProcessed_no[MoveNext]:</font>6100 hits: 227.0 µs:FixRulesForDef(CULPRITHEDIFF_originaltarget_indefinite): un cerveau<br/>
+<font color="#7C7C7C">PostProcessed_no[MoveNext]:</font>7245 hits:  92.4 µs:FixRulesForDef(CULPRITHEDIFF_target_definite): le cou<br/>
+<font color="#7C7C7C">PostProcessed_no[MoveNext]:</font>7246 hits: 154.0 µs:FixRulesForDef(CULPRITHEDIFF_target_indefinite): un cou<br/>
+<font color="#7C7C7C">PostProcessed_no[MoveNext]:</font>7253 hits:  63.0 µs:FixRulesForDef(CULPRITHEDIFF_originaltarget_definite): le cou<br/>
+<font color="#7C7C7C">PostProcessed_no[MoveNext]:</font>7254 hits:  89.8 µs:FixRulesForDef(CULPRITHEDIFF_originaltarget_indefinite): un cou<br/>
+<font color="#7C7C7C">PostProcessed_no[MoveNext]:</font>7271 hits:  70.7 µs:FixRulesForDef(CULPRITHEDIFF_originaltarget_definite): l'épaule gauche<br/>
+<font color="#7C7C7C">PostProcessed_no[MoveNext]:</font>7272 hits: 131.2 µs:FixRulesForDef(CULPRITHEDIFF_originaltarget_indefinite): une épaule gauche<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>7280 hits:  13.8 µs:FixRulesForDef(CULPRITHEDIFF_definite): la contusion<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>7281 hits:  13.8 µs:FixRulesForDef(CULPRITHEDIFF_indefinite): une contusion<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>7532 hits:  29.4 µs:FixRulesForDef(CULPRITHEDIFF_definite): la taillade<br/>
+<font color="#7C7C7C">PostProcessed_no[Pluralize]:</font>7533 hits:  29.4 µs:FixRulesForDef(CULPRITHEDIFF_indefinite): une taillade<br/>
+<font color="#7C7C7C">PostProcessed_no[MoveNext]:</font>7995 hits:  57.7 µs:FixRulesForDef(CULPRITHEDIFF_target_definite): la patte arrière droite<br/>
+<font color="#7C7C7C">PostProcessed_no[MoveNext]:</font>7996 hits: 108.4 µs:FixRulesForDef(CULPRITHEDIFF_target_indefinite): une patte arrière droite<br/>
+<font color="#7C7C7C">PostProcessed_no[MoveNext]:</font>8003 hits:  47.4 µs:FixRulesForDef(CULPRITHEDIFF_originaltarget_definite): la patte arrière droite<br/>
+<font color="#7C7C7C">PostProcessed_no[MoveNext]:</font>8004 hits:  76.0 µs:FixRulesForDef(CULPRITHEDIFF_originaltarget_indefinite): une patte arrière droite<br/>
+</p>
+</body>
+</html>
