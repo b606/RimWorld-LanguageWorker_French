@@ -684,8 +684,6 @@ namespace RimWorld_LanguageWorker_French
 				return str;
 			}
 
-			StartStatsLogging(new StackTrace());
-
 			string[] array = str.Split(' ');
 
 			for (int i = 0; i < array.Length; i++)
@@ -734,7 +732,6 @@ namespace RimWorld_LanguageWorker_French
 
 			string str_pluralized = string.Join(" ", array);
 
-			StopStatsLogging(str, str_pluralized);
 			return str_pluralized;
 		}
 
@@ -917,7 +914,6 @@ namespace RimWorld_LanguageWorker_French
 		/// <param name="def">Def.</param>
 		public static IEnumerable<Rule> FixRulesForDef(string prefix, Def def)
 		{
-			StartStatsLogging(new StackTrace());
 			if (def == null)
 			{
 				Log.ErrorOnce($"Tried to insert rule {prefix} for null def", 79641686);
@@ -946,22 +942,10 @@ namespace RimWorld_LanguageWorker_French
 			yield return new Rule_String(prefix + "definite", languageWorker.WithDefiniteArticle(def.label, gender, plural));
 			yield return new Rule_String(prefix + "indefinite", languageWorker.WithIndefiniteArticle(def.label, gender, plural));
 			yield return new Rule_String(prefix + "possessive", plural ? "ses" : gender.GetPossessive());
-
-			// Log to inspect the difference with the original rules
-			IntermediateLogging("FixRulesForDef(" + prefix + "definite" + "): " + languageWorker.WithDefiniteArticle(def.label),
-				"FixRulesForDef(" + prefix + "definite" + "): " + languageWorker.WithDefiniteArticle(def.label, gender, plural));
-			IntermediateLogging("FixRulesForDef(" + prefix + "indefinite" + "): " + languageWorker.WithIndefiniteArticle(def.label),
-				"FixRulesForDef(" + prefix + "indefinite" + "): " + languageWorker.WithIndefiniteArticle(def.label, gender, plural));
-			IntermediateLogging("FixRulesForDef(" + prefix + "possessive" + "): " + "Proits".Translate(),
-				"FixRulesForDef(" + prefix + "possessive" + "): " + (plural ? "ses" : gender.GetPossessive()));
-
-			StopStatsLogging("FixRulesForDef", "FixRulesForDef");
 		}
 
 		public static IEnumerable<Rule> FixRulesForBodyPartRecord(string prefix, BodyPartRecord part)
 		{
-			StartStatsLogging(new StackTrace());
-
 			if (part == null)
 			{
 				Log.ErrorOnce($"Tried to insert rule {prefix} for null body part", 394876778);
@@ -980,16 +964,6 @@ namespace RimWorld_LanguageWorker_French
 			yield return new Rule_String(prefix + "definite", languageWorker.WithDefiniteArticle(part.Label, gender, plural));
 			yield return new Rule_String(prefix + "indefinite", languageWorker.WithIndefiniteArticle(part.Label, gender, plural));
 			yield return new Rule_String(prefix + "possessive", plural ? "ses" : gender.GetPossessive());
-
-			// Log to inspect the difference with the original rules
-			IntermediateLogging("FixRulesForBodyPartRecord(" + prefix + "definite" + "): " + languageWorker.WithDefiniteArticle(part.Label),
-				"FixRulesForBodyPartRecord(" + prefix + "definite" + "): " + languageWorker.WithDefiniteArticle(part.Label, gender, plural));
-			IntermediateLogging("FixRulesForBodyPartRecord(" + prefix + "indefinite" + "): " + languageWorker.WithIndefiniteArticle(part.Label),
-				"FixRulesForBodyPartRecord(" + prefix + "indefinite" + "): " + languageWorker.WithIndefiniteArticle(part.Label, gender, plural));
-			IntermediateLogging("FixRulesForDef(" + prefix + "possessive" + "): " + "Proits".Translate(),
-				"FixRulesForBodyPartRecord(" + prefix + "possessive" + "): " + (plural ? "ses" : gender.GetPossessive()));
-
-			StopStatsLogging("FixRulesForBodyPartRecord", "FixRulesForBodyPartRecord");
 		}
 
 	}

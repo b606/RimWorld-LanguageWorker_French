@@ -1,3 +1,7 @@
+2020-05-07  b606  <7627533+b606@users.noreply.github.com>
+
+	* LanguageWorker_French.cs: Clean out debugging code
+
 2020-05-05  b606  <7627533+b606@users.noreply.github.com>
 
 	* LanguageWorker_French.cs: Pluralize function completed for
