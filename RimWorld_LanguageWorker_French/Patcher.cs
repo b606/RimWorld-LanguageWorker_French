@@ -30,19 +30,19 @@ namespace RimWorld_LanguageWorker_French
 				Harmony harmony = new Harmony(id: "com.b606.mods.languageworker");
 				Assembly assembly = Assembly.GetExecutingAssembly();
 
-				FileLog.Log("Installing com.b606.mods.languageworker...");
-				FileLog.Log(string.Format("Active language: {0}",
+				LanguageWorker_French.LogMessage("Installing com.b606.mods.languageworker...");
+				LanguageWorker_French.LogMessage(string.Format("Active language: {0}",
 					LanguageDatabase.activeLanguage.FriendlyNameEnglish));
 
 				harmony.PatchAll(assembly);
 				InspectPatches(harmony);
 
-				FileLog.Log("Done.");
+				LanguageWorker_French.LogMessage("Done.");
 			}
 			catch (Exception e)
 			{
-				FileLog.Log("Mod installation failed.");
-				FileLog.Log(string.Format("Exception: {0}", e));
+				LanguageWorker_French.LogMessage("Mod installation failed.");
+				LanguageWorker_French.LogMessage(string.Format("Exception: {0}", e));
 			}
 		}
 
@@ -52,7 +52,7 @@ namespace RimWorld_LanguageWorker_French
 		{
 			try
 			{
-				FileLog.Log("Existing patches:");
+				LanguageWorker_French.LogMessage("Existing patches:");
 
 				IEnumerable<MethodBase> myOriginalMethods = harmony.GetPatchedMethods();
 				foreach (MethodBase method in myOriginalMethods)
@@ -63,20 +63,20 @@ namespace RimWorld_LanguageWorker_French
 						foreach (var patch in patches.Prefixes)
 						{
 							// already patched
-							FileLog.Log("index: " + patch.index);
-							FileLog.Log("owner: " + patch.owner);
-							FileLog.Log("patch method: " + patch.PatchMethod);
-							FileLog.Log("priority: " + patch.priority);
-							FileLog.Log("before: " + patch.before.Join());
-							FileLog.Log("after: " + patch.after.Join());
+							LanguageWorker_French.LogMessage("index: " + patch.index);
+							LanguageWorker_French.LogMessage("owner: " + patch.owner);
+							LanguageWorker_French.LogMessage("patch method: " + patch.PatchMethod);
+							LanguageWorker_French.LogMessage("priority: " + patch.priority);
+							LanguageWorker_French.LogMessage("before: " + patch.before.Join());
+							LanguageWorker_French.LogMessage("after: " + patch.after.Join());
 						}
 					}
 				}
 			}
 			catch (Exception e)
 			{
-				FileLog.Log("Patches inspection failed.");
-				FileLog.Log(string.Format("Exception: {0}", e));
+				LanguageWorker_French.LogMessage("Patches inspection failed.");
+				LanguageWorker_French.LogMessage(string.Format("Exception: {0}", e));
 			}
 		}
 	}

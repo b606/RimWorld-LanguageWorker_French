@@ -1,5 +1,10 @@
 2020-05-07  b606  <7627533+b606@users.noreply.github.com>
 
+	* Patcher.cs: Move Log file from libHarmony FileLog to
+	LanguageWorker_French log.
+
+2020-05-07  b606  <7627533+b606@users.noreply.github.com>
+
 	* RimWorld_LanguageWorker_French.csproj: Customized build
 	process with targets InstallModOnUnix and InstallModOnWindows
 
