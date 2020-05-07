@@ -13,12 +13,13 @@
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <ReleaseVersion>1.1.0</ReleaseVersion>
+    <ModName>LanguageWorker_French_Mod</ModName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\LanguageWorker_French_Mod\Assemblies</OutputPath>
+    <OutputPath>..\$(ModName)\Assemblies</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -26,7 +27,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\LanguageWorker_French_Mod\Assemblies</OutputPath>
+    <OutputPath>..\$(ModName)\Assemblies</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -70,14 +71,33 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>cp --update -R "..\..\LanguageWorker_French_Mod\" "\home\$USER\.steam\steam\steamapps\common\RimWorld\Mods\"</PostBuildEvent>
+  <PropertyGroup Condition=" '$(OS)' != 'Unix' ">
+    <ModsFolder>$(ProgramFiles(x86))\Steam\steamapps\common\RimWorld\Mods\</ModsFolder>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(OS)' == 'Unix' ">
+    <ModsFolder>$(HOME)\.steam\steam\steamapps\common\RimWorld\Mods\</ModsFolder>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
+  -->
+  <ItemGroup>
+    <ReadMeFile Include="..\README.md" />
+  </ItemGroup>
   <Target Name="BeforeBuild">
+    <Message Text="Updating @(ReadMeFile)..." Importance="High" />
+    <Copy SourceFiles="@(ReadMeFile)" DestinationFolder="..\$(ModName)" SkipUnchangedFiles="true" />
+  </Target>
+  <Target Name="InstallModOnUnix">
+    <Message Text="Copying to $(ModsFolder)\$(AssemblyName)..." Importance="High" />
+    <Exec Command="cp --update -R &quot;..\$(ModName)\&quot; &quot;$(ModsFolder)&quot; " />
+    <Exec Command="rm &quot;$(ModsFolder)\$(ModName)\$(ModName).mdproj&quot; " />
+  </Target>
+	<Target Name="InstallModOnWindows">
+    <Message Text="Copying to $(ModsFolder)\$(AssemblyName)..." Importance="High" />
+    <Exec Command="xcopy &quot;..\$(ModName)\&quot; &quot;$(ModsFolder)\$(ModName)\&quot; /y/s/h/e/k/f/c" />
   </Target>
   <Target Name="AfterBuild">
+		<CallTarget Condition=" '$(OS)' == 'Unix' " Targets="InstallModOnUnix" />
+		<CallTarget Condition=" '$(OS)' != 'Unix' " Targets="InstallModOnWindows" />
   </Target>
-  -->
 </Project>

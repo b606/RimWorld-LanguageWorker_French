@@ -27,6 +27,7 @@
     <None Include="Source\Images\Caravan-TraderShio-v1.0.1.png" />
     <None Include="Source\Images\QuestTitle-v1.0.1.png" />
     <None Include="Source\Images\AnimalEpicene-1.0.3.png" />
+    <None Include="About\PublishedFileId.txt" />
   </ItemGroup>
   <ExcludedFiles>
     <File>LanguageWorker_French_Mod.mdproj</File>
