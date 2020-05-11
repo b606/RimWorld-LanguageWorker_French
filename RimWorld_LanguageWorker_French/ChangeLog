@@ -1,3 +1,9 @@
+2020-05-11  b606  <7627533+b606@users.noreply.github.com>
+
+	* RimWorld_LanguageWorker_French.csproj: Update project files
+	to define and use $(RimWorldFolder), $(RimWorldReferences) and
+	$(ModsFolder) depending on the detected $(OS).
+
 2020-05-07  b606  <7627533+b606@users.noreply.github.com>
 
 	* Patcher.cs: Move Log file from libHarmony FileLog to

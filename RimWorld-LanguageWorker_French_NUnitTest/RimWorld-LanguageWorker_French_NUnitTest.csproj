@@ -26,21 +26,35 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(OS)' != 'Unix' ">
+		<ProgramFiles32>$(MSBuildProgramFiles32)</ProgramFiles32>
+		<ProgramFiles32 Condition=" '$(ProgramFiles32)' == '' ">$(ProgramFiles%28x86%29)</ProgramFiles32>
+		<ProgramFiles32 Condition=" '$(ProgramFiles32)' == '' AND 'AMD64' == '$(PROCESSOR_ARCHITECTURE)' ">$(ProgramFiles) (x86)</ProgramFiles32>
+		<ProgramFiles32 Condition=" '$(ProgramFiles32)' == '' ">$(ProgramFiles)</ProgramFiles32>
+    <RimWorldFolder>$(ProgramFiles32)\Steam\steamapps\common\RimWorld</RimWorldFolder>
+    <RimWorldReferences>$(RimWorldFolder)\RimWorldWin64_Data\Managed</RimWorldReferences>
+    <ModsFolder>$(RimWorldFolder)\Mods</ModsFolder>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(OS)' == 'Unix' ">
+    <RimWorldFolder>$(HOME)\.steam\steam\steamapps\common\RimWorld</RimWorldFolder>
+    <RimWorldReferences>$(RimWorldFolder)\RimWorldLinux_Data\Managed</RimWorldReferences>
+    <ModsFolder>$(RimWorldFolder)\Mods</ModsFolder>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.3.12.0\lib\net45\nunit.framework.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\.steam\steam\steamapps\common\RimWorld\RimWorldLinux_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <HintPath>$(RimWorldReferences)\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>..\..\..\.steam\steam\steamapps\common\RimWorld\RimWorldLinux_Data\Managed\UnityEngine.dll</HintPath>
+      <HintPath>$(RimWorldReferences)\UnityEngine.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System">
-      <HintPath>..\..\..\.steam\steam\steamapps\common\RimWorld\RimWorldLinux_Data\Managed\System.dll</HintPath>
+      <HintPath>$(RimWorldReferences)\System.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
