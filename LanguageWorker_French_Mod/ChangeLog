@@ -1,3 +1,11 @@
+2020-09-26  b606  <7627533+b606@users.noreply.github.com>
+
+	* About.xml: Update to version 1.2.
+	First names starting with 'H' or short names starting with
+	a vowel do not require elision. Ex. "le chapeau de Anne" or
+	"le chapeau de Hector" instead of "le chapeau d'Anne" or
+	"le chapeau d'Hector".
+
 2020-05-07  b606  <7627533+b606@users.noreply.github.com>
 
 	* LanguageWorker_French_Mod.mdproj: Added

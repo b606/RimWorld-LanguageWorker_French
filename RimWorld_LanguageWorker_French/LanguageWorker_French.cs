@@ -210,11 +210,31 @@ namespace RimWorld_LanguageWorker_French
 
 		public override string WithIndefiniteArticle(string str, Gender gender, bool plural = false, bool name = false)
 		{
-			// TODO: names with h do not get elision
-			// TODO: short names (length < 5) with vowels do not get elision
 			//Names don't get articles
 			if (name)
+			{
+				// Names starting with h do not get elision
+				if (str[0] == 'h' || str[0] == 'H')
+				{
+					// Add zero-width space to foul the elision rules
+					return ("\u200B" + str);
+				}
+
+				// Short names (length < 5) starting with vowels do not get elision
+				if (IsVowel(str[0]))
+				{
+					// Detect first part of a hyphenated name
+					string[] array = str.Split('-');
+					if (array.NullOrEmpty())
+						return str;
+
+					// Add zero-width space to foul the elision rules
+					if (array[0].Length < 6)
+						return ("\u200B" + str);
+				}
+
 				return str;
+			}
 
 			// Detect words in DefLabel_InPlural which are obviously plural.
 			// Needed here because of "TOOL_definite", etc in BattleLogEntry_MeleeCombat.GenerateGrammarRequest.
