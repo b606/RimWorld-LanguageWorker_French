@@ -56,7 +56,7 @@ EDIT 2020/05/01: la procédure pour les versions avant le 1.1.0 est toujours val
 ### 4. Changelog
 
 2020/09/26.
-  - Mise-à-jour vers a version 1.2. Les prénoms commençant par 'H' ou les prénoms courts
+  - Mise-à-jour vers la version 1.2. Les prénoms commençant par 'H' ou les prénoms courts
     (fixés à moins de 5 caractères) débutant par une voyelle n'ont pas d'élision.
     Ex. "le chapeau de Anne" ou "le chapeau de Hector" au lieu de "le chapeau d'Anne" ou
     "le chapeau d'Hector". Sinon, on devrait avoir des textes similaires à "le chapeau
