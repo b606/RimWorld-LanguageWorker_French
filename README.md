@@ -55,6 +55,9 @@ EDIT 2020/05/01: la procédure pour les versions avant le 1.1.0 est toujours val
  
 ### 4. Changelog
 
+2020/10/20.
+  - Correction des élisions "(à|À) <tag>le(s?) " séparées par un tag de couleur de texte.
+
 2020/09/26.
   - Mise-à-jour vers la version 1.2. Les prénoms commençant par 'H' ou les prénoms courts
     (fixés à moins de 5 caractères) débutant par une voyelle n'ont pas d'élision.

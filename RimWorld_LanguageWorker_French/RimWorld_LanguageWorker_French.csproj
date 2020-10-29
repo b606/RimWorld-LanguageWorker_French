@@ -63,7 +63,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="0Harmony">
-      <HintPath>..\packages\Lib.Harmony.2.0.0.10\lib\net35\0Harmony.dll</HintPath>
+      <HintPath>..\packages\Lib.Harmony.2.0.3\lib\net35\0Harmony.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -81,15 +81,15 @@
     <Compile Include="RulesForDefPatch.cs" />
     <Compile Include="RulesForBodyPartRecordPatch.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
   Other similar extension points exist, see Microsoft.Common.targets.
   -->
   <ItemGroup>
     <ReadMeFile Include="..\README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Target Name="UpdateModDocs">
     <Message Text="Updating @(ReadMeFile)..." Importance="High" />

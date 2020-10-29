@@ -43,11 +43,19 @@ namespace RimWorldLanguageWorker_French_NUnitTest
 			LanguageWorker_French _lw = new LanguageWorker_French();
 
 			// Elision should work with the color tag
-			// de le -> du
+			// à le -> au, de <tag>le -> du
 			string template = "une morsure à le corps a causé la mort de <color=#D09B61FF>le lièvre</color>.";
 			Assert.AreEqual("une morsure au corps a causé la mort du <color=#D09B61FF>lièvre</color>.", _lw.PostProcessed(template));
 
-			// de le -> du, two color tags
+			// à <tag>le ->au
+			template = "Anya a chanté une vielle berceuse à <color=#D09B61FF>le grizzly femelle</color>.";
+			Assert.AreEqual("Anya a chanté une vielle berceuse au <color=#D09B61FF>grizzly femelle</color>.", _lw.PostProcessed(template));
+
+			// À <tag>les ->Aux
+			template = "À <color=#D09B61FF>Les Invalides</color>, c'est bouché.";
+			Assert.AreEqual("Aux <color=#D09B61FF>Invalides</color>, c'est bouché.", _lw.PostProcessed(template));
+
+			// de <tag>le -> du, two color tags
 			template = "la balle de revolver de <color=#D09B61FF>Willow</color> a esquinté la patte arrière droite de <color=#D09B61FF>le labrador</color>.";
 			Assert.AreEqual("la balle de revolver de <color=#D09B61FF>Willow</color> a esquinté la patte arrière droite du <color=#D09B61FF>labrador</color>.", _lw.PostProcessed(template));
 

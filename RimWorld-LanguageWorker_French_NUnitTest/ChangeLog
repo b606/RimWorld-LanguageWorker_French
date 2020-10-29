@@ -1,3 +1,9 @@
+2020-10-29  b606  <7627533+b606@users.noreply.github.com>
+
+	* TestPostProcessed.cs: Fix: ReGex elisions for "(à|À)
+	<tag>le(s?) " separated with a text color tag should work
+	properly.
+
 2020-05-11  b606  <7627533+b606@users.noreply.github.com>
 
 	* RimWorld-LanguageWorker_French_NUnitTest.csproj: Update

@@ -789,7 +789,7 @@ namespace RimWorld_LanguageWorker_French
 		private static readonly Regex PossessiveVowel = new Regex(@"\b([mst])(on/[mst]|)a ([<][^>]*[>]|)([aàâäæeéèêëiîïoôöœuùüûh])", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 		private static readonly Regex DeLe = new Regex(@"\b(d)e ([<][^>]*[>]|)le ", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 		private static readonly Regex DeLes = new Regex(@"\b(d)e ([<][^>]*[>]|)l(es) ", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-		private static readonly Regex ALe = new Regex(@"\bà les?\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+		private static readonly Regex ALe = new Regex(@"\b(à) ([<][^>]*[>]|)le(s?) ", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
 		private static string PostProcessedFrenchGrammar(string str)
 		{
@@ -810,16 +810,41 @@ namespace RimWorld_LanguageWorker_French
 			return str.Replace("\u200B", "");
 		}
 
+		// The ALe Regex has three groups: "\b(à) ([<][^>]*[>]|)le(s?) " where
+		//		Groups[1] is (à|À),
+		//		Groups[2] is an eventual text coloring tag <tag>,
+		//		Groups[3] is (s?) for plural.
+		// For each case:
+		//		"à <tag>le ": return "au <tag>";
+		//  	"à <tag>les ": return "aux <tag>";
+		//		"\u00c0 <tag>le ": return "Au <tag>";
+		//		"\u00c0 <tag>les ": return "Aux <tag>";
 		private static string ReplaceALe(Match match)
 		{
-			switch (match.ToString())
+			string str = "";
+			switch (match.Groups[1].Value)
 			{
-				case "à le": return "au";
-				case "à les": return "aux";
-				case "\u00c0 le": return "Au";
-				case "\u00c0 les": return "Aux";
+				case "à":
+					str = "au";
+					break;
+				case "\u00c0":
+					str = "Au";
+					break;
 			}
-			return match.ToString();
+
+			// Add 'x' for plural
+			if (match.Groups[3].Value == "s")
+			{
+				str += "x";
+			}
+
+			// Add space before any Group 2
+			str += " ";
+			if (match.Groups[2].Value != "")
+			{
+				str += match.Groups[2].Value;
+			}
+			return str;
 		}
 
 		private static string ReplaceNoElision(Match match)
