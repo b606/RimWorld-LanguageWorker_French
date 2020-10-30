@@ -213,11 +213,12 @@ namespace RimWorld_LanguageWorker_French
 			//Names don't get articles
 			if (name)
 			{
+				// UNDONE: might be better doe in a more central point (ex. RuleForPawn)
 				// Names starting with h do not get elision
 				if (str[0] == 'h' || str[0] == 'H')
 				{
-					// Add zero-width space to foul the elision rules
-					return ("\u200B" + str);
+					// Add zero-width non joiner space to foul the elision rules
+					return ("\u200C" + str);
 				}
 
 				// Short names (length < 5) starting with vowels do not get elision
@@ -228,9 +229,9 @@ namespace RimWorld_LanguageWorker_French
 					if (array.NullOrEmpty())
 						return str;
 
-					// Add zero-width space to foul the elision rules
+					// Add zero-width non joiner space to foul the elision rules
 					if (array[0].Length < 6)
-						return ("\u200B" + str);
+						return ("\u200C" + str);
 				}
 
 				return str;
@@ -251,7 +252,29 @@ namespace RimWorld_LanguageWorker_French
 
 			//Names don't get articles
 			if (name)
+			{
+				// Names starting with h do not get elision
+				if (str[0] == 'h' || str[0] == 'H')
+				{
+					// Add zero-width non joiner space to foul the elision rules
+					return ("\u200C" + str);
+				}
+
+				// Short names (length < 5) starting with vowels do not get elision
+				if (IsVowel(str[0]))
+				{
+					// Detect first part of a hyphenated name
+					string[] array = str.Split('-');
+					if (array.NullOrEmpty())
+						return str;
+
+					// Add zero-width non joiner space to foul the elision rules
+					if (array[0].Length < 6)
+						return ("\u200C" + str);
+				}
+
 				return str;
+			}
 
 			// Detect words obviously plural
 			if (plural || DefLabel_InPlural.Contains(str))
