@@ -813,6 +813,9 @@ namespace RimWorld_LanguageWorker_French
 		private static readonly Regex DeLe = new Regex(@"\b(d)e ([<][^>]*[>]|)le ", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 		private static readonly Regex DeLes = new Regex(@"\b(d)e ([<][^>]*[>]|)l(es) ", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 		private static readonly Regex ALe = new Regex(@"\b(à) ([<][^>]*[>]|)le(s?) ", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+		// dénomination incorrect du sexe des pawns
+		private static readonly Regex sexMale = new Regex(@"\b(sexe m)âle\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+		private static readonly Regex sexFemale = new Regex(@"\b(sexe fem)elle\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
 		private static string PostProcessedFrenchGrammar(string str)
 		{
@@ -827,6 +830,8 @@ namespace RimWorld_LanguageWorker_French
 			str = PossessiveVowel.Replace(str, "$1on $3$4");
 			str = DeLe.Replace(str, "$1u $2");
 			str = DeLes.Replace(str, "$1$3 $2");
+			str = sexMale.Replace(str, "$1asculin");
+			str = sexFemale.Replace(str, "$1inin");
 			str = ALe.Replace(str, new MatchEvaluator(ReplaceALe));
 
 			// Clean out zero-width space

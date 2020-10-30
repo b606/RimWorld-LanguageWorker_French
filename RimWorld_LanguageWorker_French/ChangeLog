@@ -1,5 +1,11 @@
 2020-10-30  b606  <7627533+b606@users.noreply.github.com>
 
+	* LanguageWorker_French.cs: Fix incorrect gender texts in
+	GameConditions, ex. in psychic drones, where there is no way
+	to use {XXX_gender ? : }.
+
+2020-10-30  b606  <7627533+b606@users.noreply.github.com>
+
 	* LanguageWorker_French.cs: Changed the char code for
 	permanently suppress elision to '\200C' (zero-width non joiner
 	space) in both WithDefiniteArticle() and
