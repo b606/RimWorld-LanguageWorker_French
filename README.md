@@ -55,6 +55,12 @@ EDIT 2020/05/01: la procédure pour les versions avant le 1.1.0 est toujours val
  
 ### 4. Changelog
 
+2020/11/14.
+  - MaJ de la description sur Steam.
+
+2020/10/20.
+  - Correction des textes avec genre dans GameConditions, ex. pour les drones psychiques.
+
 2020/10/20.
   - Correction des élisions "(à|À) <tag>le(s?) " séparées par un tag de couleur de texte.
 

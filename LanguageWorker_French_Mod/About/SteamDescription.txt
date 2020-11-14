@@ -1,41 +1,30 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ModMetaData>
-	<name>LanguageWorker_French Mod</name>
-	<author>b606</author>
-  <url>https://github.com/b606/RimWorld-LanguageWorker_French/</url>
-  <packageId>b606.LanguageWorkerFrench.Mod</packageId>
-  <supportedVersions>
-    <li>1.0</li>
-    <li>1.1</li>
-    <li>1.2</li>
-  </supportedVersions>
-	<description>LanguageWorker_French Mod améliore le français dans RimWorld.
-    
+LanguageWorker_French Mod
+
+[h2]Optimisation de la traduction française dans RimWorld[/h2]
+
 Les modifications faites par ce mod concernent essentiellement la qualité de la traduction, qui sont impossibles à faire sans modifier le code C# du jeu. Ce mod est donc un complément du travail des traducteurs de Ludeon/RimWorld-fr.
 
 Le mod est focalisé sur les accords de mots, les règles de grammaire ou de typographie etc. Si vous avez l'œil averti, vous apprecierez les changements par-ci par-là. Des captures d'écran les illustrent dans le Wiki du mod, https://github.com/b606/RimWorld-LanguageWorker_French/wiki. N'hésitez pas à remonter les suggestions, les problèmes ou bugs sur ce site.
 
-&lt;b&gt;Merci à&lt;/b&gt;
+[h3]Merci à :[/h3]
 Elevator89 pour le code initial, à Adirelle pour les premiers Regex, Pardeike pour libHarmony, et kiliak pour les tests.
 
-&lt;b&gt;Téléchargement&lt;/b&gt;
-Steam : https://github.com/b606/RimWorld-LanguageWorker_French/releases/latest
+[h3]Téléchargement[/h3]
+https://github.com/b606/RimWorld-LanguageWorker_French/releases/latest
 
-&lt;b&gt;Autre mod&lt;/b&gt;
-EdB Prepare Carefully [Français]
-Traduction en français de ce mod.
+[h3]Autre mod[/h3]
+[b]EdB Prepare Carefully [Français][/b]
+Traduction en français de EdB Prepare Carefully.
 Steam : https://steamcommunity.com/sharedfiles/filedetails/?id=2081907934
 
-Numbers [Français]
-Traduction française du mod &lt;b&gt;Numbers&lt;/b&gt; 
+[b]Numbers [Français][/b]
+Traduction française du mod Numbers.
 Steam : https://steamcommunity.com/sharedfiles/filedetails/?id=2286691155
 
-Numbers Trait AddOn [Français]
-Traduction française du mod &lt;b&gt;Numbers Trait AddOn&lt;/b&gt; 
+[b]Numbers Trait AddOn [Français][/b]
+Traduction française du mod Numbers Trait AddOn. 
 Steam : https://steamcommunity.com/sharedfiles/filedetails/?id=2286691905
 
-&lt;b&gt;Pour m'encourager&lt;/b&gt;
+[h3]Pour m'encourager[/h3]
 - une petite pouce approbatrice
 - j'adore aussi le kofi https://ko-fi.com/b606at0116
-</description>
-</ModMetaData>
