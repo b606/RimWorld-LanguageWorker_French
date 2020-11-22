@@ -1,30 +1,39 @@
 LanguageWorker_French Mod
 
-[h2]Optimisation de la traduction française dans RimWorld[/h2]
+[h1]Optimisation de la traduction française dans RimWorld[/h1]
 
 Les modifications faites par ce mod concernent essentiellement la qualité de la traduction, qui sont impossibles à faire sans modifier le code C# du jeu. Ce mod est donc un complément du travail des traducteurs de Ludeon/RimWorld-fr.
 
 Le mod est focalisé sur les accords de mots, les règles de grammaire ou de typographie etc. Si vous avez l'œil averti, vous apprecierez les changements par-ci par-là. Des captures d'écran les illustrent dans le Wiki du mod, https://github.com/b606/RimWorld-LanguageWorker_French/wiki. N'hésitez pas à remonter les suggestions, les problèmes ou bugs sur ce site.
 
 [h3]Merci à :[/h3]
-Elevator89 pour le code initial, à Adirelle pour les premiers Regex, Pardeike pour libHarmony, et kiliak pour les tests.
+Elevator89 qui m'a donné l'idée de développer un mod languageworker, à Adirelle pour les premiers Regex, Pardeike pour libHarmony, et kiliak pour les tests. La police de caractères RimWorld est de Marnador.
 
 [h3]Téléchargement[/h3]
 https://github.com/b606/RimWorld-LanguageWorker_French/releases/latest
 
-[h3]Autre mod[/h3]
-[b]EdB Prepare Carefully [Français][/b]
-Traduction en français de EdB Prepare Carefully.
+[h1]Autres mods[/h1]
+[img]https://steamuserimages-a.akamaihd.net/ugc/1666857701582101267/5AD43A56D3DF57812AD1930F926BC8CE30F0287A/[/img]
+★ [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2081907934][b]EdB Prepare Carefully [Français][/b][/url]
+Traduction en français de [b]EdB Prepare Carefully[/b].
 Steam : https://steamcommunity.com/sharedfiles/filedetails/?id=2081907934
-
-[b]Numbers [Français][/b]
-Traduction française du mod Numbers.
+[img]https://steamuserimages-a.akamaihd.net/ugc/1666857701582101267/5AD43A56D3DF57812AD1930F926BC8CE30F0287A/[/img]
+★ [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2293997580][b]¿Habla usted español? [anguageWorker_Spanish Mod][/b][/url]
+Un mod para mejorar el español en RimWorld.
+Steam : https://steamcommunity.com/sharedfiles/filedetails/?id=2293997580
+[img]https://steamuserimages-a.akamaihd.net/ugc/1666857701582101267/5AD43A56D3DF57812AD1930F926BC8CE30F0287A/[/img]
+★ [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2286691155][b]Numbers [Français][/b][/url]
+Traduction française du mod [b]Numbers[/b] 
 Steam : https://steamcommunity.com/sharedfiles/filedetails/?id=2286691155
-
-[b]Numbers Trait AddOn [Français][/b]
-Traduction française du mod Numbers Trait AddOn. 
+[img]https://steamuserimages-a.akamaihd.net/ugc/1666857701582101267/5AD43A56D3DF57812AD1930F926BC8CE30F0287A/[/img]
+★ [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2286691905][b]Numbers Trait AddOn [Français][/b][/url]
+Traduction française du mod [b]Numbers Trait AddOn[/b] 
 Steam : https://steamcommunity.com/sharedfiles/filedetails/?id=2286691905
+[img]https://steamuserimages-a.akamaihd.net/ugc/1666857701582101267/5AD43A56D3DF57812AD1930F926BC8CE30F0287A/[/img]
 
-[h3]Pour m'encourager[/h3]
-- une petite pouce approbatrice
-- j'adore aussi le kofi https://ko-fi.com/b606at0116
+[h1]Pour m'encourager[/h1]
+[img]https://steamuserimages-a.akamaihd.net/ugc/1666857701581836390/34CBC07D7ED73B6282B3F7AF2E3D47BB462BF9B1/[/img]
+Une petite pouce approbatrice sur SteamWorkshop
+
+[url=https://ko-fi.com/Z8Z51KQ21][img]https://steamuserimages-a.akamaihd.net/ugc/1666857701581884648/E7A2C95176A59BCBE7159C8939B3C975F97B6B01/[/img][/url]
+J'adore aussi le kofi https://ko-fi.com/b606at0116
