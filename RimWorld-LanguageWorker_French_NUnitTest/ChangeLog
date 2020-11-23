@@ -1,3 +1,8 @@
+2020-11-23  b606  <7627533+b606@users.noreply.github.com>
+
+	* RimWorld-LanguageWorker_French_NUnitTest.csproj: Update to
+	libHarmony 2.0.4 and NET framework 4.7.2
+
 2020-10-29  b606  <7627533+b606@users.noreply.github.com>
 
 	* TestPostProcessed.cs: Fix: ReGex elisions for "(à|À)
