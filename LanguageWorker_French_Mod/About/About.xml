@@ -10,36 +10,9 @@
     <li>1.2</li>
   </supportedVersions>
 	<description>LanguageWorker_French Mod améliore le français dans RimWorld.
-    
-Les modifications faites par ce mod concernent essentiellement la qualité de la traduction, qui sont impossibles à faire sans modifier le code C# du jeu. Ce mod est donc un complément du travail des traducteurs de Ludeon/RimWorld-fr.
-
-Le mod est focalisé sur les accords de mots, les règles de grammaire ou de typographie etc. Si vous avez l'œil averti, vous apprecierez les changements par-ci par-là. Des captures d'écran les illustrent dans le Wiki du mod, https://github.com/b606/RimWorld-LanguageWorker_French/wiki. N'hésitez pas à remonter les suggestions, les problèmes ou bugs sur ce site.
+Les modifications faites par ce mod concernent essentiellement la qualité de la traduction, qui sont impossibles à faire sans modifier le code du jeu. Ce mod est donc un complément du travail des traducteurs de Ludeon/RimWorld-fr.
 
 &lt;b&gt;Merci à&lt;/b&gt;
 Elevator89 qui m'a donné l'idée de développer un mod languageworker, à Adirelle pour les premiers Regex, Pardeike pour libHarmony, et kiliak pour les tests. La police de caractères RimWorld est de Marnador.
-
-&lt;b&gt;Téléchargement&lt;/b&gt;
-Steam : https://github.com/b606/RimWorld-LanguageWorker_French/releases/latest
-
-&lt;b&gt;Autres mods&lt;/b&gt;
-EdB Prepare Carefully [Français]
-Traduction en français de ce mod.
-Steam : https://steamcommunity.com/sharedfiles/filedetails/?id=2081907934
-
-¿Habla usted español? [anguageWorker_Spanish Mod]
-Un mod para mejorar el español en RimWorld.
-Steam : https://steamcommunity.com/sharedfiles/filedetails/?id=2293997580
-
-Numbers [Français]
-Traduction française du mod &lt;b&gt;Numbers&lt;/b&gt; 
-Steam : https://steamcommunity.com/sharedfiles/filedetails/?id=2286691155
-
-Numbers Trait AddOn [Français]
-Traduction française du mod &lt;b&gt;Numbers Trait AddOn&lt;/b&gt; 
-Steam : https://steamcommunity.com/sharedfiles/filedetails/?id=2286691905
-
-&lt;b&gt;Pour m'encourager&lt;/b&gt;
-- une petite pouce approbatrice
-- j'adore aussi le kofi https://ko-fi.com/b606at0116
 </description>
 </ModMetaData>
