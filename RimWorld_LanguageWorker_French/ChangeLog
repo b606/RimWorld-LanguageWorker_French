@@ -1,3 +1,9 @@
+2020-11-25  b606  <7627533+b606@users.noreply.github.com>
+
+	* LanguageWorker_French.cs: Do not overwrite kind.label
+	anymore for epicen animals: might cause bug when more than one
+	languageworker mods are activated.
+
 2020-11-23  b606  <7627533+b606@users.noreply.github.com>
 
 	* packages.config:

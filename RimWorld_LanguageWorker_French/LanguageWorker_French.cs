@@ -936,10 +936,10 @@ namespace RimWorld_LanguageWorker_French
 						}
 
 						// for previous RW version, overwrite kind.label
-						if (!kind.labelFemale.NullOrEmpty())
-						{
-							kind.label = kind.labelFemale;
-						}
+						//if (!kind.labelFemale.NullOrEmpty())
+						//{
+						//	kind.label = kind.labelFemale;
+						//}
 						break;
 					case Gender.Male:
 						if (PawnKind_FemaleOnly.Contains(kind.defName))
@@ -957,10 +957,10 @@ namespace RimWorld_LanguageWorker_French
 						}
 
 						// for previous RW version, overwrite kind.label
-						if (!kind.labelMale.NullOrEmpty())
-						{
-							kind.label = kind.labelMale;
-						}
+						//if (!kind.labelMale.NullOrEmpty())
+						//{
+						//	kind.label = kind.labelMale;
+						//}
 						break;
 					case Gender.None:
 						// the grammar uses male as default neuter gender
