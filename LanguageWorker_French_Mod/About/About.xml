@@ -15,4 +15,7 @@ Les modifications faites par ce mod concernent essentiellement la qualité de la
 &lt;b&gt;Merci à&lt;/b&gt;
 Elevator89 qui m'a donné l'idée de développer un mod languageworker, à Adirelle pour les premiers Regex, Pardeike pour libHarmony, et kiliak pour les tests. La police de caractères RimWorld est de Marnador.
 </description>
+  <incompatibleWith>
+    <li>b606.LanguageWorkerSpanish.Mod</li>
+  </incompatibleWith>
 </ModMetaData>
