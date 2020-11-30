@@ -1,5 +1,10 @@
 2020-11-30  b606  <7627533+b606@users.noreply.github.com>
 
+	* LanguageWorker_French_Debug.cs: Extend to languages with
+	FriendlyNameEnglish starting with "French".
+
+2020-11-30  b606  <7627533+b606@users.noreply.github.com>
+
 	* Patcher.cs:
 	* StatsLogger.cs:
 	* InspectionPatch.cs:

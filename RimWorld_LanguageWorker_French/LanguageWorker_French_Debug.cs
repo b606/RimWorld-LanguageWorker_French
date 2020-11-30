@@ -197,7 +197,16 @@ namespace RimWorld_LanguageWorker_French
 				"RimWorld-fr"
 		};
 
-		public static bool IsTargetLanguage(string aLang) => targetLanguageLSet.Contains(aLang);
+		// NOTE: Current RW version gas some inconsistency for loadedLanguage.FriendlyNameEnglish.
+		// It seems that Languages in .tar files get the filename as friendly name,
+		// not the one in LanguageInfo.xml.
+		public static bool IsTargetLanguage(string aLang)
+		{
+			if (targetLanguageLSet.Contains(aLang))
+				return true;
+
+			return aLang.StartsWith(targetLanguageFamily, StringComparison.Ordinal);
+		}
 
 		public static string GetTargetLanguageFamily() => targetLanguageFamily;
 
