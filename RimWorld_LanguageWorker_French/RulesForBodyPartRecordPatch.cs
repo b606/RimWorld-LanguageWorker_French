@@ -28,18 +28,18 @@ namespace RimWorld_LanguageWorker_French
 		static bool RulesForBodyPartRecordPrefix(ref IEnumerable<Rule> __result, string prefix, BodyPartRecord part)
 		{
 			// if the current language is not the target, do nothing
-			if (!LanguageDatabase.activeLanguage.FriendlyNameEnglish.Equals(LanguageWorkerPatcher.__targetLanguage))
+			if (! LanguageWorkerPatcher.IsTargetLanguage(LanguageDatabase.activeLanguage.FriendlyNameEnglish))
 				return true;
 
 			// Rewrite the method entirely since it is short enough
 			__result = LanguageWorker_French.FixRulesForBodyPartRecord(prefix, part);
 
 #if DEBUG
-			LanguageWorker_French.LogMessage("--RulesForBodyPartRecordPrefix called...");
-			LanguageWorker_French.LogMessage("result: " + __result);
+			LanguageWorkerPatcher.LogMessage("--RulesForBodyPartRecordPrefix called...");
+			LanguageWorkerPatcher.LogMessage("result: " + __result);
 			foreach (Rule r in __result)
 			{
-				LanguageWorker_French.LogMessage(r.ToString());
+				LanguageWorkerPatcher.LogMessage(r.ToString());
 			}
 #endif
 			// DO NOT CONTINUE to the original GrammarUtility.RulesforPawn

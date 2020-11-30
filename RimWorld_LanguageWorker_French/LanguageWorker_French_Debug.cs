@@ -188,12 +188,25 @@ namespace RimWorld_LanguageWorker_French
 		}
 		#endregion
 
+		private static readonly string targetLanguageFamily = "French";
+
+		private static readonly HashSet<string> targetLanguageLSet = new HashSet<string>
+		{
+				"French",
+				"French (Français)",
+				"RimWorld-fr"
+		};
+
+		public static bool IsTargetLanguage(string aLang) => targetLanguageLSet.Contains(aLang);
+
+		public static string GetTargetLanguageFamily() => targetLanguageFamily;
+
 		// General purpose logger
-		private static Logger LogLanguageWorker = new Logger("LanguageWorker_French.log");
+		private static Logger LogLanguageWorker = new Logger("LanguageWorker_" + GetTargetLanguageFamily() + ".log");
 
 		// Light weight loggers, for diffs
-		private static Logger logLanguageWorkerIn = new Logger("LanguageWorkerIn.log");
-		private static Logger logLanguageWorkerOut = new Logger("LanguageWorkerOut.log");
+		private static Logger logLanguageWorkerIn = new Logger("LanguageWorkerIn_" + GetTargetLanguageFamily() + ".log");
+		private static Logger logLanguageWorkerOut = new Logger("LanguageWorkerOut_" + GetTargetLanguageFamily() + ".log");
 
 		// Heavy logger, for stats and CPU usage
 		private static StatsLogger logStats = new StatsLogger();

@@ -1,3 +1,17 @@
+2020-11-30  b606  <7627533+b606@users.noreply.github.com>
+
+	* Patcher.cs:
+	* StatsLogger.cs:
+	* InspectionPatch.cs:
+	* RulesForDefPatch.cs:
+	* RulesForPawnPatch.cs:
+	* LanguageWorker_Mod.cs:
+	* LoadedLanguagePatch.cs:
+	* LanguageWorker_French_Debug.cs:
+	* RulesForBodyPartRecordPatch.cs: Started refactoring code and
+	classes. Added support for multiple languages (in the same
+	family).
+
 2020-11-29  b606  <7627533+b606@users.noreply.github.com>
 
 	* LanguageWorker_French.cs: Fix: Add NullOrEmpty tests for

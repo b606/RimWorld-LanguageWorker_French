@@ -29,7 +29,7 @@ namespace RimWorld_LanguageWorker_French
 		static bool GetWorkerPrefix(LoadedLanguage __instance, ref LanguageWorker ___workerInt)
 		{
 			// if the current language is not the target, do nothing
-			if (!__instance.FriendlyNameEnglish.Equals(LanguageWorkerPatcher.__targetLanguage))
+			if (! LanguageWorkerPatcher.IsTargetLanguage(__instance.FriendlyNameEnglish))
 				return true;
 
 			Type myType = typeof(RimWorld_LanguageWorker_French.LanguageWorker_French);

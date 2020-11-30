@@ -10,15 +10,17 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using HarmonyLib;
-using RimWorld;
 using Verse;
-using Verse.Grammar;
 
 namespace RimWorld_LanguageWorker_French
 {
 	public static class LanguageWorkerPatcher
 	{
-		public const string __targetLanguage = "French";
+		public static bool IsTargetLanguage(string aLang) => LanguageWorker_French.IsTargetLanguage(aLang);
+
+		public static string GetTargetLanguageFamily() => LanguageWorker_French.GetTargetLanguageFamily();
+
+		public static void LogMessage(string a_str) => LanguageWorker_French.LogMessage(a_str);
 
 		public static void DoPatching()
 		{
@@ -27,22 +29,22 @@ namespace RimWorld_LanguageWorker_French
 #endif
 			try
 			{
-				Harmony harmony = new Harmony(id: "com.b606.mods.languageworker");
+				Harmony harmony = new Harmony(id: "com.b606.mods.languageworker" + GetTargetLanguageFamily());
 				Assembly assembly = Assembly.GetExecutingAssembly();
 
-				LanguageWorker_French.LogMessage("Installing com.b606.mods.languageworker...");
-				LanguageWorker_French.LogMessage(string.Format("Active language: {0}",
+				LogMessage("Installing com.b606.mods.languageworker" + GetTargetLanguageFamily() + "...");
+				LogMessage(string.Format("Active language: {0}",
 					LanguageDatabase.activeLanguage.FriendlyNameEnglish));
 
 				harmony.PatchAll(assembly);
 				InspectPatches(harmony);
 
-				LanguageWorker_French.LogMessage("Done.");
+				LogMessage("Done.");
 			}
 			catch (Exception e)
 			{
-				LanguageWorker_French.LogMessage("Mod installation failed.");
-				LanguageWorker_French.LogMessage(string.Format("Exception: {0}", e));
+				LogMessage("Mod installation failed.");
+				LogMessage(string.Format("Exception: {0}", e));
 			}
 		}
 
@@ -52,7 +54,7 @@ namespace RimWorld_LanguageWorker_French
 		{
 			try
 			{
-				LanguageWorker_French.LogMessage("Existing patches:");
+				LogMessage("Existing patches:");
 
 				IEnumerable<MethodBase> myOriginalMethods = harmony.GetPatchedMethods();
 				foreach (MethodBase method in myOriginalMethods)
@@ -63,20 +65,20 @@ namespace RimWorld_LanguageWorker_French
 						foreach (var patch in patches.Prefixes)
 						{
 							// already patched
-							LanguageWorker_French.LogMessage("index: " + patch.index);
-							LanguageWorker_French.LogMessage("owner: " + patch.owner);
-							LanguageWorker_French.LogMessage("patch method: " + patch.PatchMethod);
-							LanguageWorker_French.LogMessage("priority: " + patch.priority);
-							LanguageWorker_French.LogMessage("before: " + patch.before.Join());
-							LanguageWorker_French.LogMessage("after: " + patch.after.Join());
+							LogMessage("index: " + patch.index);
+							LogMessage("owner: " + patch.owner);
+							LogMessage("patch method: " + patch.PatchMethod);
+							LogMessage("priority: " + patch.priority);
+							LogMessage("before: " + patch.before.Join());
+							LogMessage("after: " + patch.after.Join());
 						}
 					}
 				}
 			}
 			catch (Exception e)
 			{
-				LanguageWorker_French.LogMessage("Patches inspection failed.");
-				LanguageWorker_French.LogMessage(string.Format("Exception: {0}", e));
+				LogMessage("Patches inspection failed.");
+				LogMessage(string.Format("Exception: {0}", e));
 			}
 		}
 	}

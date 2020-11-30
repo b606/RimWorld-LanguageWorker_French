@@ -44,15 +44,15 @@ namespace RimWorld_LanguageWorker_French
 			LanguageWorkerPatcher.DoPatching();
 
 			LoadedLanguage active = LanguageDatabase.activeLanguage;
-			LanguageWorker_French.LogMessage("Active: " + active.FriendlyNameEnglish
-				+ " (" + active.folderName + ") " + active.Worker.GetType());
+			LanguageWorkerPatcher.LogMessage("Active: " + active.FriendlyNameEnglish
+				+ " (Folder: " + active.folderName + ") " + active.Worker.GetType());
 
 			foreach (LoadedLanguage l in LanguageDatabase.AllLoadedLanguages)
 			{
-				if (l.FriendlyNameEnglish.Equals(LanguageWorkerPatcher.__targetLanguage))
+				if (LanguageWorkerPatcher.IsTargetLanguage(l.FriendlyNameEnglish))
 				{
-					LanguageWorker_French.LogMessage("Other: " + l.FriendlyNameEnglish +
-						" (" + l.folderName + ") " + l.info.languageWorkerClass);
+					LanguageWorkerPatcher.LogMessage("Other: " + l.FriendlyNameEnglish +
+						" (Folder: " + l.folderName + ") " + l.info.languageWorkerClass);
 				}
 			}
 		}
