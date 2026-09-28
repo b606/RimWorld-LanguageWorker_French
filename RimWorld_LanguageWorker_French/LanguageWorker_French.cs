@@ -74,6 +74,7 @@ namespace RimWorld_LanguageWorker_French
 		// Added no elision to "onze", "onzième" -- do not appear in RiWorld yet)
 		private static readonly HashSet<string> Exceptions_No_Elision = new HashSet<string> {
 			"hache",
+			"hachis",
 			"hack",
 			"haine",
 			"hameau",
@@ -82,6 +83,7 @@ namespace RimWorld_LanguageWorker_French
 			"hanche",
 			"hareng",
 			"haricot",
+			"harissa",
 			"harpe",
 			"hasard",
 			"hase", // "hases",
